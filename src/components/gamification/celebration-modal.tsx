@@ -28,7 +28,7 @@ export function CelebrationModal({
     const duration = 2.5 * 1000;
     const end = Date.now() + duration;
 
-    const interval: any = setInterval(() => {
+    const interval: NodeJS.Timeout = setInterval(() => {
       if (Date.now() > end) {
         return clearInterval(interval);
       }

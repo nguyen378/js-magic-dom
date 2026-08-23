@@ -1,7 +1,10 @@
+import { useSyncExternalStore } from 'react';
 import { UserProgress } from '@/types/lesson';
-import { BADGES } from '@/content/badges';
 
 const STORAGE_KEY = 'js_magic_dom_progress_v1';
+
+let cachedProgress: UserProgress | null = null;
+let cachedRawString: string | null = null;
 
 export const DEFAULT_PROGRESS: UserProgress = {
   xp: 0,
@@ -17,14 +20,23 @@ export const StorageService = {
     if (typeof window === 'undefined') return DEFAULT_PROGRESS;
     try {
       const data = localStorage.getItem(STORAGE_KEY);
-      if (!data) return DEFAULT_PROGRESS;
+      if (!data) {
+        cachedProgress = DEFAULT_PROGRESS;
+        cachedRawString = null;
+        return DEFAULT_PROGRESS;
+      }
+      if (data === cachedRawString && cachedProgress) {
+        return cachedProgress;
+      }
       const parsed: UserProgress = JSON.parse(data);
-      return {
+      cachedProgress = {
         ...DEFAULT_PROGRESS,
         ...parsed,
         badges: parsed.badges || [],
         customCode: parsed.customCode || {},
       };
+      cachedRawString = data;
+      return cachedProgress;
     } catch {
       return DEFAULT_PROGRESS;
     }
@@ -33,7 +45,11 @@ export const StorageService = {
   saveProgress(progress: UserProgress): void {
     if (typeof window === 'undefined') return;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      const serialized = JSON.stringify(progress);
+      localStorage.setItem(STORAGE_KEY, serialized);
+      cachedProgress = progress;
+      cachedRawString = serialized;
+      window.dispatchEvent(new Event('storage_updated'));
     } catch (e) {
       console.error('Failed to save progress to localStorage', e);
     }
@@ -168,5 +184,26 @@ export const StorageService = {
   resetAllProgress(): void {
     if (typeof window === 'undefined') return;
     localStorage.removeItem(STORAGE_KEY);
-  }
+    cachedProgress = DEFAULT_PROGRESS;
+    cachedRawString = null;
+    window.dispatchEvent(new Event('storage_updated'));
+  },
 };
+
+function subscribe(callback: () => void) {
+  if (typeof window === 'undefined') return () => {};
+  window.addEventListener('storage_updated', callback);
+  window.addEventListener('storage', callback);
+  return () => {
+    window.removeEventListener('storage_updated', callback);
+    window.removeEventListener('storage', callback);
+  };
+}
+
+export function useProgress(): UserProgress {
+  return useSyncExternalStore(
+    subscribe,
+    () => StorageService.getProgress(),
+    () => DEFAULT_PROGRESS
+  );
+}

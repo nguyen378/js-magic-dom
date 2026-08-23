@@ -151,20 +151,20 @@ console.log(typeof isWizard);`,
     {
       id: 'logged_string_type',
       description: 'Lệnh console.log đã in đúng kiểu dữ liệu "string"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).toLowerCase().includes('string'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).toLowerCase().includes('string'))
         );
       }
     },
     {
       id: 'logged_boolean_type',
       description: 'Lệnh console.log đã in đúng kiểu dữ liệu "boolean"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).toLowerCase().includes('boolean'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).toLowerCase().includes('boolean'))
         );
       }
     }

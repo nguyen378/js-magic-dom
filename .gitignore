@@ -23,7 +23,6 @@
 # misc
 .DS_Store
 *.pem
-/js-dom-practice
 
 # debug
 npm-debug.log*

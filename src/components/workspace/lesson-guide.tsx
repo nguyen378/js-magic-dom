@@ -51,7 +51,7 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
           </span>
         </div>
         <span className="text-xs font-medium text-slate-400">
-          Bài {lesson.order} / 9
+          {lesson.track === 'foundation' ? `Bài F${lesson.order} / 8` : `Bài ${lesson.order} / 15`}
         </span>
       </div>
 

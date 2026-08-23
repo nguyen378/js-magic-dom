@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Play, RotateCw, Terminal, Eye, AlertCircle, Trash2, Columns2, Maximize2 } from 'lucide-react';
+import { RotateCw, Terminal, Eye, Trash2, Columns2 } from 'lucide-react';
 import { buildIframeHtml } from '@/lib/dom-tester';
 
 interface ConsoleLog {
@@ -165,7 +165,7 @@ export function LivePreview({
         }`}>
           <iframe
             key={key}
-            ref={iframeRef as any}
+            ref={iframeRef}
             srcDoc={iframeSrcDoc}
             title="DOM Sandbox Preview"
             sandbox="allow-scripts allow-modals allow-same-origin"

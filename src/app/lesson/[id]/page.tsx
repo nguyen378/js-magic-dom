@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { getLessonById, getNextLessonId, getPrevLessonId, ALL_LESSONS } from '@/content/lessons';
+import { getLessonById, getNextLessonId, getPrevLessonId } from '@/content/lessons';
 import { LessonGuide } from '@/components/workspace/lesson-guide';
 import { CodeEditor } from '@/components/editor/code-editor';
 import { LivePreview } from '@/components/workspace/live-preview';
@@ -11,16 +11,16 @@ import { ActionBar } from '@/components/workspace/action-bar';
 import { CelebrationModal } from '@/components/gamification/celebration-modal';
 import { StorageService } from '@/lib/storage';
 import { evaluateTests, TestRunResult, buildIframeHtml } from '@/lib/dom-tester';
-import { ArrowLeft, BookOpen, AlertCircle } from 'lucide-react';
+import { ArrowLeft, AlertCircle } from 'lucide-react';
 
 export default function LessonPage() {
   const params = useParams();
-  const router = useRouter();
   const lessonId = params.id as string;
-
   const lesson = getLessonById(lessonId);
 
-  const [code, setCode] = useState<string>('');
+  const initialCode = lesson ? StorageService.getCode(lesson.id, lesson.initialJsCode) : '';
+  const [code, setCode] = useState<string>(initialCode);
+  const [prevLessonIdState, setPrevLessonIdState] = useState(lessonId);
   const [isTesting, setIsTesting] = useState(false);
   const [testResult, setTestResult] = useState<TestRunResult | null>(null);
   const [passedList, setPassedList] = useState<string[]>([]);
@@ -33,15 +33,21 @@ export default function LessonPage() {
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  // Initialize lesson code and progress
-  useEffect(() => {
-    if (!lesson) return;
-    const savedCode = StorageService.getCode(lesson.id, lesson.initialJsCode);
-    setCode(savedCode);
+  // Sync state when switching lessons
+  if (prevLessonIdState !== lessonId) {
+    setPrevLessonIdState(lessonId);
+    setCode(lesson ? StorageService.getCode(lesson.id, lesson.initialJsCode) : '');
     setTestResult(null);
     setPassedList([]);
     setShowCelebration(false);
-  }, [lessonId, lesson]);
+  }
+
+  // Re-run the iframe preview with the current code
+  const handleRun = useCallback(() => {
+    if (iframeRef.current && lesson) {
+      iframeRef.current.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, code);
+    }
+  }, [lesson, code]);
 
   // Handle keyboard shortcut Ctrl+Enter to Run
   useEffect(() => {
@@ -53,7 +59,7 @@ export default function LessonPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [code, lesson]);
+  }, [handleRun]);
 
   if (!lesson) {
     return (
@@ -100,12 +106,6 @@ export default function LessonPage() {
     }
   };
 
-  // Re-run the iframe preview with the current code
-  const handleRun = () => {
-    if (iframeRef.current) {
-      iframeRef.current.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, code);
-    }
-  };
 
   // Run assertion tests on the DOM
   const handleTest = async () => {

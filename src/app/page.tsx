@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Play, Trophy, Code2, Zap, Layout, CheckCircle, Flame } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { ALL_LESSONS } from '@/content/lessons';
 
 export default function HomePage() {

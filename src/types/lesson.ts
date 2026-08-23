@@ -20,11 +20,21 @@ export type Category =
   | 'removal'
   | 'capstone';
 
+export interface SandboxLog {
+  level: string;
+  args: unknown[];
+}
+
+export interface SandboxWindow extends Window {
+  __capturedLogs?: SandboxLog[];
+  [key: string]: unknown;
+}
+
 export interface TestCase {
   id: string;
   description: string;
   // Function evaluated against document and window of iframe
-  tester: (doc: Document, win: Window) => boolean | Promise<boolean>;
+  tester: (doc: Document, win: SandboxWindow) => boolean | Promise<boolean>;
 }
 
 export interface Lesson {

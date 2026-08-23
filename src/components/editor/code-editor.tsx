@@ -67,6 +67,11 @@ export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) 
           theme="vs-dark"
           value={code}
           onChange={(val) => onChange(val || '')}
+          onMount={(editor, monaco) => {
+            editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+              onRun();
+            });
+          }}
           options={{
             minimap: { enabled: false },
             fontSize: 14,

@@ -177,20 +177,20 @@ console.log(inventory.length);`,
     {
       id: 'logged_first_item',
       description: 'Lệnh console.log đã in đúng món đồ đầu tiên inventory[0] ("Kiếm Sắt")',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).includes('Kiếm Sắt'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).includes('Kiếm Sắt'))
         );
       }
     },
     {
       id: 'logged_array_length',
       description: 'Lệnh console.log đã in đúng độ dài của mảng là 3',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => Number(arg) === 3 || String(arg).includes('3'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 3 || String(arg).includes('3'))
         );
       }
     }

@@ -140,20 +140,20 @@ console.log(diamonds);`,
     {
       id: 'logged_hero_name',
       description: 'Lệnh console.log đã in đúng tên dũng sĩ "Arthur"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).toLowerCase().includes('arthur'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).toLowerCase().includes('arthur'))
         );
       }
     },
     {
       id: 'logged_diamonds_count',
       description: 'Lệnh console.log đã in đúng số kim cương sau khi tăng là 15',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => Number(arg) === 15 || String(arg).includes('15'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 15 || String(arg).includes('15'))
         );
       }
     }

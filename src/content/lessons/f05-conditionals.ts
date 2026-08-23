@@ -128,10 +128,10 @@ console.log(status);`,
     {
       id: 'logged_correct_gate_status',
       description: 'Lệnh console.log đã in đúng trạng thái "MỞ CỔNG THÀNH CÔNG"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).toUpperCase().includes('MỞ CỔNG THÀNH CÔNG'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).toUpperCase().includes('MỞ CỔNG THÀNH CÔNG'))
         );
       }
     }

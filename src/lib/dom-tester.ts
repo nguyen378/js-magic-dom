@@ -1,4 +1,4 @@
-import { TestCase } from '@/types/lesson';
+import { TestCase, SandboxWindow } from '@/types/lesson';
 
 export interface TestRunResult {
   passed: boolean;
@@ -21,8 +21,7 @@ export interface TestRunResult {
 export function buildIframeHtml(
   htmlContent: string,
   cssContent: string,
-  jsCode: string,
-  isTesting: boolean = false
+  jsCode: string
 ): string {
   return `<!DOCTYPE html>
 <html lang="vi">
@@ -184,7 +183,7 @@ export async function evaluateTests(
   };
 
   const doc = iframe.contentDocument;
-  const win = iframe.contentWindow;
+  const win = iframe.contentWindow as unknown as SandboxWindow | null;
 
   if (!doc || !win) {
     return {
@@ -213,13 +212,14 @@ export async function evaluateTests(
           error: 'Chưa đạt yêu cầu này. Hãy xem lại hướng dẫn nhé!',
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       result.passed = false;
+      const errorMessage = err instanceof Error ? err.message : 'Gặp lỗi trong quá trình kiểm tra.';
       result.testDetails.push({
         id: test.id,
         description: test.description,
         passed: false,
-        error: err?.message || 'Gặp lỗi trong quá trình kiểm tra.',
+        error: errorMessage,
       });
     }
   }

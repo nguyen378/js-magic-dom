@@ -131,20 +131,20 @@ console.log(hero.length);`,
     {
       id: 'logged_greeting_uppercase',
       description: 'Lệnh console.log đã in đúng lời chào chứa tên in hoa "NARUTO"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).includes('NARUTO'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).includes('NARUTO'))
         );
       }
     },
     {
       id: 'logged_string_length',
       description: 'Lệnh console.log đã in đúng độ dài của tên hero là 6',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => Number(arg) === 6 || String(arg).includes('6'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 6 || String(arg).includes('6'))
         );
       }
     }

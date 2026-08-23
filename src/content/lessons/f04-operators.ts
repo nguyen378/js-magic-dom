@@ -130,20 +130,20 @@ console.log(isSuperAttack);`,
     {
       id: 'logged_total_damage',
       description: 'Lệnh console.log đã in đúng tổng sát thương là 70',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => Number(arg) === 70 || String(arg).includes('70'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 70 || String(arg).includes('70'))
         );
       }
     },
     {
       id: 'logged_super_attack_boolean',
       description: 'Lệnh console.log đã in đúng kết quả so sánh là true',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => arg === true || String(arg) === 'true')
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => arg === true || String(arg) === 'true')
         );
       }
     }

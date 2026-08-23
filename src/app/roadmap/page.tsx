@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ALL_LESSONS, FOUNDATION_LESSONS, DOM_LESSONS } from '@/content/lessons';
-import { StorageService, DEFAULT_PROGRESS } from '@/lib/storage';
-import { UserProgress, Lesson } from '@/types/lesson';
-import { Sparkles, CheckCircle2, Play, Trophy, Lock, ArrowRight, Flame, Star, Award, BookOpen, Layers, Zap } from 'lucide-react';
+import { useProgress } from '@/lib/storage';
+import { Lesson } from '@/types/lesson';
+import { Sparkles, CheckCircle2, Lock, ArrowRight, Star, Award, BookOpen, Layers, Zap } from 'lucide-react';
 
 interface Chapter {
   id: string;
@@ -66,12 +66,8 @@ const CHAPTERS: Chapter[] = [
 ];
 
 export default function RoadmapPage() {
-  const [progress, setProgress] = useState<UserProgress>(DEFAULT_PROGRESS);
+  const progress = useProgress();
   const [activeTab, setActiveTab] = useState<'all' | 'foundation' | 'dom'>('all');
-
-  useEffect(() => {
-    setProgress(StorageService.getProgress());
-  }, []);
 
   const completedCount = progress.completedLessons.length;
   const progressPercent = Math.round((completedCount / ALL_LESSONS.length) * 100);

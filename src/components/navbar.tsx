@@ -1,32 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Sparkles, Flame, Trophy, Map, RotateCcw, Star } from 'lucide-react';
-import { StorageService, DEFAULT_PROGRESS } from '@/lib/storage';
-import { UserProgress } from '@/types/lesson';
+import { StorageService, useProgress } from '@/lib/storage';
 import { BadgesModal } from '@/components/gamification/badges-modal';
 
 export function Navbar() {
-  const [progress, setProgress] = useState<UserProgress>(DEFAULT_PROGRESS);
+  const progress = useProgress();
   const [showBadges, setShowBadges] = useState(false);
-
-  const loadProgress = () => {
-    setProgress(StorageService.getProgress());
-  };
-
-  useEffect(() => {
-    loadProgress();
-    // Listen for progress update events
-    window.addEventListener('storage_updated', loadProgress);
-    return () => window.removeEventListener('storage_updated', loadProgress);
-  }, []);
 
   const handleReset = () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại toàn bộ điểm số và bài học đã làm không?')) {
       StorageService.resetAllProgress();
-      window.dispatchEvent(new Event('storage_updated'));
-      window.location.reload();
     }
   };
 

@@ -6,7 +6,7 @@ echo ========================================================
 echo.
 set PATH=C:\Program Files\nodejs;%PATH%
 
-cd /d "%~dp0js-dom-practice"
+cd /d "%~dp0"
 echo Dang khoi dong Web Server tai http://localhost:3000 ...
 echo Mo trinh duyet va truy cap: http://localhost:3000
 echo.

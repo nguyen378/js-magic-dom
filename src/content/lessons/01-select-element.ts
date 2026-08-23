@@ -95,13 +95,19 @@ console.log(titleElement);`,
     {
       id: 'variable_exists',
       description: 'Lệnh console.log đã in đúng phần tử #magic-title ra console',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        const hasLoggedTitle = capturedLogs.some((l: any) => 
-          (l.args && l.args.some((arg: any) => 
-            (arg && (arg.id === 'magic-title' || (arg.nodeType === 1 && arg.id === 'magic-title'))) ||
-            (typeof arg === 'string' && (arg.includes('magic-title') || arg.includes('Chiếc Cúp')))
-          ))
+        const hasLoggedTitle = capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => {
+            if (arg && typeof arg === 'object') {
+              const el = arg as { id?: string; nodeType?: number };
+              if (el.id === 'magic-title') return true;
+            }
+            if (typeof arg === 'string' && (arg.includes('magic-title') || arg.includes('Chiếc Cúp'))) {
+              return true;
+            }
+            return false;
+          })
         );
         const el = doc.getElementById('magic-title');
         return Boolean(hasLoggedTitle || (el !== null && el.classList.contains('js-magic-highlight')));

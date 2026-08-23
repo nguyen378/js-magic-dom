@@ -133,9 +133,9 @@ console.log(army);`,
     {
       id: 'logged_five_robots',
       description: 'Lệnh console.log đã in đúng chuỗi chứa 5 chú robot "🤖"',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => {
+        return capturedLogs.some((l) => {
           const str = (l.args || []).map(String).join(' ');
           const count = (str.match(/🤖/g) || []).length;
           return count >= 5;

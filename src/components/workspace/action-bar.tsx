@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Play, CheckCircle, ArrowLeft, ArrowRight, AlertTriangle, Sparkles, Loader2 } from 'lucide-react';
+import { Play, ArrowLeft, ArrowRight, AlertTriangle, Sparkles, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { TestRunResult } from '@/lib/dom-tester';
 
@@ -48,7 +48,7 @@ export function ActionBar({
               ))}
             </ul>
             <div className="mt-2 text-slate-600 dark:text-slate-400 text-[11px]">
-              💡 Hãy kiểm tra lại từng bước hoặc nhấn nút "Gợi ý" ở cột bên trái nhé!
+              💡 Hãy kiểm tra lại từng bước hoặc nhấn nút &quot;Gợi ý&quot; ở cột bên trái nhé!
             </div>
           </div>
         </div>

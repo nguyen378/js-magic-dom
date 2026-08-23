@@ -177,30 +177,30 @@ console.log(hero.weapon);`,
     {
       id: 'logged_hero_name',
       description: 'Lệnh console.log đã in đúng tên hero ("Chiến Binh Rồng")',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).includes('Chiến Binh Rồng'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).includes('Chiến Binh Rồng'))
         );
       }
     },
     {
       id: 'logged_updated_hp',
       description: 'Lệnh console.log đã in đúng lượng máu đã cập nhật (80)',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => Number(arg) === 80 || String(arg).includes('80'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 80 || String(arg).includes('80'))
         );
       }
     },
     {
       id: 'logged_hero_weapon',
       description: 'Lệnh console.log đã in đúng thuộc tính vũ khí mới ("Rìu Sấm Sét")',
-      tester: (doc, win: any) => {
+      tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
-        return capturedLogs.some((l: any) => 
-          l.args && l.args.some((arg: any) => String(arg).includes('Rìu Sấm Sét'))
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).includes('Rìu Sấm Sét'))
         );
       }
     }
