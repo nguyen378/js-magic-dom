@@ -14,10 +14,11 @@ async function syncToCloud(progress: UserProgress) {
     const user = auth.currentUser;
     if (!user) return;
     const progressRef = doc(db, 'user_progress', user.uid);
+    const sanitized = JSON.parse(JSON.stringify(progress, (k, v) => v === undefined ? null : v));
     await setDoc(
       progressRef,
       {
-        ...progress,
+        ...sanitized,
         updatedAt: serverTimestamp(),
       },
       { merge: true }

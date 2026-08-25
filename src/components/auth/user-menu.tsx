@@ -24,6 +24,7 @@ export function UserMenu() {
     user,
     loading,
     syncStatus,
+    syncErrorMessage,
     signInWithGoogle,
     signInGuest,
     signInWithEmail,
@@ -505,6 +506,13 @@ export function UserMenu() {
                 Firebase Cloud Active
               </div>
             </div>
+
+            {syncErrorMessage && (
+              <div className="mb-2 p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-2xs text-amber-700 dark:text-amber-300 flex items-start gap-1.5">
+                <ShieldAlert className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                <span>{syncErrorMessage}</span>
+              </div>
+            )}
 
             <div className="space-y-1">
               <button
