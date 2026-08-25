@@ -5,6 +5,10 @@ import {
   User,
   signInWithPopup,
   signInAnonymously,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
@@ -24,6 +28,9 @@ interface AuthContextType {
   syncStatus: 'idle' | 'syncing' | 'synced' | 'error';
   signInWithGoogle: () => Promise<void>;
   signInGuest: () => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string, displayName?: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   syncWithCloud: () => Promise<void>;
 }
@@ -34,6 +41,9 @@ const AuthContext = createContext<AuthContextType>({
   syncStatus: 'idle',
   signInWithGoogle: async () => {},
   signInGuest: async () => {},
+  signInWithEmail: async () => {},
+  signUpWithEmail: async () => {},
+  resetPassword: async () => {},
   logout: async () => {},
   syncWithCloud: async () => {},
 });
@@ -164,6 +174,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const signInWithEmail = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Email Sign In failed:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signUpWithEmail = async (email: string, password: string, displayName?: string) => {
+    try {
+      setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      if (displayName && userCredential.user) {
+        await updateProfile(userCredential.user, { displayName });
+        // Update user state so UI reflects new displayName immediately
+        setUser({ ...userCredential.user, displayName });
+      }
+    } catch (error) {
+      console.error('Email Sign Up failed:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error('Password reset failed:', error);
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       setLoading(true);
@@ -183,6 +231,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         syncStatus,
         signInWithGoogle,
         signInGuest,
+        signInWithEmail,
+        signUpWithEmail,
+        resetPassword,
         logout,
         syncWithCloud,
       }}
