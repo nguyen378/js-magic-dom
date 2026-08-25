@@ -1,14 +1,14 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonF05: Lesson = {
-  id: 'f05-conditionals',
-  title: 'F05. Ngã Rẽ Quyết Định (if...else)',
+export const lessonF06: Lesson = {
+  id: 'f06-conditionals',
+  title: 'F06. Ngã Rẽ Quyết Định (if...else)',
   shortDescription: 'Ra quyết định thông minh trong chương trình với câu lệnh if, else if, else',
   category: 'condition',
   track: 'foundation',
   difficulty: 'easy',
   xpReward: 60,
-  order: 5,
+  order: 6,
   
   story: `Trong cuộc sống và trò chơi, chúng ta luôn phải đưa ra các quyết định: 
 *"NẾU đủ điểm kinh nghiệm THÌ lên cấp, NGƯỢC LẠI THÌ tiếp tục luyện tập!"* 🚪

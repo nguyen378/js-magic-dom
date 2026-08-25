@@ -133,17 +133,37 @@ export const StorageService = {
       newBadges.push('var_collector');
       currentBadges.add('var_collector');
     }
+    if (updatedCompleted.includes('f05-functions') && !currentBadges.has('function_wizard')) {
+      newBadges.push('function_wizard');
+      currentBadges.add('function_wizard');
+    }
     if ((updatedCompleted.includes('f03-string-manipulation') || updatedCompleted.includes('f04-operators')) && !currentBadges.has('string_operator_master')) {
       newBadges.push('string_operator_master');
       currentBadges.add('string_operator_master');
     }
-    if ((updatedCompleted.includes('f05-conditionals') || updatedCompleted.includes('f06-loops')) && !currentBadges.has('loop_logic_king')) {
+    if ((updatedCompleted.includes('f06-conditionals') || updatedCompleted.includes('f07-loops')) && !currentBadges.has('loop_logic_king')) {
       newBadges.push('loop_logic_king');
       currentBadges.add('loop_logic_king');
     }
-    if ((updatedCompleted.includes('f07-arrays') || updatedCompleted.includes('f08-objects')) && !currentBadges.has('data_structure_pro')) {
+    if ((updatedCompleted.includes('f08-arrays') || updatedCompleted.includes('f10-objects')) && !currentBadges.has('data_structure_pro')) {
       newBadges.push('data_structure_pro');
       currentBadges.add('data_structure_pro');
+    }
+    if (updatedCompleted.includes('f09-array-methods') && !currentBadges.has('array_transformer')) {
+      newBadges.push('array_transformer');
+      currentBadges.add('array_transformer');
+    }
+    if ((updatedCompleted.includes('adv01-es6-features') || updatedCompleted.includes('adv02-json-storage')) && !currentBadges.has('es6_master')) {
+      newBadges.push('es6_master');
+      currentBadges.add('es6_master');
+    }
+    if ((updatedCompleted.includes('adv03-promise') || updatedCompleted.includes('adv04-fetch-api')) && !currentBadges.has('async_sorcerer')) {
+      newBadges.push('async_sorcerer');
+      currentBadges.add('async_sorcerer');
+    }
+    if ((updatedCompleted.includes('proj02-tabs-ui') || updatedCompleted.includes('proj03-toast-message') || updatedCompleted.includes('proj04-form-validation')) && !currentBadges.has('ui_component_architect')) {
+      newBadges.push('ui_component_architect');
+      currentBadges.add('ui_component_architect');
     }
 
     const newProgress: UserProgress = {

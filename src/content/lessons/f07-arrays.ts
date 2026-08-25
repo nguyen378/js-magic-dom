@@ -1,14 +1,14 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonF07: Lesson = {
-  id: 'f07-arrays',
-  title: 'F07. Balo Thần Kỳ (Mảng - Array)',
+export const lessonF08: Lesson = {
+  id: 'f08-arrays',
+  title: 'F08. Balo Thần Kỳ (Mảng - Array)',
   shortDescription: 'Tập hợp danh sách vật phẩm với mảng Array, push(), length và chỉ số index',
   category: 'array',
   track: 'foundation',
   difficulty: 'medium',
   xpReward: 70,
-  order: 7,
+  order: 8,
   
   story: `Khi dũng sĩ lên đường phiêu lưu, bạn cần một chiếc Balo ma thuật để chứa nhiều vật phẩm cùng lúc. 🎒
 

@@ -5,9 +5,11 @@ export type Category =
   | 'datatype'
   | 'string'
   | 'operator'
+  | 'function'
   | 'condition'
   | 'loop'
   | 'array'
+  | 'array-methods'
   | 'object'
   | 'selector'
   | 'text'
@@ -18,6 +20,13 @@ export type Category =
   | 'class'
   | 'creation'
   | 'removal'
+  | 'es6'
+  | 'storage'
+  | 'async'
+  | 'api'
+  | 'tabs'
+  | 'toast'
+  | 'form-validation'
   | 'capstone';
 
 export interface SandboxLog {
@@ -42,7 +51,7 @@ export interface Lesson {
   title: string;
   shortDescription: string;
   category: Category;
-  track?: 'foundation' | 'dom';
+  track?: 'foundation' | 'dom' | 'advanced' | 'capstone';
   difficulty: Difficulty;
   xpReward: number;
   order: number;

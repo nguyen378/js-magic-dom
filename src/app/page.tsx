@@ -53,15 +53,15 @@ export default function HomePage() {
           {/* Key Metric Highlights */}
           <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl mx-auto">
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">23+</div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Bài Học & Thử Thách</div>
+              <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">32+</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Bài Học & Đồ Án</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
               <div className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">100%</div>
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Chấm Điểm Tự Động</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-amber-500">13</div>
+              <div className="text-2xl sm:text-3xl font-black text-amber-500">18</div>
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Huy Hiệu Danh Dự</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">

@@ -1,14 +1,14 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonF08: Lesson = {
-  id: 'f08-objects',
-  title: 'F08. Hồ Sơ Nhân Vật RPG (Đối Tượng - Object)',
+export const lessonF10: Lesson = {
+  id: 'f10-objects',
+  title: 'F10. Hồ Sơ Nhân Vật RPG (Đối Tượng - Object)',
   shortDescription: 'Mô tả thực thể với cấu trúc cặp key: value trong Đối Tượng (Object)',
   category: 'object',
   track: 'foundation',
   difficulty: 'medium',
   xpReward: 80,
-  order: 8,
+  order: 10,
   
   story: `Trong thế giới lập trình, **Đối Tượng (Object)** là một trong những cấu trúc quan trọng nhất! 👑
 

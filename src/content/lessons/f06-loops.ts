@@ -1,14 +1,14 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonF06: Lesson = {
-  id: 'f06-loops',
-  title: 'F06. Vòng Xoáy Lặp Lại (for & while)',
+export const lessonF07: Lesson = {
+  id: 'f07-loops',
+  title: 'F07. Vòng Xoáy Lặp Lại (for & while)',
   shortDescription: 'Tự động hóa công việc lặp đi lặp lại với vòng lặp for và while',
   category: 'loop',
   track: 'foundation',
   difficulty: 'medium',
   xpReward: 70,
-  order: 6,
+  order: 7,
   
   story: `Nếu bạn cần triệu hồi 100 chú Robot hoặc tính điểm cho 1000 người chơi, bạn sẽ không muốn ngồi gõ 1000 dòng code thủ công! 🔄
 
