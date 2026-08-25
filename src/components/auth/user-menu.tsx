@@ -501,9 +501,14 @@ export function UserMenu() {
                   {user.email}
                 </p>
               )}
-              <div className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-0.5 text-2xs font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Firebase Cloud Active
+              <div className="mt-2 flex items-center justify-between">
+                <div className="inline-flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-0.5 text-2xs font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                  Tự động đồng bộ: BẬT
+                </div>
+                <span className="text-2xs text-slate-400">
+                  {syncStatus === 'syncing' ? 'Đang lưu...' : syncStatus === 'synced' ? 'Đã lưu' : 'Sẵn sàng'}
+                </span>
               </div>
             </div>
 

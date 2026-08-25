@@ -16,6 +16,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  onSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
 import { auth, db, googleProvider } from '@/lib/firebase';
@@ -63,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
   const [syncErrorMessage, setSyncErrorMessage] = useState<string | null>(null);
 
-  // Sync user progress with Firestore
+  // Sync user progress with Firestore (Manual or Triggered)
   const syncWithCloud = async (): Promise<boolean> => {
     if (!auth.currentUser) {
       console.warn('Sync cancelled: No logged-in user.');
@@ -125,8 +126,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           customCode: mergedCustomCode,
         });
 
-        // Save back to local storage
-        StorageService.saveProgress(mergedProgress);
+        // Save locally without echo sync
+        StorageService.saveProgressLocalOnly(mergedProgress);
 
         // Update cloud with merged progress
         await setDoc(progressRef, {
@@ -161,18 +162,109 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Listen to background sync events from StorageService
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const handleSyncStart = () => {
+      setSyncStatus('syncing');
+      setSyncErrorMessage(null);
+    };
+    const handleSyncSuccess = () => {
+      setSyncStatus('synced');
+      setTimeout(() => setSyncStatus('idle'), 2500);
+    };
+    const handleSyncError = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const err = customEvent.detail as { code?: string; message?: string };
+      let humanMsg = 'Lỗi tự động lưu lên Firebase.';
+      if (err?.code === 'permission-denied') {
+        humanMsg = 'Quyền truy cập bị từ chối. Hãy kiểm tra Firestore Rules trên Firebase Console.';
+      } else if (err?.message) {
+        humanMsg = err.message;
+      }
+      setSyncErrorMessage(humanMsg);
+      setSyncStatus('error');
+      setTimeout(() => setSyncStatus('idle'), 6000);
+    };
+
+    window.addEventListener('cloud_sync_start', handleSyncStart);
+    window.addEventListener('cloud_sync_success', handleSyncSuccess);
+    window.addEventListener('cloud_sync_error', handleSyncError);
+
+    return () => {
+      window.removeEventListener('cloud_sync_start', handleSyncStart);
+      window.removeEventListener('cloud_sync_success', handleSyncSuccess);
+      window.removeEventListener('cloud_sync_error', handleSyncError);
+    };
+  }, []);
+
+  // Realtime Firestore Listener & Auth State
+  useEffect(() => {
+    let unsubscribeSnapshot: (() => void) | null = null;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       setLoading(false);
 
+      if (unsubscribeSnapshot) {
+        unsubscribeSnapshot();
+        unsubscribeSnapshot = null;
+      }
+
       if (currentUser) {
-        // Automatically sync when user logs in
+        // 1. Initial sync on login
         await syncWithCloud();
+
+        // 2. Realtime listener: Automatically receives live updates from cloud
+        const progressRef = doc(db, 'user_progress', currentUser.uid);
+        unsubscribeSnapshot = onSnapshot(
+          progressRef,
+          (snapshot) => {
+            if (snapshot.exists()) {
+              const cloudData = snapshot.data() as Partial<UserProgress>;
+              const localProgress = StorageService.getProgress();
+
+              const mergedCompleted = Array.from(
+                new Set([...(localProgress.completedLessons || []), ...(cloudData.completedLessons || [])])
+              );
+              const mergedBadges = Array.from(
+                new Set([...(localProgress.badges || []), ...(cloudData.badges || [])])
+              );
+              const mergedCustomCode = {
+                ...(cloudData.customCode || {}),
+                ...(localProgress.customCode || {}),
+              };
+              const mergedXP = Math.max(localProgress.xp || 0, cloudData.xp || 0);
+              const mergedStreak = Math.max(localProgress.currentStreak || 1, cloudData.currentStreak || 1);
+              const lastActiveDate = 
+                (localProgress.lastActiveDate > (cloudData.lastActiveDate || '')) 
+                  ? localProgress.lastActiveDate 
+                  : (cloudData.lastActiveDate || localProgress.lastActiveDate);
+
+              const mergedProgress: UserProgress = {
+                xp: mergedXP,
+                completedLessons: mergedCompleted,
+                currentStreak: mergedStreak,
+                lastActiveDate,
+                badges: mergedBadges,
+                customCode: mergedCustomCode,
+              };
+
+              StorageService.saveProgressLocalOnly(mergedProgress);
+            }
+          },
+          (error) => {
+            console.warn('Realtime listener error:', error);
+          }
+        );
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeSnapshot) {
+        unsubscribeSnapshot();
+      }
+    };
   }, []);
 
   const signInWithGoogle = async () => {

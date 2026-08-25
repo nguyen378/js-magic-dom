@@ -7,24 +7,44 @@ const STORAGE_KEY = 'js_magic_dom_progress_v1';
 
 let cachedProgress: UserProgress | null = null;
 let cachedRawString: string | null = null;
+let cloudSyncDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
-async function syncToCloud(progress: UserProgress) {
+export async function syncToCloud(progress: UserProgress, immediate = false): Promise<void> {
   if (typeof window === 'undefined') return;
-  try {
-    const user = auth.currentUser;
-    if (!user) return;
-    const progressRef = doc(db, 'user_progress', user.uid);
-    const sanitized = JSON.parse(JSON.stringify(progress, (k, v) => v === undefined ? null : v));
-    await setDoc(
-      progressRef,
-      {
-        ...sanitized,
-        updatedAt: serverTimestamp(),
-      },
-      { merge: true }
-    );
-  } catch (err) {
-    console.warn('Auto cloud sync failed:', err);
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const executeSync = async () => {
+    try {
+      window.dispatchEvent(new CustomEvent('cloud_sync_start'));
+      const progressRef = doc(db, 'user_progress', user.uid);
+      const sanitized = JSON.parse(JSON.stringify(progress, (k, v) => (v === undefined ? null : v)));
+      await setDoc(
+        progressRef,
+        {
+          ...sanitized,
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+      window.dispatchEvent(new CustomEvent('cloud_sync_success'));
+    } catch (err) {
+      console.warn('Auto cloud sync failed:', err);
+      window.dispatchEvent(new CustomEvent('cloud_sync_error', { detail: err }));
+    }
+  };
+
+  if (immediate) {
+    if (cloudSyncDebounceTimer) {
+      clearTimeout(cloudSyncDebounceTimer);
+      cloudSyncDebounceTimer = null;
+    }
+    await executeSync();
+  } else {
+    if (cloudSyncDebounceTimer) {
+      clearTimeout(cloudSyncDebounceTimer);
+    }
+    cloudSyncDebounceTimer = setTimeout(executeSync, 1000);
   }
 }
 
@@ -64,7 +84,8 @@ export const StorageService = {
     }
   },
 
-  saveProgress(progress: UserProgress): void {
+  // Save progress locally only (used when syncing FROM cloud to prevent echo loops)
+  saveProgressLocalOnly(progress: UserProgress): void {
     if (typeof window === 'undefined') return;
     try {
       const serialized = JSON.stringify(progress);
@@ -72,8 +93,22 @@ export const StorageService = {
       cachedProgress = progress;
       cachedRawString = serialized;
       window.dispatchEvent(new Event('storage_updated'));
-      // Fire-and-forget background cloud sync
-      syncToCloud(progress);
+    } catch (e) {
+      console.error('Failed to save progress locally', e);
+    }
+  },
+
+  // Regular save: updates local storage AND triggers background auto-sync to Firebase
+  saveProgress(progress: UserProgress, immediateSync = false): void {
+    if (typeof window === 'undefined') return;
+    try {
+      const serialized = JSON.stringify(progress);
+      localStorage.setItem(STORAGE_KEY, serialized);
+      cachedProgress = progress;
+      cachedRawString = serialized;
+      window.dispatchEvent(new Event('storage_updated'));
+      // Automatic background Cloud Firestore sync
+      syncToCloud(progress, immediateSync);
     } catch (e) {
       console.error('Failed to save progress to localStorage', e);
     }
@@ -225,7 +260,8 @@ export const StorageService = {
       customCode: updatedCustomCode,
     };
 
-    this.saveProgress(newProgress);
+    // Save with immediate cloud sync upon completing a lesson
+    this.saveProgress(newProgress, true);
 
     return {
       progress: newProgress,
@@ -243,7 +279,8 @@ export const StorageService = {
         [lessonId]: code,
       },
     };
-    this.saveProgress(updated);
+    // Debounced cloud sync when typing code
+    this.saveProgress(updated, false);
   },
 
   getCode(lessonId: string, defaultCode: string): string {
@@ -257,6 +294,8 @@ export const StorageService = {
     cachedProgress = DEFAULT_PROGRESS;
     cachedRawString = null;
     window.dispatchEvent(new Event('storage_updated'));
+    // Also reset Firestore in background if logged in
+    syncToCloud(DEFAULT_PROGRESS, true);
   },
 };
 
