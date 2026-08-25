@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sparkles, Flame, Trophy, Map, RotateCcw, Star } from 'lucide-react';
 import { StorageService, useProgress } from '@/lib/storage';
 import { BadgesModal } from '@/components/gamification/badges-modal';
+import { UserMenu } from '@/components/auth/user-menu';
 
 export function Navbar() {
   const progress = useProgress();
@@ -36,22 +37,22 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Gamification Stats */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* Gamification Stats & Auth */}
+          <div className="flex items-center gap-2 sm:gap-3">
             
             {/* Streak */}
             <div 
               title={`Chuỗi ${progress.currentStreak} ngày học liên tiếp`}
-              className="flex items-center gap-1.5 rounded-full bg-orange-50 px-3 py-1 text-sm font-bold text-orange-600 dark:bg-orange-950/50 dark:text-orange-400 border border-orange-200 dark:border-orange-900"
+              className="flex items-center gap-1.5 rounded-full bg-orange-50 px-2.5 sm:px-3 py-1 text-xs sm:text-sm font-bold text-orange-600 dark:bg-orange-950/50 dark:text-orange-400 border border-orange-200 dark:border-orange-900"
             >
               <Flame className="h-4 w-4 fill-orange-500 text-orange-500 animate-pulse" />
-              <span>{progress.currentStreak} ngày</span>
+              <span>{progress.currentStreak}</span>
             </div>
 
             {/* XP Points */}
             <div 
               title="Tổng điểm kinh nghiệm XP"
-              className="flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-sm font-bold text-amber-600 dark:bg-amber-950/50 dark:text-amber-400 border border-amber-200 dark:border-amber-900"
+              className="flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 sm:px-3 py-1 text-xs sm:text-sm font-bold text-amber-600 dark:bg-amber-950/50 dark:text-amber-400 border border-amber-200 dark:border-amber-900"
             >
               <Star className="h-4 w-4 fill-amber-400 text-amber-500" />
               <span>{progress.xp} XP</span>
@@ -60,10 +61,10 @@ export function Navbar() {
             {/* Badges Button */}
             <button
               onClick={() => setShowBadges(true)}
-              className="flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1 text-sm font-bold text-purple-600 hover:bg-purple-100 dark:bg-purple-950/50 dark:text-purple-400 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-900 cursor-pointer"
+              className="flex items-center gap-1.5 rounded-full bg-purple-50 px-2.5 sm:px-3 py-1 text-xs sm:text-sm font-bold text-purple-600 hover:bg-purple-100 dark:bg-purple-950/50 dark:text-purple-400 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-900 cursor-pointer"
             >
               <Trophy className="h-4 w-4 text-purple-500" />
-              <span className="hidden sm:inline">Huy hiệu</span>
+              <span className="hidden md:inline">Huy hiệu</span>
               <span className="rounded-full bg-purple-200 px-1.5 py-0.2 text-xs text-purple-800 dark:bg-purple-800 dark:text-purple-200">
                 {progress.badges.length}
               </span>
@@ -72,17 +73,20 @@ export function Navbar() {
             {/* Roadmap Link */}
             <Link
               href="/roadmap"
-              className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-sm"
+              className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-xs"
             >
               <Map className="h-4 w-4" />
               <span className="hidden sm:inline">Bản đồ</span>
             </Link>
 
+            {/* User Auth Menu */}
+            <UserMenu />
+
             {/* Reset Button */}
             <button
               onClick={handleReset}
               title="Đặt lại tiến độ"
-              className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300 transition"
+              className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300 transition cursor-pointer"
             >
               <RotateCcw className="h-4 w-4" />
             </button>

@@ -1,10 +1,31 @@
 import { useSyncExternalStore } from 'react';
 import { UserProgress } from '@/types/lesson';
+import { auth, db } from '@/lib/firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 const STORAGE_KEY = 'js_magic_dom_progress_v1';
 
 let cachedProgress: UserProgress | null = null;
 let cachedRawString: string | null = null;
+
+async function syncToCloud(progress: UserProgress) {
+  if (typeof window === 'undefined') return;
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    const progressRef = doc(db, 'user_progress', user.uid);
+    await setDoc(
+      progressRef,
+      {
+        ...progress,
+        updatedAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.warn('Auto cloud sync failed:', err);
+  }
+}
 
 export const DEFAULT_PROGRESS: UserProgress = {
   xp: 0,
@@ -50,6 +71,8 @@ export const StorageService = {
       cachedProgress = progress;
       cachedRawString = serialized;
       window.dispatchEvent(new Event('storage_updated'));
+      // Fire-and-forget background cloud sync
+      syncToCloud(progress);
     } catch (e) {
       console.error('Failed to save progress to localStorage', e);
     }
