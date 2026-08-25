@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { X, Lock, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Lock, CheckCircle2, Trophy } from 'lucide-react';
 import { BADGES } from '@/content/badges';
 
 interface BadgesModalProps {
@@ -10,6 +10,16 @@ interface BadgesModalProps {
 }
 
 export function BadgesModal({ unlockedBadgeIds, onClose }: BadgesModalProps) {
+  const [activeCourseFilter, setActiveCourseFilter] = useState<'all' | 'html-css' | 'javascript'>('all');
+
+  const filteredBadges = BADGES.filter((b) => {
+    if (activeCourseFilter === 'all') return true;
+    return b.course === activeCourseFilter;
+  });
+
+  const htmlCssBadgesCount = BADGES.filter((b) => b.course === 'html-css').length;
+  const jsBadgesCount = BADGES.filter((b) => b.course === 'javascript').length;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
@@ -17,27 +27,61 @@ export function BadgesModal({ unlockedBadgeIds, onClose }: BadgesModalProps) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Header */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400 mb-2">
-            🏆
+            <Trophy className="h-6 w-6" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
             Bộ Sưu Tập Huy Hiệu
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Bạn đã mở khóa <span className="font-bold text-purple-600">{unlockedBadgeIds.length}</span> / {BADGES.length} huy hiệu!
+            Bạn đã mở khóa <span className="font-bold text-purple-600 dark:text-purple-400">{unlockedBadgeIds.length}</span> / {BADGES.length} huy hiệu!
           </p>
         </div>
 
+        {/* Filter Tabs */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <button
+            onClick={() => setActiveCourseFilter('all')}
+            className={`px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer ${
+              activeCourseFilter === 'all'
+                ? 'bg-purple-600 text-white'
+                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 hover:bg-slate-200'
+            }`}
+          >
+            Tất cả ({BADGES.length})
+          </button>
+          <button
+            onClick={() => setActiveCourseFilter('html-css')}
+            className={`px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer ${
+              activeCourseFilter === 'html-css'
+                ? 'bg-orange-500 text-white'
+                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 hover:bg-slate-200'
+            }`}
+          >
+            🌐 HTML & CSS ({htmlCssBadgesCount})
+          </button>
+          <button
+            onClick={() => setActiveCourseFilter('javascript')}
+            className={`px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer ${
+              activeCourseFilter === 'javascript'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 hover:bg-slate-200'
+            }`}
+          >
+            🪄 JavaScript ({jsBadgesCount})
+          </button>
+        </div>
+
         {/* Badges Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1">
-          {BADGES.map((badge) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[55vh] overflow-y-auto pr-1">
+          {filteredBadges.map((badge) => {
             const isUnlocked = unlockedBadgeIds.includes(badge.id);
             return (
               <div
@@ -52,7 +96,9 @@ export function BadgesModal({ unlockedBadgeIds, onClose }: BadgesModalProps) {
                 <div
                   className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl shadow-xs ${
                     isUnlocked
-                      ? 'bg-gradient-to-tr from-purple-500 to-indigo-500 text-white'
+                      ? badge.course === 'html-css'
+                        ? 'bg-gradient-to-tr from-orange-500 to-amber-500 text-white'
+                        : 'bg-gradient-to-tr from-purple-500 to-indigo-500 text-white'
                       : 'bg-slate-200 dark:bg-slate-800 text-slate-400 grayscale'
                   }`}
                 >
@@ -82,10 +128,10 @@ export function BadgesModal({ unlockedBadgeIds, onClose }: BadgesModalProps) {
         </div>
 
         {/* Footer button */}
-        <div className="mt-6">
+        <div className="mt-5">
           <button
             onClick={onClose}
-            className="w-full rounded-xl bg-slate-900 py-2.5 font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition"
+            className="w-full rounded-xl bg-slate-900 py-2.5 font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition cursor-pointer"
           >
             Đóng
           </button>

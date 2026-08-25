@@ -166,6 +166,32 @@ export const StorageService = {
       currentBadges.add('ui_component_architect');
     }
 
+    // HTML & CSS badges
+    if (updatedCompleted.includes('html01-first-tags') && !currentBadges.has('html_newbie')) {
+      newBadges.push('html_newbie');
+      currentBadges.add('html_newbie');
+    }
+    if ((updatedCompleted.includes('html02-text-formatting') || updatedCompleted.includes('html03-links-anchor') || updatedCompleted.includes('html04-images') || updatedCompleted.includes('html05-lists')) && !currentBadges.has('text_master')) {
+      newBadges.push('text_master');
+      currentBadges.add('text_master');
+    }
+    if ((updatedCompleted.includes('css01-color-background') || updatedCompleted.includes('css02-fonts-typography') || updatedCompleted.includes('css03-borders-radius')) && !currentBadges.has('css_painter')) {
+      newBadges.push('css_painter');
+      currentBadges.add('css_painter');
+    }
+    if ((updatedCompleted.includes('css04-box-model') || updatedCompleted.includes('css05-display-properties')) && !currentBadges.has('box_model_architect')) {
+      newBadges.push('box_model_architect');
+      currentBadges.add('box_model_architect');
+    }
+    if ((updatedCompleted.includes('css06-flexbox-basics') || updatedCompleted.includes('css07-flexbox-align')) && !currentBadges.has('flexbox_ninja')) {
+      newBadges.push('flexbox_ninja');
+      currentBadges.add('flexbox_ninja');
+    }
+    if ((updatedCompleted.includes('proj-html-css-01') || updatedCompleted.includes('proj-html-css-02') || updatedCompleted.includes('proj-html-css-03')) && !currentBadges.has('web_stylist')) {
+      newBadges.push('web_stylist');
+      currentBadges.add('web_stylist');
+    }
+
     const newProgress: UserProgress = {
       xp: updatedXP,
       completedLessons: updatedCompleted,

@@ -18,7 +18,16 @@ export default function LessonPage() {
   const lessonId = params.id as string;
   const lesson = getLessonById(lessonId);
 
-  const initialCode = lesson ? StorageService.getCode(lesson.id, lesson.initialJsCode) : '';
+  const editorLanguage = lesson?.editorLanguage || 'javascript';
+  const defaultInitialCode = lesson
+    ? editorLanguage === 'html'
+      ? (lesson.initialHtmlCode ?? lesson.htmlContent ?? '')
+      : editorLanguage === 'css'
+      ? (lesson.initialCssCode ?? lesson.cssContent ?? '')
+      : (lesson.initialJsCode ?? '')
+    : '';
+
+  const initialCode = lesson ? StorageService.getCode(lesson.id, defaultInitialCode) : '';
   const [code, setCode] = useState<string>(initialCode);
   const [prevLessonIdState, setPrevLessonIdState] = useState(lessonId);
   const [isTesting, setIsTesting] = useState(false);
@@ -36,18 +45,31 @@ export default function LessonPage() {
   // Sync state when switching lessons
   if (prevLessonIdState !== lessonId) {
     setPrevLessonIdState(lessonId);
-    setCode(lesson ? StorageService.getCode(lesson.id, lesson.initialJsCode) : '');
+    setCode(lesson ? StorageService.getCode(lesson.id, defaultInitialCode) : '');
     setTestResult(null);
     setPassedList([]);
     setShowCelebration(false);
   }
 
+  // Build iframe HTML based on lesson's editor language
+  const getIframeHtml = useCallback((userCode: string) => {
+    if (!lesson) return '';
+    const lang = lesson.editorLanguage || 'javascript';
+    if (lang === 'html') {
+      return buildIframeHtml(userCode, lesson.cssContent, lesson.initialJsCode || '');
+    }
+    if (lang === 'css') {
+      return buildIframeHtml(lesson.htmlContent, userCode, lesson.initialJsCode || '');
+    }
+    return buildIframeHtml(lesson.htmlContent, lesson.cssContent, userCode);
+  }, [lesson]);
+
   // Re-run the iframe preview with the current code
   const handleRun = useCallback(() => {
     if (iframeRef.current && lesson) {
-      iframeRef.current.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, code);
+      iframeRef.current.srcdoc = getIframeHtml(code);
     }
-  }, [lesson, code]);
+  }, [lesson, code, getIframeHtml]);
 
   // Handle keyboard shortcut Ctrl+Enter to Run
   useEffect(() => {
@@ -90,10 +112,10 @@ export default function LessonPage() {
 
   const handleResetCode = () => {
     if (confirm('Khôi phục lại đoạn mã ban đầu của bài học này?')) {
-      setCode(lesson.initialJsCode);
-      StorageService.saveCode(lesson.id, lesson.initialJsCode);
+      setCode(defaultInitialCode);
+      StorageService.saveCode(lesson.id, defaultInitialCode);
       if (iframeRef.current) {
-        iframeRef.current.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, lesson.initialJsCode);
+        iframeRef.current.srcdoc = getIframeHtml(defaultInitialCode);
       }
     }
   };
@@ -102,10 +124,9 @@ export default function LessonPage() {
     setCode(solutionCode);
     StorageService.saveCode(lesson.id, solutionCode);
     if (iframeRef.current) {
-      iframeRef.current.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, solutionCode);
+      iframeRef.current.srcdoc = getIframeHtml(solutionCode);
     }
   };
-
 
   // Run assertion tests on the DOM
   const handleTest = async () => {
@@ -128,7 +149,7 @@ export default function LessonPage() {
 
         setTimeout(done, 500);
         iframe.addEventListener('load', done);
-        iframe.srcdoc = buildIframeHtml(lesson.htmlContent, lesson.cssContent, code);
+        iframe.srcdoc = getIframeHtml(code);
       });
 
       const result = await evaluateTests(iframeRef.current, lesson.tests);
@@ -163,6 +184,11 @@ export default function LessonPage() {
     }
   };
 
+  // Live preview props based on editor language
+  const previewHtml = editorLanguage === 'html' ? code : lesson.htmlContent;
+  const previewCss = editorLanguage === 'css' ? code : lesson.cssContent;
+  const previewJs = editorLanguage === 'javascript' ? code : (lesson.initialJsCode || '');
+
   return (
     <div className="mx-auto flex h-[calc(100vh-4rem)] max-w-[1700px] flex-col p-3 sm:p-4 gap-3">
       
@@ -182,6 +208,7 @@ export default function LessonPage() {
         <div className="h-full overflow-hidden lg:col-span-4 flex flex-col">
           <CodeEditor
             code={code}
+            language={editorLanguage}
             onChange={handleCodeChange}
             onReset={handleResetCode}
             onRun={handleRun}
@@ -191,9 +218,9 @@ export default function LessonPage() {
         {/* Right Column: Live DOM Preview & Console (4 cols on lg) */}
         <div className="h-full overflow-hidden lg:col-span-4 flex flex-col">
           <LivePreview
-            htmlContent={lesson.htmlContent}
-            cssContent={lesson.cssContent}
-            jsCode={code}
+            htmlContent={previewHtml}
+            cssContent={previewCss}
+            jsCode={previewJs}
             iframeRef={iframeRef}
           />
         </div>

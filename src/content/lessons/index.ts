@@ -79,29 +79,58 @@ export const CAPSTONE_LESSONS: Lesson[] = [
   lesson15,
 ];
 
-export const ALL_LESSONS: Lesson[] = [
+import { HTML_CSS_LESSONS, HTML_FOUNDATION_LESSONS, CSS_FOUNDATION_LESSONS, CSS_LAYOUT_LESSONS, HTML_CSS_CAPSTONE_LESSONS } from '../html-css-lessons';
+
+export {
+  HTML_CSS_LESSONS,
+  HTML_FOUNDATION_LESSONS,
+  CSS_FOUNDATION_LESSONS,
+  CSS_LAYOUT_LESSONS,
+  HTML_CSS_CAPSTONE_LESSONS,
+};
+
+export const JAVASCRIPT_LESSONS: Lesson[] = [
   ...FOUNDATION_LESSONS,
   ...DOM_LESSONS,
   ...ADVANCED_LESSONS,
   ...CAPSTONE_LESSONS,
 ];
 
+export const ALL_LESSONS: Lesson[] = [
+  ...HTML_CSS_LESSONS,
+  ...JAVASCRIPT_LESSONS,
+];
+
+export function getLessonsByCourse(course: 'javascript' | 'html-css'): Lesson[] {
+  return course === 'html-css' ? HTML_CSS_LESSONS : JAVASCRIPT_LESSONS;
+}
+
 export function getLessonById(id: string): Lesson | undefined {
   return ALL_LESSONS.find((l) => l.id === id);
 }
 
 export function getNextLessonId(currentId: string): string | null {
-  const currentIndex = ALL_LESSONS.findIndex((l) => l.id === currentId);
-  if (currentIndex !== -1 && currentIndex < ALL_LESSONS.length - 1) {
-    return ALL_LESSONS[currentIndex + 1].id;
+  const currentLesson = getLessonById(currentId);
+  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
+    ? HTML_CSS_LESSONS 
+    : JAVASCRIPT_LESSONS;
+
+  const currentIndex = courseLessons.findIndex((l) => l.id === currentId);
+  if (currentIndex !== -1 && currentIndex < courseLessons.length - 1) {
+    return courseLessons[currentIndex + 1].id;
   }
   return null;
 }
 
 export function getPrevLessonId(currentId: string): string | null {
-  const currentIndex = ALL_LESSONS.findIndex((l) => l.id === currentId);
+  const currentLesson = getLessonById(currentId);
+  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
+    ? HTML_CSS_LESSONS 
+    : JAVASCRIPT_LESSONS;
+
+  const currentIndex = courseLessons.findIndex((l) => l.id === currentId);
   if (currentIndex > 0) {
-    return ALL_LESSONS[currentIndex - 1].id;
+    return courseLessons[currentIndex - 1].id;
   }
   return null;
 }

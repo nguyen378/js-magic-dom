@@ -2,18 +2,28 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { RotateCcw, Code2, Copy, Check } from 'lucide-react';
+import { RotateCcw, Code2, Copy, Check, FileCode, Palette } from 'lucide-react';
+import { EditorLanguage } from '@/types/lesson';
 
 const Monaco = dynamic(() => import('@monaco-editor/react'), { ssr: false });
 
 interface CodeEditorProps {
   code: string;
+  language?: EditorLanguage;
+  fileName?: string;
   onChange: (newCode: string) => void;
   onReset: () => void;
   onRun: () => void;
 }
 
-export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) {
+export function CodeEditor({ 
+  code, 
+  language = 'javascript', 
+  fileName, 
+  onChange, 
+  onReset, 
+  onRun 
+}: CodeEditorProps) {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = () => {
@@ -21,6 +31,34 @@ export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) 
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const getLanguageDetails = () => {
+    switch (language) {
+      case 'html':
+        return {
+          title: fileName || 'index.html',
+          icon: <FileCode className="h-3.5 w-3.5 text-orange-400" />,
+          footerBadge: 'HTML5 (Semantic)',
+          badgeColor: 'text-orange-400',
+        };
+      case 'css':
+        return {
+          title: fileName || 'style.css',
+          icon: <Palette className="h-3.5 w-3.5 text-cyan-400" />,
+          footerBadge: 'CSS3 (Stylesheet)',
+          badgeColor: 'text-cyan-400',
+        };
+      default:
+        return {
+          title: fileName || 'script.js',
+          icon: <Code2 className="h-3.5 w-3.5 text-amber-400" />,
+          footerBadge: 'JavaScript (ES6+)',
+          badgeColor: 'text-indigo-400',
+        };
+    }
+  };
+
+  const langDetails = getLanguageDetails();
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-sm dark:border-slate-800">
@@ -34,8 +72,8 @@ export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) 
             <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
           </div>
           <span className="ml-2 flex items-center gap-1.5 text-xs font-bold text-slate-300">
-            <Code2 className="h-3.5 w-3.5 text-amber-400" />
-            script.js
+            {langDetails.icon}
+            {langDetails.title}
           </span>
         </div>
 
@@ -63,7 +101,7 @@ export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) 
       <div className="relative flex-1 min-h-[280px]">
         <Monaco
           height="100%"
-          language="javascript"
+          language={language}
           theme="vs-dark"
           value={code}
           onChange={(val) => onChange(val || '')}
@@ -99,9 +137,10 @@ export function CodeEditor({ code, onChange, onReset, onRun }: CodeEditorProps) 
       {/* Editor Shortcut Tip */}
       <div className="border-t border-slate-800 bg-slate-950/80 px-4 py-1.5 text-[11px] text-slate-400 flex items-center justify-between">
         <span>💡 Mẹo: Nhấn phím <kbd className="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-slate-300">Ctrl + Enter</kbd> để chạy thử nhanh!</span>
-        <span className="text-indigo-400 font-mono">JavaScript (ES6+)</span>
+        <span className={`${langDetails.badgeColor} font-mono font-bold`}>{langDetails.footerBadge}</span>
       </div>
 
     </div>
   );
 }
+

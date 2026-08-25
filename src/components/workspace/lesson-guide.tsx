@@ -51,7 +51,17 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
           </span>
         </div>
         <span className="text-xs font-medium text-slate-400">
-          {lesson.track === 'foundation'
+          {lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')
+            ? lesson.track === 'html-foundation'
+              ? `HTML Bài ${lesson.order} / 7`
+              : lesson.track === 'css-foundation'
+              ? `CSS Bài ${lesson.order - 7} / 4`
+              : lesson.track === 'css-layout'
+              ? `Layout Bài ${lesson.order - 11} / 4`
+              : lesson.track === 'html-css-capstone'
+              ? `Đồ án P${lesson.order - 15} / 3`
+              : `Bài ${lesson.order} / 18`
+            : lesson.track === 'foundation'
             ? `Bài F${lesson.order} / 10`
             : lesson.track === 'advanced'
             ? `Bài ES${lesson.order} / 4`
@@ -169,9 +179,18 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
           {showSolution && (
             <div className="mt-2 rounded-xl bg-slate-900 p-3 text-xs text-slate-100 border border-slate-800 animate-in fade-in">
               <div className="flex items-center justify-between mb-2 pb-1 border-b border-slate-800">
-                <span className="font-mono text-indigo-400 font-bold text-[11px]">solution.js</span>
+                <span className="font-mono text-indigo-400 font-bold text-[11px]">
+                  {lesson.editorLanguage === 'html' ? 'solution.html' : lesson.editorLanguage === 'css' ? 'solution.css' : 'solution.js'}
+                </span>
                 <button
-                  onClick={() => onApplySolution(lesson.solutionJsCode)}
+                  onClick={() => {
+                    const solutionCode = lesson.editorLanguage === 'html'
+                      ? (lesson.solutionHtmlCode || lesson.solutionJsCode || '')
+                      : lesson.editorLanguage === 'css'
+                      ? (lesson.solutionCssCode || lesson.solutionJsCode || '')
+                      : (lesson.solutionJsCode || '');
+                    onApplySolution(solutionCode);
+                  }}
                   className="flex items-center gap-1 rounded bg-indigo-600 px-2 py-0.5 text-[11px] font-bold text-white hover:bg-indigo-700 transition cursor-pointer"
                 >
                   <Wand2 className="h-3 w-3" />
@@ -179,7 +198,11 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
                 </button>
               </div>
               <pre className="font-mono text-[11px] whitespace-pre-wrap text-emerald-400">
-                {lesson.solutionJsCode}
+                {lesson.editorLanguage === 'html'
+                  ? (lesson.solutionHtmlCode || lesson.solutionJsCode || '')
+                  : lesson.editorLanguage === 'css'
+                  ? (lesson.solutionCssCode || lesson.solutionJsCode || '')
+                  : (lesson.solutionJsCode || '')}
               </pre>
             </div>
           )}

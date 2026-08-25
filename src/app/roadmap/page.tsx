@@ -2,14 +2,43 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ALL_LESSONS, FOUNDATION_LESSONS, DOM_LESSONS, ADVANCED_LESSONS, CAPSTONE_LESSONS } from '@/content/lessons';
+import { 
+  ALL_LESSONS, 
+  JAVASCRIPT_LESSONS, 
+  FOUNDATION_LESSONS, 
+  DOM_LESSONS, 
+  ADVANCED_LESSONS, 
+  CAPSTONE_LESSONS,
+  HTML_CSS_LESSONS,
+  HTML_FOUNDATION_LESSONS,
+  CSS_FOUNDATION_LESSONS,
+  CSS_LAYOUT_LESSONS,
+  HTML_CSS_CAPSTONE_LESSONS
+} from '@/content/lessons';
+import { BADGES } from '@/content/badges';
 import { useProgress } from '@/lib/storage';
-import { Lesson } from '@/types/lesson';
-import { Sparkles, CheckCircle2, Lock, ArrowRight, Star, Award, BookOpen, Layers, Zap, Code } from 'lucide-react';
+import { Lesson, CourseType } from '@/types/lesson';
+import { 
+  Sparkles, 
+  CheckCircle2, 
+  Lock, 
+  ArrowRight, 
+  Star, 
+  Award, 
+  BookOpen, 
+  Layers, 
+  Zap, 
+  Code,
+  Globe,
+  Palette,
+  Layout,
+  Crown
+} from 'lucide-react';
 
 interface Chapter {
   id: string;
-  track: 'foundation' | 'dom' | 'advanced' | 'capstone';
+  track: string;
+  course: CourseType;
   title: string;
   subtitle: string;
   icon: string;
@@ -17,9 +46,10 @@ interface Chapter {
   lessons: Lesson[];
 }
 
-const CHAPTERS: Chapter[] = [
+const JS_CHAPTERS: Chapter[] = [
   {
     id: 'f_ch1',
+    course: 'javascript',
     track: 'foundation',
     title: 'Học Phần 1A: Khởi Đầu Pháp Thuật & Hàm',
     subtitle: 'Khai báo biến let/const, kiểu dữ liệu, chuỗi ký tự, đấu trường toán tử và cuộn giấy Hàm Function',
@@ -29,6 +59,7 @@ const CHAPTERS: Chapter[] = [
   },
   {
     id: 'f_ch2',
+    course: 'javascript',
     track: 'foundation',
     title: 'Học Phần 1B: Bậc Thầy Logic, Mảng & Đối Tượng',
     subtitle: 'Rẽ nhánh if/else, vòng xoáy lặp lại, balo mảng Array, siêu phương thức Map/Filter và Object RPG',
@@ -38,6 +69,7 @@ const CHAPTERS: Chapter[] = [
   },
   {
     id: 'dom_ch1',
+    course: 'javascript',
     track: 'dom',
     title: 'Học Phần 2A: Tân Binh DOM & Style',
     subtitle: 'Cây DOM, chọn phần tử ID, đổi chữ, màu sắc, ẩn hiện và thuộc tính ảnh',
@@ -47,6 +79,7 @@ const CHAPTERS: Chapter[] = [
   },
   {
     id: 'dom_ch2',
+    course: 'javascript',
     track: 'dom',
     title: 'Học Phần 2B: Bậc Thầy Sự Kiện & Tương Tác',
     subtitle: 'Sự kiện click, đếm số, bật tắt class, querySelector, sự kiện input, xóa & tạo thẻ mới',
@@ -56,6 +89,7 @@ const CHAPTERS: Chapter[] = [
   },
   {
     id: 'adv_ch1',
+    course: 'javascript',
     track: 'advanced',
     title: 'Học Phần 3: Pháp Thuật ES6+ & Bất Đồng Bộ (Async API)',
     subtitle: 'Destructuring, Spread Operator, hộp lưu trữ JSON & LocalStorage, Promise và Fetch API',
@@ -65,6 +99,7 @@ const CHAPTERS: Chapter[] = [
   },
   {
     id: 'cap_ch1',
+    course: 'javascript',
     track: 'capstone',
     title: 'Học Phần 4: Đồ Án Thực Chiến & Capstone Games',
     subtitle: 'Ứng dụng To-Do List, Tabs UI, Toast Message, Form Validator và Game Đập Quái Vật Whack-A-Mole',
@@ -74,56 +109,140 @@ const CHAPTERS: Chapter[] = [
   },
 ];
 
+const HTML_CSS_CHAPTERS: Chapter[] = [
+  {
+    id: 'html_ch1',
+    course: 'html-css',
+    track: 'html-foundation',
+    title: 'Chặng 1: Khởi Đầu HTML & Thẻ Nội Dung',
+    subtitle: 'Thẻ tiêu đề h1-h6, đoạn văn p, in đậm in nghiêng, link liên kết a, ảnh img, danh sách ul/li và ô nhập',
+    icon: '🌐',
+    color: 'from-orange-500 to-amber-600',
+    lessons: HTML_FOUNDATION_LESSONS,
+  },
+  {
+    id: 'css_ch1',
+    course: 'html-css',
+    track: 'css-foundation',
+    title: 'Chặng 2: CSS Cơ Bản - Màu Sắc & Định Dạng',
+    subtitle: 'Đổi màu chữ color, màu nền background, font chữ typography, khung viền border, bo góc và Box Model',
+    icon: '🎨',
+    color: 'from-cyan-500 to-blue-600',
+    lessons: CSS_FOUNDATION_LESSONS,
+  },
+  {
+    id: 'css_ch2',
+    course: 'html-css',
+    track: 'css-layout',
+    title: 'Chặng 3: Bố Cục Flexbox Hiện Đại & Hiệu Ứng',
+    subtitle: 'Thuộc tính display, dàn hàng ngang flexbox, căn giữa justify/align, khoảng cách gap và hiệu ứng hover mượt mà',
+    icon: '📐',
+    color: 'from-indigo-500 to-purple-600',
+    lessons: CSS_LAYOUT_LESSONS,
+  },
+  {
+    id: 'html_css_cap',
+    course: 'html-css',
+    track: 'html-css-capstone',
+    title: 'Chặng 4: Đồ Án HTML & CSS Thực Chiến',
+    subtitle: 'Tự tay xây dựng Thẻ Profile Card dũng sĩ, Bảng Giá Pricing Cards 3 cột và Hero Landing Section game hoàn chỉnh',
+    icon: '💎',
+    color: 'from-emerald-500 to-teal-600',
+    lessons: HTML_CSS_CAPSTONE_LESSONS,
+  },
+];
+
 export default function RoadmapPage() {
   const progress = useProgress();
-  const [activeTab, setActiveTab] = useState<'all' | 'foundation' | 'dom' | 'advanced' | 'capstone'>('all');
+  const [selectedCourse, setSelectedCourse] = useState<CourseType>('html-css');
+  const [activeTab, setActiveTab] = useState<string>('all');
 
-  const completedCount = progress.completedLessons.length;
-  const progressPercent = Math.round((completedCount / ALL_LESSONS.length) * 100);
+  const currentCourseLessons = selectedCourse === 'html-css' ? HTML_CSS_LESSONS : JAVASCRIPT_LESSONS;
+  const currentCourseChapters = selectedCourse === 'html-css' ? HTML_CSS_CHAPTERS : JS_CHAPTERS;
 
-  const foundationCompleted = FOUNDATION_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
-  const domCompleted = DOM_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
-  const advancedCompleted = ADVANCED_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
-  const capstoneCompleted = CAPSTONE_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
+  const completedInCourse = currentCourseLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
+  const courseProgressPercent = Math.round((completedInCourse / currentCourseLessons.length) * 100);
 
-  const filteredChapters = CHAPTERS.filter((ch) => {
+  const filteredChapters = currentCourseChapters.filter((ch) => {
     if (activeTab === 'all') return true;
     return ch.track === activeTab;
   });
 
+  const handleCourseChange = (course: CourseType) => {
+    setSelectedCourse(course);
+    setActiveTab('all');
+  };
+
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-50 via-indigo-50/20 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-10 px-4 sm:px-6">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-50 via-indigo-50/20 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8 px-4 sm:px-6">
       <div className="mx-auto max-w-5xl">
         
         {/* Page Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 mb-3">
             <Sparkles className="h-4 w-4 text-indigo-500" />
-            <span>Giáo Trình Toàn Diện: JS Căn Bản, HTML DOM, ES6+ & Đồ Án Thực Chiến</span>
+            <span>Hệ Thống Lộ Trình Học Lập Trình Web Toàn Diện Cho Học Sinh</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-            Bản Đồ Phiêu Lưu JavaScript
+            Bản Đồ Phiêu Lưu Lập Trình Web
           </h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Học lập trình từ con số 0 qua 32 bài học & đồ án trực quan, tích lũy điểm kinh nghiệm XP, mở khóa 18 huy hiệu và chế tạo các ứng dụng thực tế!
+            Chọn lộ trình học tập phù hợp với mục tiêu của bạn: từ kiến tạo giao diện HTML/CSS đến phù phép chuyển động với JavaScript!
           </p>
         </div>
 
+        {/* Course Switcher Tabs */}
+        <div className="mb-8 flex justify-center">
+          <div className="inline-flex p-1.5 rounded-2xl bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-md shadow-inner">
+            <button
+              onClick={() => handleCourseChange('html-css')}
+              className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+                selectedCourse === 'html-css'
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 scale-[1.02]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Globe className="h-4 w-4" />
+              <span>🌐 Lộ Trình HTML & CSS ({HTML_CSS_LESSONS.length} bài)</span>
+            </button>
+
+            <button
+              onClick={() => handleCourseChange('javascript')}
+              className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+                selectedCourse === 'javascript'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Zap className="h-4 w-4" />
+              <span>🪄 Lộ Trình JavaScript ({JAVASCRIPT_LESSONS.length} bài)</span>
+            </button>
+          </div>
+        </div>
+
         {/* Progress Stats Card */}
-        <div className="mb-10 rounded-3xl border border-indigo-100 bg-white p-6 sm:p-8 shadow-xl shadow-indigo-500/5 dark:border-slate-800 dark:bg-slate-900">
+        <div className="mb-8 rounded-3xl border border-indigo-100 bg-white p-6 sm:p-8 shadow-xl shadow-indigo-500/5 dark:border-slate-800 dark:bg-slate-900">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-left">
             
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Tiến độ hoàn thành</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Tiến độ: {selectedCourse === 'html-css' ? 'HTML & CSS' : 'JavaScript'}
+              </div>
               <div className="mt-1 flex items-baseline gap-2 justify-center sm:justify-start">
-                <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400">{completedCount}</span>
-                <span className="text-slate-500 font-semibold">/ {ALL_LESSONS.length} bài học</span>
+                <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400">
+                  {completedInCourse}
+                </span>
+                <span className="text-slate-500 font-semibold">/ {currentCourseLessons.length} bài học</span>
               </div>
               {/* Progress Bar */}
               <div className="mt-3 h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
+                  className={`h-full rounded-full transition-all duration-500 ${
+                    selectedCourse === 'html-css'
+                      ? 'bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400'
+                      : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
+                  }`}
+                  style={{ width: `${courseProgressPercent}%` }}
                 />
               </div>
             </div>
@@ -143,10 +262,10 @@ export default function RoadmapPage() {
               <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Huy hiệu đã đạt</div>
               <div className="mt-1 flex items-center justify-center sm:justify-start gap-2 text-3xl font-black text-purple-600 dark:text-purple-400">
                 <Award className="h-7 w-7" />
-                <span>{progress.badges.length} / 18</span>
+                <span>{progress.badges.length} / {BADGES.length}</span>
               </div>
               <div className="mt-2 text-xs text-slate-500">
-                {progress.badges.length === 18 ? '🏆 Đã mở khóa trọn bộ 18 huy hiệu!' : 'Còn nhiều huy hiệu đang chờ'}
+                {progress.badges.length === BADGES.length ? '🏆 Đã mở khóa trọn bộ huy hiệu!' : 'Còn nhiều huy hiệu đang chờ'}
               </div>
             </div>
 
@@ -154,81 +273,125 @@ export default function RoadmapPage() {
         </div>
 
         {/* Track Filter Tabs */}
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-2.5">
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-2.5">
           <button
             onClick={() => setActiveTab('all')}
             className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 scale-105'
+                ? selectedCourse === 'html-css'
+                  ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/25 scale-105'
+                  : 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 scale-105'
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
             }`}
           >
             <Layers className="h-3.5 w-3.5" />
-            <span>Toàn Bộ ({ALL_LESSONS.length})</span>
+            <span>Toàn Bộ ({currentCourseLessons.length})</span>
             <span className="ml-1 rounded-full bg-white/20 px-1.5 py-0.2 text-[10px]">
-              {completedCount}
+              {completedInCourse}
             </span>
           </button>
 
-          <button
-            onClick={() => setActiveTab('foundation')}
-            className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-              activeTab === 'foundation'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
-            }`}
-          >
-            <BookOpen className="h-3.5 w-3.5" />
-            <span>📘 JS Căn Bản</span>
-            <span className="ml-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-200 px-1.5 py-0.2 text-[10px]">
-              {foundationCompleted}/{FOUNDATION_LESSONS.length}
-            </span>
-          </button>
+          {selectedCourse === 'html-css' ? (
+            <>
+              <button
+                onClick={() => setActiveTab('html-foundation')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'html-foundation'
+                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <BookOpen className="h-3.5 w-3.5" />
+                <span>📑 Thẻ HTML ({HTML_FOUNDATION_LESSONS.length})</span>
+              </button>
 
-          <button
-            onClick={() => setActiveTab('dom')}
-            className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-              activeTab === 'dom'
-                ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/25 scale-105'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
-            }`}
-          >
-            <Zap className="h-3.5 w-3.5" />
-            <span>🪄 HTML DOM</span>
-            <span className="ml-1 rounded-full bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-200 px-1.5 py-0.2 text-[10px]">
-              {domCompleted}/{DOM_LESSONS.length}
-            </span>
-          </button>
+              <button
+                onClick={() => setActiveTab('css-foundation')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'css-foundation'
+                    ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Palette className="h-3.5 w-3.5" />
+                <span>🎨 CSS Căn Bản ({CSS_FOUNDATION_LESSONS.length})</span>
+              </button>
 
-          <button
-            onClick={() => setActiveTab('advanced')}
-            className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-              activeTab === 'advanced'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
-            }`}
-          >
-            <Code className="h-3.5 w-3.5" />
-            <span>⚡ ES6+ & Async</span>
-            <span className="ml-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-200 px-1.5 py-0.2 text-[10px]">
-              {advancedCompleted}/{ADVANCED_LESSONS.length}
-            </span>
-          </button>
+              <button
+                onClick={() => setActiveTab('css-layout')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'css-layout'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Layout className="h-3.5 w-3.5" />
+                <span>📐 Flexbox & Layout ({CSS_LAYOUT_LESSONS.length})</span>
+              </button>
 
-          <button
-            onClick={() => setActiveTab('capstone')}
-            className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-              activeTab === 'capstone'
-                ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25 scale-105'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
-            }`}
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>👑 Đồ Án & Game</span>
-            <span className="ml-1 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-200 px-1.5 py-0.2 text-[10px]">
-              {capstoneCompleted}/{CAPSTONE_LESSONS.length}
-            </span>
-          </button>
+              <button
+                onClick={() => setActiveTab('html-css-capstone')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'html-css-capstone'
+                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Crown className="h-3.5 w-3.5" />
+                <span>👑 Đồ Án Web ({HTML_CSS_CAPSTONE_LESSONS.length})</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => setActiveTab('foundation')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'foundation'
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <BookOpen className="h-3.5 w-3.5" />
+                <span>📘 JS Căn Bản ({FOUNDATION_LESSONS.length})</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('dom')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'dom'
+                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Zap className="h-3.5 w-3.5" />
+                <span>🪄 HTML DOM ({DOM_LESSONS.length})</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('advanced')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'advanced'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Code className="h-3.5 w-3.5" />
+                <span>⚡ ES6+ & Async ({ADVANCED_LESSONS.length})</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('capstone')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'capstone'
+                    ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>👑 Đồ Án & Game ({CAPSTONE_LESSONS.length})</span>
+              </button>
+            </>
+          )}
         </div>
 
         {/* Chapters & Lessons Roadmap */}
@@ -260,15 +423,34 @@ export default function RoadmapPage() {
                 {/* Lesson Cards Grid */}
                 <div className="space-y-3.5">
                   {chapter.lessons.map((lesson) => {
-                    const globalIdx = ALL_LESSONS.findIndex((l) => l.id === lesson.id);
+                    const courseIdx = currentCourseLessons.findIndex((l) => l.id === lesson.id);
                     const isCompleted = progress.completedLessons.includes(lesson.id);
-                    // Unlocked if first in track, or first overall, or previous lesson completed
+                    
+                    // Unlocked if first in track/chapter, or first overall in course, or previous lesson completed
                     const isUnlocked = 
-                      globalIdx === 0 || 
+                      courseIdx === 0 || 
+                      lesson.id === 'html01-first-tags' ||
+                      lesson.id === 'css01-color-background' ||
+                      lesson.id === 'css05-display-properties' ||
+                      lesson.id === 'proj-html-css-01' ||
                       lesson.id === '01-select-element' || 
                       lesson.id === 'adv01-es6-features' ||
                       lesson.id === '13-todo-list' ||
-                      progress.completedLessons.includes(ALL_LESSONS[globalIdx - 1]?.id);
+                      progress.completedLessons.includes(currentCourseLessons[courseIdx - 1]?.id);
+
+                    const getLessonBadgeLabel = () => {
+                      if (lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')) {
+                        if (lesson.track === 'html-foundation') return `H${lesson.order}`;
+                        if (lesson.track === 'css-foundation') return `C${lesson.order - 7}`;
+                        if (lesson.track === 'css-layout') return `L${lesson.order - 11}`;
+                        if (lesson.track === 'html-css-capstone') return `P${lesson.order - 15}`;
+                        return `${lesson.order}`;
+                      }
+                      if (lesson.track === 'foundation') return `F${lesson.order}`;
+                      if (lesson.track === 'advanced') return `ES${lesson.order}`;
+                      if (lesson.track === 'capstone') return `P${lesson.order}`;
+                      return `D${lesson.order}`;
+                    };
 
                     return (
                       <div
@@ -288,16 +470,16 @@ export default function RoadmapPage() {
                               isCompleted
                                 ? 'bg-emerald-500 text-white'
                                 : isUnlocked
-                                ? 'bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-indigo-500/20'
+                                ? selectedCourse === 'html-css'
+                                  ? 'bg-gradient-to-tr from-orange-500 to-amber-600 text-white shadow-orange-500/20'
+                                  : 'bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-indigo-500/20'
                                 : 'bg-slate-200 text-slate-400 dark:bg-slate-800'
                             }`}
                           >
                             {isCompleted ? (
                               <CheckCircle2 className="h-5 w-5" />
                             ) : isUnlocked ? (
-                              <span>
-                                {lesson.track === 'foundation' ? `F${lesson.order}` : lesson.track === 'advanced' ? `ES${lesson.order}` : lesson.track === 'capstone' ? `P${lesson.order}` : `D${lesson.order}`}
-                              </span>
+                              <span>{getLessonBadgeLabel()}</span>
                             ) : (
                               <Lock className="h-4 w-4" />
                             )}
@@ -308,19 +490,34 @@ export default function RoadmapPage() {
                               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                                 {lesson.title}
                               </h3>
-                              {lesson.track === 'capstone' && (
-                                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-black text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                                  👑 Đồ Án
+                              {lesson.track === 'html-css-capstone' && (
+                                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                                  💎 Đồ Án Web
                                 </span>
                               )}
-                              {lesson.track === 'advanced' && (
+                              {lesson.track === 'capstone' && (
+                                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-black text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                                  👑 Đồ Án Game
+                                </span>
+                              )}
+                              {lesson.track === 'html-foundation' && (
+                                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-black text-orange-800 dark:bg-orange-950 dark:text-orange-300">
+                                  🌐 HTML
+                                </span>
+                              )}
+                              {lesson.track === 'css-foundation' && (
+                                <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-[10px] font-black text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
+                                  🎨 CSS
+                                </span>
+                              )}
+                              {lesson.track === 'css-layout' && (
                                 <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-black text-purple-800 dark:bg-purple-950 dark:text-purple-300">
-                                  ⚡ ES6 & Async
+                                  📐 Flexbox
                                 </span>
                               )}
                               {lesson.track === 'foundation' && (
                                 <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-black text-blue-800 dark:bg-blue-950 dark:text-blue-300">
-                                  📘 Căn Bản
+                                  📘 JS Căn Bản
                                 </span>
                               )}
                             </div>
@@ -345,6 +542,8 @@ export default function RoadmapPage() {
                               className={`flex w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition shadow-xs ${
                                 isCompleted
                                   ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300'
+                                  : selectedCourse === 'html-css'
+                                  ? 'bg-orange-500 text-white hover:bg-orange-600 shadow-orange-500/20'
                                   : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-500/20'
                               }`}
                             >
@@ -373,3 +572,4 @@ export default function RoadmapPage() {
     </div>
   );
 }
+

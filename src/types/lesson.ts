@@ -1,5 +1,9 @@
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
+export type CourseType = 'javascript' | 'html-css';
+
+export type EditorLanguage = 'javascript' | 'html' | 'css';
+
 export type Category = 
   | 'variable'
   | 'datatype'
@@ -27,7 +31,19 @@ export type Category =
   | 'tabs'
   | 'toast'
   | 'form-validation'
-  | 'capstone';
+  | 'capstone'
+  // HTML & CSS categories
+  | 'html-basic'
+  | 'html-format'
+  | 'html-media'
+  | 'html-form'
+  | 'html-semantic'
+  | 'css-basic'
+  | 'css-typography'
+  | 'css-boxmodel'
+  | 'css-flexbox'
+  | 'css-effects'
+  | 'html-css-project';
 
 export interface SandboxLog {
   level: string;
@@ -51,7 +67,17 @@ export interface Lesson {
   title: string;
   shortDescription: string;
   category: Category;
-  track?: 'foundation' | 'dom' | 'advanced' | 'capstone';
+  course?: CourseType; // 'javascript' | 'html-css'
+  track?: 
+    | 'foundation' 
+    | 'dom' 
+    | 'advanced' 
+    | 'capstone' 
+    | 'html-foundation' 
+    | 'css-foundation' 
+    | 'css-layout' 
+    | 'html-css-capstone';
+  editorLanguage?: EditorLanguage; // 'javascript' (default) | 'html' | 'css'
   difficulty: Difficulty;
   xpReward: number;
   order: number;
@@ -70,8 +96,14 @@ export interface Lesson {
   // Initial code template for sandbox
   htmlContent: string;
   cssContent: string;
-  initialJsCode: string;
-  solutionJsCode: string;
+  initialJsCode?: string;
+  solutionJsCode?: string;
+
+  // For HTML / CSS lessons
+  initialHtmlCode?: string;
+  solutionHtmlCode?: string;
+  initialCssCode?: string;
+  solutionCssCode?: string;
 
   // Validation tests
   tests: TestCase[];
@@ -83,6 +115,7 @@ export interface Badge {
   description: string;
   icon: string;
   requirement: string;
+  course?: CourseType;
 }
 
 export interface UserProgress {

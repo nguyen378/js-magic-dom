@@ -1,12 +1,14 @@
 import { Badge } from '@/types/lesson';
 
 export const BADGES: Badge[] = [
+  // --- JAVASCRIPT COURSE BADGES ---
   {
     id: 'first_step',
     title: 'Tân Binh Phù Thủy',
     description: 'Hoàn thành bài học JavaScript đầu tiên',
     icon: '🪄',
-    requirement: 'Hoàn thành bài 1',
+    requirement: 'Hoàn thành bài 1 JS',
+    course: 'javascript',
   },
   {
     id: 'eagle_eye',
@@ -14,6 +16,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo chọn phần tử trong cây DOM',
     icon: '🦅',
     requirement: 'Hoàn thành các bài về Selector',
+    course: 'javascript',
   },
   {
     id: 'color_wizard',
@@ -21,6 +24,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ thuộc tính style và thay đổi giao diện',
     icon: '🎨',
     requirement: 'Hoàn thành các bài về Style',
+    course: 'javascript',
   },
   {
     id: 'event_master',
@@ -28,6 +32,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo bắt sự kiện click và tương tác người dùng',
     icon: '⚡',
     requirement: 'Hoàn thành các bài về addEventListener',
+    course: 'javascript',
   },
   {
     id: 'dom_builder',
@@ -35,6 +40,7 @@ export const BADGES: Badge[] = [
     description: 'Biết cách tự tạo và thêm mới các phần tử HTML',
     icon: '🏗️',
     requirement: 'Hoàn thành bài về createElement',
+    course: 'javascript',
   },
   {
     id: 'keyboard_hero',
@@ -42,6 +48,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ sự kiện bàn phím và nhập liệu theo thời gian thực',
     icon: '⌨️',
     requirement: 'Hoàn thành bài về sự kiện input',
+    course: 'javascript',
   },
   {
     id: 'cleanup_master',
@@ -49,6 +56,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo xóa phần tử và làm sạch cây DOM',
     icon: '🧹',
     requirement: 'Hoàn thành bài về xóa phần tử remove()',
+    course: 'javascript',
   },
   {
     id: 'var_collector',
@@ -56,6 +64,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ khái niệm khai báo biến let/const và kiểu dữ liệu',
     icon: '📦',
     requirement: 'Hoàn thành bài Biến và Kiểu dữ liệu',
+    course: 'javascript',
   },
   {
     id: 'function_wizard',
@@ -63,6 +72,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ hàm function, tham số parameters và giá trị trả về return',
     icon: '📜',
     requirement: 'Hoàn thành bài về Hàm Function',
+    course: 'javascript',
   },
   {
     id: 'string_operator_master',
@@ -70,6 +80,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo nối chuỗi Template String và các phép toán tử logic',
     icon: '🔤',
     requirement: 'Hoàn thành bài String và Toán tử',
+    course: 'javascript',
   },
   {
     id: 'loop_logic_king',
@@ -77,6 +88,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ rẽ nhánh điều kiện If/Else và vòng lặp tự động hóa',
     icon: '🔄',
     requirement: 'Hoàn thành bài Câu điều kiện và Vòng lặp',
+    course: 'javascript',
   },
   {
     id: 'data_structure_pro',
@@ -84,6 +96,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo tổ chức dữ liệu với Mảng Array và Đối tượng Object',
     icon: '🎒',
     requirement: 'Hoàn thành bài Mảng Array và Đối tượng Object',
+    course: 'javascript',
   },
   {
     id: 'array_transformer',
@@ -91,6 +104,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo map(), filter(), reduce() biến đổi dữ liệu mảng đỉnh cao',
     icon: '✨',
     requirement: 'Hoàn thành bài Siêu phương thức mảng',
+    course: 'javascript',
   },
   {
     id: 'es6_master',
@@ -98,6 +112,7 @@ export const BADGES: Badge[] = [
     description: 'Làm chủ Destructuring, Spread và các cú pháp hiện đại',
     icon: '⚡',
     requirement: 'Hoàn thành bài về ES6+',
+    course: 'javascript',
   },
   {
     id: 'async_sorcerer',
@@ -105,6 +120,7 @@ export const BADGES: Badge[] = [
     description: 'Thành thạo Promise và Fetch API kéo dữ liệu từ máy chủ',
     icon: '🌐',
     requirement: 'Hoàn thành bài Promise và Fetch API',
+    course: 'javascript',
   },
   {
     id: 'ui_component_architect',
@@ -112,6 +128,7 @@ export const BADGES: Badge[] = [
     description: 'Tự tay xây dựng thành công Tabs UI, Toast Message và Form Validation',
     icon: '🏛️',
     requirement: 'Hoàn thành các đồ án UI thực chiến',
+    course: 'javascript',
   },
   {
     id: 'game_master',
@@ -119,12 +136,64 @@ export const BADGES: Badge[] = [
     description: 'Hoàn thành dự án game Capstone đầu tay',
     icon: '👑',
     requirement: 'Hoàn thành dự án Mini-Game',
+    course: 'javascript',
   },
   {
     id: 'legendary_gamer',
     title: 'Kỷ Lục Gia Game',
     description: 'Phá đảo toàn bộ các bài học và Mini-Game Capstone của vương quốc',
     icon: '🏆',
-    requirement: 'Hoàn thành trọn vẹn toàn bộ 32 bài học',
+    requirement: 'Hoàn thành trọn vẹn toàn bộ 32 bài học JS',
+    course: 'javascript',
+  },
+
+  // --- HTML & CSS COURSE BADGES ---
+  {
+    id: 'html_newbie',
+    title: 'Tân Binh Thẻ HTML',
+    description: 'Tự tay viết nên các thẻ HTML và tiêu đề đầu tiên',
+    icon: '🌐',
+    requirement: 'Hoàn thành bài HTML đầu tiên',
+    course: 'html-css',
+  },
+  {
+    id: 'text_master',
+    title: 'Bậc Thầy Soạn Thảo Web',
+    description: 'Làm chủ các thẻ văn bản, link liên kết, hình ảnh và danh sách',
+    icon: '📑',
+    requirement: 'Hoàn thành các bài Thẻ nội dung HTML',
+    course: 'html-css',
+  },
+  {
+    id: 'css_painter',
+    title: 'Họa Sĩ Sắc Màu CSS',
+    description: 'Thành thạo tô màu, gradient, đổi font chữ và bo viền hộp card',
+    icon: '🎨',
+    requirement: 'Hoàn thành bài Color, Background, Font & Border',
+    course: 'html-css',
+  },
+  {
+    id: 'box_model_architect',
+    title: 'Kiến Trúc Sư Box Model',
+    description: 'Làm chủ bí quyết căn lề Margin, vùng đệm Padding và Box Model',
+    icon: '📦',
+    requirement: 'Hoàn thành bài Box Model & Display',
+    course: 'html-css',
+  },
+  {
+    id: 'flexbox_ninja',
+    title: 'Ninja Bố Cục Flexbox',
+    description: 'Thành thạo dàn hàng ngang, căn giữa và bố cục hiện đại với Flexbox',
+    icon: '📐',
+    requirement: 'Hoàn thành các bài về Flexbox & Hiệu ứng',
+    course: 'html-css',
+  },
+  {
+    id: 'web_stylist',
+    title: 'Nhà Thiết Kế Web Toàn Năng',
+    description: 'Hoàn thành trọn bộ lộ trình và các đồ án thực chiến HTML & CSS',
+    icon: '💎',
+    requirement: 'Hoàn thành trọn bộ 18 bài học HTML & CSS',
+    course: 'html-css',
   },
 ];
