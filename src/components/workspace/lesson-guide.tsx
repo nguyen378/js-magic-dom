@@ -51,16 +51,8 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
           </span>
         </div>
         <span className="text-xs font-medium text-slate-400">
-          {lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')
-            ? lesson.track === 'html-foundation'
-              ? `HTML Bài ${lesson.order} / 7`
-              : lesson.track === 'css-foundation'
-              ? `CSS Bài ${lesson.order - 7} / 4`
-              : lesson.track === 'css-layout'
-              ? `Layout Bài ${lesson.order - 11} / 4`
-              : lesson.track === 'html-css-capstone'
-              ? `Đồ án P${lesson.order - 15} / 3`
-              : `Bài ${lesson.order} / 18`
+          {lesson.course === 'html-css' || lesson.id.startsWith('w')
+            ? `Tuần ${lesson.week || lesson.order} / 16 (60 phút)`
             : lesson.track === 'foundation'
             ? `Bài F${lesson.order} / 10`
             : lesson.track === 'advanced'

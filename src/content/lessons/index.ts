@@ -79,10 +79,24 @@ export const CAPSTONE_LESSONS: Lesson[] = [
   lesson15,
 ];
 
-import { HTML_CSS_LESSONS, HTML_FOUNDATION_LESSONS, CSS_FOUNDATION_LESSONS, CSS_LAYOUT_LESSONS, HTML_CSS_CAPSTONE_LESSONS } from '../html-css-lessons';
+import { 
+  HTML_CSS_LESSONS, 
+  WEEK1_4_HTML_FOUNDATION, 
+  WEEK5_8_CSS_STYLING, 
+  WEEK9_12_FLEXBOX_RESPONSIVE, 
+  WEEK13_16_CAPSTONE_PORTFOLIO,
+  HTML_FOUNDATION_LESSONS, 
+  CSS_FOUNDATION_LESSONS, 
+  CSS_LAYOUT_LESSONS, 
+  HTML_CSS_CAPSTONE_LESSONS 
+} from '../html-css-lessons';
 
 export {
   HTML_CSS_LESSONS,
+  WEEK1_4_HTML_FOUNDATION,
+  WEEK5_8_CSS_STYLING,
+  WEEK9_12_FLEXBOX_RESPONSIVE,
+  WEEK13_16_CAPSTONE_PORTFOLIO,
   HTML_FOUNDATION_LESSONS,
   CSS_FOUNDATION_LESSONS,
   CSS_LAYOUT_LESSONS,
@@ -111,7 +125,7 @@ export function getLessonById(id: string): Lesson | undefined {
 
 export function getNextLessonId(currentId: string): string | null {
   const currentLesson = getLessonById(currentId);
-  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
+  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('w') || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
     ? HTML_CSS_LESSONS 
     : JAVASCRIPT_LESSONS;
 
@@ -124,7 +138,7 @@ export function getNextLessonId(currentId: string): string | null {
 
 export function getPrevLessonId(currentId: string): string | null {
   const currentLesson = getLessonById(currentId);
-  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
+  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('w') || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
     ? HTML_CSS_LESSONS 
     : JAVASCRIPT_LESSONS;
 
@@ -134,3 +148,4 @@ export function getPrevLessonId(currentId: string): string | null {
   }
   return null;
 }
+

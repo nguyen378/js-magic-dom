@@ -48,22 +48,22 @@ export default function HomePage() {
                   🌐
                 </div>
                 <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-black text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 border border-orange-200 dark:border-orange-900">
-                  Lộ Trình 1 (18 bài)
+                  Lộ Trình 1 (16 Tuần Học)
                 </span>
               </div>
               <h2 className="text-xl font-black text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                HTML & CSS Cơ Bản
+                HTML & CSS: Xây Dựng Website Cá Nhân
               </h2>
               <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Học từ con số 0: Thẻ HTML, tô màu, font chữ, khung viền, CSS Box Model, bố cục Flexbox và dựng 3 đồ án giao diện thực chiến!
+                Thiết kế chuẩn 1 tiết 60 phút/tuần: 12 tuần rèn luyện kỹ năng cốt lõi (Thẻ HTML, tô màu, Box Model, Flexbox, Responsive) + 4 tuần hoàn thiện Website Cá Nhân!
               </p>
               <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs font-bold text-slate-400">Dành cho người mới bắt đầu</span>
+                <span className="text-xs font-bold text-slate-400">12 tuần học + 4 tuần đồ án</span>
                 <Link
-                  href="/lesson/html01-first-tags"
+                  href="/lesson/w01-first-page"
                   className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/25 hover:bg-orange-600 transition"
                 >
-                  <span>Học Bài 1</span>
+                  <span>Vào Tuần 1</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -102,7 +102,7 @@ export default function HomePage() {
           {/* Key Metric Highlights */}
           <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl mx-auto">
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-orange-500">50+</div>
+              <div className="text-2xl sm:text-3xl font-black text-orange-500">48+</div>
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Bài Học & Đồ Án</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
@@ -114,8 +114,8 @@ export default function HomePage() {
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Huy Hiệu Danh Dự</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-indigo-500">2</div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Lộ Trình Tách Biệt</div>
+              <div className="text-2xl sm:text-3xl font-black text-indigo-500">16 Tuần</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Tự Làm Web Riêng</div>
             </div>
           </div>
 

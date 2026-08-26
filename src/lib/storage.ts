@@ -225,30 +225,30 @@ export const StorageService = {
       currentBadges.add('ui_component_architect');
     }
 
-    // HTML & CSS badges
-    if (updatedCompleted.includes('html01-first-tags') && !currentBadges.has('html_newbie')) {
-      newBadges.push('html_newbie');
-      currentBadges.add('html_newbie');
+    // HTML & CSS 16-Week Badges
+    if ((updatedCompleted.includes('w01-first-page') || updatedCompleted.includes('w02-text-image') || updatedCompleted.includes('w03-lists-links') || updatedCompleted.includes('w04-semantic-layout')) && !currentBadges.has('html_starter')) {
+      newBadges.push('html_starter');
+      currentBadges.add('html_starter');
     }
-    if ((updatedCompleted.includes('html02-text-formatting') || updatedCompleted.includes('html03-links-anchor') || updatedCompleted.includes('html04-images') || updatedCompleted.includes('html05-lists')) && !currentBadges.has('text_master')) {
-      newBadges.push('text_master');
-      currentBadges.add('text_master');
+    if ((updatedCompleted.includes('w05-colors-fonts') || updatedCompleted.includes('w06-borders-shadow')) && !currentBadges.has('css_color_wizard')) {
+      newBadges.push('css_color_wizard');
+      currentBadges.add('css_color_wizard');
     }
-    if ((updatedCompleted.includes('css01-color-background') || updatedCompleted.includes('css02-fonts-typography') || updatedCompleted.includes('css03-borders-radius')) && !currentBadges.has('css_painter')) {
-      newBadges.push('css_painter');
-      currentBadges.add('css_painter');
+    if ((updatedCompleted.includes('w07-box-model') || updatedCompleted.includes('w08-hover-transitions')) && !currentBadges.has('box_model_master')) {
+      newBadges.push('box_model_master');
+      currentBadges.add('box_model_master');
     }
-    if ((updatedCompleted.includes('css04-box-model') || updatedCompleted.includes('css05-display-properties')) && !currentBadges.has('box_model_architect')) {
-      newBadges.push('box_model_architect');
-      currentBadges.add('box_model_architect');
-    }
-    if ((updatedCompleted.includes('css06-flexbox-basics') || updatedCompleted.includes('css07-flexbox-align')) && !currentBadges.has('flexbox_ninja')) {
+    if ((updatedCompleted.includes('w09-flexbox-basics') || updatedCompleted.includes('w10-flexbox-align') || updatedCompleted.includes('w11-flex-gallery')) && !currentBadges.has('flexbox_ninja')) {
       newBadges.push('flexbox_ninja');
       currentBadges.add('flexbox_ninja');
     }
-    if ((updatedCompleted.includes('proj-html-css-01') || updatedCompleted.includes('proj-html-css-02') || updatedCompleted.includes('proj-html-css-03')) && !currentBadges.has('web_stylist')) {
-      newBadges.push('web_stylist');
-      currentBadges.add('web_stylist');
+    if (updatedCompleted.includes('w12-responsive-basic') && !currentBadges.has('responsive_engineer')) {
+      newBadges.push('responsive_engineer');
+      currentBadges.add('responsive_engineer');
+    }
+    if ((updatedCompleted.includes('w13-capstone-hero') || updatedCompleted.includes('w14-capstone-about-skills') || updatedCompleted.includes('w15-capstone-gallery-contact') || updatedCompleted.includes('w16-capstone-final')) && !currentBadges.has('personal_web_author')) {
+      newBadges.push('personal_web_author');
+      currentBadges.add('personal_web_author');
     }
 
     const newProgress: UserProgress = {

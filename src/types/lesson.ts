@@ -76,11 +76,17 @@ export interface Lesson {
     | 'html-foundation' 
     | 'css-foundation' 
     | 'css-layout' 
-    | 'html-css-capstone';
+    | 'html-css-capstone'
+    | 'w-html-foundation'
+    | 'w-css-styling'
+    | 'w-flexbox-responsive'
+    | 'w-capstone-portfolio';
   editorLanguage?: EditorLanguage; // 'javascript' (default) | 'html' | 'css'
   difficulty: Difficulty;
   xpReward: number;
   order: number;
+  week?: number; // Tuần học (1 - 16)
+  durationMinutes?: number; // 60 phút
   
   // Lesson story & instructions
   story: string;

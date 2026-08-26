@@ -10,10 +10,10 @@ import {
   ADVANCED_LESSONS, 
   CAPSTONE_LESSONS,
   HTML_CSS_LESSONS,
-  HTML_FOUNDATION_LESSONS,
-  CSS_FOUNDATION_LESSONS,
-  CSS_LAYOUT_LESSONS,
-  HTML_CSS_CAPSTONE_LESSONS
+  WEEK1_4_HTML_FOUNDATION,
+  WEEK5_8_CSS_STYLING,
+  WEEK9_12_FLEXBOX_RESPONSIVE,
+  WEEK13_16_CAPSTONE_PORTFOLIO
 } from '@/content/lessons';
 import { BADGES } from '@/content/badges';
 import { useProgress } from '@/lib/storage';
@@ -111,44 +111,44 @@ const JS_CHAPTERS: Chapter[] = [
 
 const HTML_CSS_CHAPTERS: Chapter[] = [
   {
-    id: 'html_ch1',
+    id: 'html_stage1',
     course: 'html-css',
-    track: 'html-foundation',
-    title: 'Chặng 1: Khởi Đầu HTML & Thẻ Nội Dung',
-    subtitle: 'Thẻ tiêu đề h1-h6, đoạn văn p, in đậm in nghiêng, link liên kết a, ảnh img, danh sách ul/li và ô nhập',
+    track: 'w-html-foundation',
+    title: 'Giai Đoạn 1 (Tuần 1 - 4): Khởi Đầu & Khung Xương HTML',
+    subtitle: '1 tiết 60p/tuần: Thẻ tiêu đề h1-h6, đoạn văn p, định dạng chữ strong/em, ảnh đại diện avatar img, danh sách sở thích và bố cục khung semantic.',
     icon: '🌐',
     color: 'from-orange-500 to-amber-600',
-    lessons: HTML_FOUNDATION_LESSONS,
+    lessons: WEEK1_4_HTML_FOUNDATION,
   },
   {
-    id: 'css_ch1',
+    id: 'html_stage2',
     course: 'html-css',
-    track: 'css-foundation',
-    title: 'Chặng 2: CSS Cơ Bản - Màu Sắc & Định Dạng',
-    subtitle: 'Đổi màu chữ color, màu nền background, font chữ typography, khung viền border, bo góc và Box Model',
+    track: 'w-css-styling',
+    title: 'Giai Đoạn 2 (Tuần 5 - 8): Tô Màu, Viền & CSS Box Model',
+    subtitle: '1 tiết 60p/tuần: Nhuộm màu giao diện color/background, font chữ, bo tròn avatar border-radius: 50%, đổ bóng 3D, đệm Padding, lề Margin và hiệu ứng hover.',
     icon: '🎨',
     color: 'from-cyan-500 to-blue-600',
-    lessons: CSS_FOUNDATION_LESSONS,
+    lessons: WEEK5_8_CSS_STYLING,
   },
   {
-    id: 'css_ch2',
+    id: 'html_stage3',
     course: 'html-css',
-    track: 'css-layout',
-    title: 'Chặng 3: Bố Cục Flexbox Hiện Đại & Hiệu Ứng',
-    subtitle: 'Thuộc tính display, dàn hàng ngang flexbox, căn giữa justify/align, khoảng cách gap và hiệu ứng hover mượt mà',
+    track: 'w-flexbox-responsive',
+    title: 'Giai Đoạn 3 (Tuần 9 - 12): Bố Cục Flexbox & Tối Ưu Điện Thoại',
+    subtitle: '1 tiết 60p/tuần: Dàn hàng ngang display: flex, khoảng cách gap, căn giữa trục, lưới ảnh dự án flex-wrap và Responsive Media Query @media.',
     icon: '📐',
     color: 'from-indigo-500 to-purple-600',
-    lessons: CSS_LAYOUT_LESSONS,
+    lessons: WEEK9_12_FLEXBOX_RESPONSIVE,
   },
   {
-    id: 'html_css_cap',
+    id: 'html_stage4',
     course: 'html-css',
-    track: 'html-css-capstone',
-    title: 'Chặng 4: Đồ Án HTML & CSS Thực Chiến',
-    subtitle: 'Tự tay xây dựng Thẻ Profile Card dũng sĩ, Bảng Giá Pricing Cards 3 cột và Hero Landing Section game hoàn chỉnh',
-    icon: '💎',
+    track: 'w-capstone-portfolio',
+    title: 'Giai Đoạn 4 (Tuần 13 - 16): Đồ Án Tốt Nghiệp — Website Cá Nhân',
+    subtitle: '4 tuần đồ án: Header & Hero Banner, Section Về Tôi & Kỹ Năng, Lưới Dự Án & Form Liên Hệ, Hoàn thiện Responsive & Xuất bản báo cáo.',
+    icon: '👑',
     color: 'from-emerald-500 to-teal-600',
-    lessons: HTML_CSS_CAPSTONE_LESSONS,
+    lessons: WEEK13_16_CAPSTONE_PORTFOLIO,
   },
 ];
 
@@ -181,13 +181,13 @@ export default function RoadmapPage() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 mb-3">
             <Sparkles className="h-4 w-4 text-indigo-500" />
-            <span>Hệ Thống Lộ Trình Học Lập Trình Web Toàn Diện Cho Học Sinh</span>
+            <span>Chương Trình 16 Tuần: 12 Tuần Thực Hành + 4 Tuần Xây Dựng Website Cá Nhân</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             Bản Đồ Phiêu Lưu Lập Trình Web
           </h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Chọn lộ trình học tập phù hợp với mục tiêu của bạn: từ kiến tạo giao diện HTML/CSS đến phù phép chuyển động với JavaScript!
+            Mỗi tuần 1 tiết 60 phút thực hành trực quan: từ tạo khung xương, tô màu giao diện đến hoàn thiện Website cá nhân hoàn chỉnh!
           </p>
         </div>
 
@@ -203,7 +203,7 @@ export default function RoadmapPage() {
               }`}
             >
               <Globe className="h-4 w-4" />
-              <span>🌐 Lộ Trình HTML & CSS ({HTML_CSS_LESSONS.length} bài)</span>
+              <span>🌐 Lộ Trình HTML & CSS (16 Tuần Học)</span>
             </button>
 
             <button
@@ -226,13 +226,13 @@ export default function RoadmapPage() {
             
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Tiến độ: {selectedCourse === 'html-css' ? 'HTML & CSS' : 'JavaScript'}
+                Tiến độ: {selectedCourse === 'html-css' ? 'HTML & CSS (16 Tuần)' : 'JavaScript'}
               </div>
               <div className="mt-1 flex items-baseline gap-2 justify-center sm:justify-start">
                 <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400">
                   {completedInCourse}
                 </span>
-                <span className="text-slate-500 font-semibold">/ {currentCourseLessons.length} bài học</span>
+                <span className="text-slate-500 font-semibold">/ {currentCourseLessons.length} bài ({selectedCourse === 'html-css' ? `${completedInCourse}/16 tuần` : 'bài học'})</span>
               </div>
               {/* Progress Bar */}
               <div className="mt-3 h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -254,7 +254,7 @@ export default function RoadmapPage() {
                 <span>{progress.xp} XP</span>
               </div>
               <div className="mt-2 text-xs text-slate-500">
-                {progress.xp >= 1500 ? '👑 Đại Pháp Sư Tối Thượng' : progress.xp >= 600 ? '🧙‍♂️ Pháp Sư Lành Nghề' : '🪄 Tân Binh Đang Luyện Tập'}
+                {progress.xp >= 1500 ? '👑 Đại Sư Lập Trình' : progress.xp >= 600 ? '🧙‍♂️ Học Viên Lành Nghề' : '🪄 Tân Binh Đang Luyện Tập'}
               </div>
             </div>
 
@@ -294,51 +294,51 @@ export default function RoadmapPage() {
           {selectedCourse === 'html-css' ? (
             <>
               <button
-                onClick={() => setActiveTab('html-foundation')}
+                onClick={() => setActiveTab('w-html-foundation')}
                 className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                  activeTab === 'html-foundation'
+                  activeTab === 'w-html-foundation'
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25 scale-105'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
                 }`}
               >
                 <BookOpen className="h-3.5 w-3.5" />
-                <span>📑 Thẻ HTML ({HTML_FOUNDATION_LESSONS.length})</span>
+                <span>📑 GĐ 1: HTML (Tuần 1-4)</span>
               </button>
 
               <button
-                onClick={() => setActiveTab('css-foundation')}
+                onClick={() => setActiveTab('w-css-styling')}
                 className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                  activeTab === 'css-foundation'
+                  activeTab === 'w-css-styling'
                     ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/25 scale-105'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
                 }`}
               >
                 <Palette className="h-3.5 w-3.5" />
-                <span>🎨 CSS Căn Bản ({CSS_FOUNDATION_LESSONS.length})</span>
+                <span>🎨 GĐ 2: CSS (Tuần 5-8)</span>
               </button>
 
               <button
-                onClick={() => setActiveTab('css-layout')}
+                onClick={() => setActiveTab('w-flexbox-responsive')}
                 className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                  activeTab === 'css-layout'
+                  activeTab === 'w-flexbox-responsive'
                     ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
                 }`}
               >
                 <Layout className="h-3.5 w-3.5" />
-                <span>📐 Flexbox & Layout ({CSS_LAYOUT_LESSONS.length})</span>
+                <span>📐 GĐ 3: Flexbox (Tuần 9-12)</span>
               </button>
 
               <button
-                onClick={() => setActiveTab('html-css-capstone')}
+                onClick={() => setActiveTab('w-capstone-portfolio')}
                 className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                  activeTab === 'html-css-capstone'
+                  activeTab === 'w-capstone-portfolio'
                     ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-105'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
                 }`}
               >
                 <Crown className="h-3.5 w-3.5" />
-                <span>👑 Đồ Án Web ({HTML_CSS_CAPSTONE_LESSONS.length})</span>
+                <span>👑 GĐ 4: Đồ Án (Tuần 13-16)</span>
               </button>
             </>
           ) : (
@@ -416,7 +416,7 @@ export default function RoadmapPage() {
                     </div>
                   </div>
                   <div className="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full self-start sm:self-auto">
-                    {completedInChapter} / {chapter.lessons.length} hoàn thành
+                    {completedInChapter} / {chapter.lessons.length} tuần hoàn thành
                   </div>
                 </div>
 
@@ -429,22 +429,18 @@ export default function RoadmapPage() {
                     // Unlocked if first in track/chapter, or first overall in course, or previous lesson completed
                     const isUnlocked = 
                       courseIdx === 0 || 
-                      lesson.id === 'html01-first-tags' ||
-                      lesson.id === 'css01-color-background' ||
-                      lesson.id === 'css05-display-properties' ||
-                      lesson.id === 'proj-html-css-01' ||
+                      lesson.id === 'w01-first-page' ||
+                      lesson.id === 'w05-colors-fonts' ||
+                      lesson.id === 'w09-flexbox-basics' ||
+                      lesson.id === 'w13-capstone-hero' ||
                       lesson.id === '01-select-element' || 
                       lesson.id === 'adv01-es6-features' ||
                       lesson.id === '13-todo-list' ||
                       progress.completedLessons.includes(currentCourseLessons[courseIdx - 1]?.id);
 
                     const getLessonBadgeLabel = () => {
-                      if (lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')) {
-                        if (lesson.track === 'html-foundation') return `H${lesson.order}`;
-                        if (lesson.track === 'css-foundation') return `C${lesson.order - 7}`;
-                        if (lesson.track === 'css-layout') return `L${lesson.order - 11}`;
-                        if (lesson.track === 'html-css-capstone') return `P${lesson.order - 15}`;
-                        return `${lesson.order}`;
+                      if (lesson.course === 'html-css' || lesson.id.startsWith('w')) {
+                        return `T${lesson.week || lesson.order}`;
                       }
                       if (lesson.track === 'foundation') return `F${lesson.order}`;
                       if (lesson.track === 'advanced') return `ES${lesson.order}`;
@@ -490,29 +486,29 @@ export default function RoadmapPage() {
                               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                                 {lesson.title}
                               </h3>
-                              {lesson.track === 'html-css-capstone' && (
+                              {lesson.track === 'w-capstone-portfolio' && (
                                 <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                                  💎 Đồ Án Web
+                                  👑 Đồ Án Cá Nhân
+                                </span>
+                              )}
+                              {lesson.track === 'w-html-foundation' && (
+                                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-black text-orange-800 dark:bg-orange-950 dark:text-orange-300">
+                                  🌐 Khung HTML
+                                </span>
+                              )}
+                              {lesson.track === 'w-css-styling' && (
+                                <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-[10px] font-black text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
+                                  🎨 Tô Màu CSS
+                                </span>
+                              )}
+                              {lesson.track === 'w-flexbox-responsive' && (
+                                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-black text-purple-800 dark:bg-purple-950 dark:text-purple-300">
+                                  📐 Bố Cục Flexbox
                                 </span>
                               )}
                               {lesson.track === 'capstone' && (
                                 <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-black text-amber-800 dark:bg-amber-950 dark:text-amber-300">
                                   👑 Đồ Án Game
-                                </span>
-                              )}
-                              {lesson.track === 'html-foundation' && (
-                                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-black text-orange-800 dark:bg-orange-950 dark:text-orange-300">
-                                  🌐 HTML
-                                </span>
-                              )}
-                              {lesson.track === 'css-foundation' && (
-                                <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-[10px] font-black text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
-                                  🎨 CSS
-                                </span>
-                              )}
-                              {lesson.track === 'css-layout' && (
-                                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-black text-purple-800 dark:bg-purple-950 dark:text-purple-300">
-                                  📐 Flexbox
                                 </span>
                               )}
                               {lesson.track === 'foundation' && (
@@ -528,6 +524,8 @@ export default function RoadmapPage() {
                               <span className="flex items-center gap-1 text-amber-500 font-semibold">
                                 <Sparkles className="h-3 w-3" /> +{lesson.xpReward} XP
                               </span>
+                              <span>•</span>
+                              <span>60 phút thực hành</span>
                               <span>•</span>
                               <span>{lesson.taskInstructions.length} nhiệm vụ</span>
                             </div>
@@ -547,13 +545,13 @@ export default function RoadmapPage() {
                                   : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-500/20'
                               }`}
                             >
-                              <span>{isCompleted ? 'Làm lại' : 'Bắt đầu học'}</span>
+                              <span>{isCompleted ? 'Làm lại' : 'Vào tiết học'}</span>
                               <ArrowRight className="h-3.5 w-3.5" />
                             </Link>
                           ) : (
                             <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-400 px-4 py-2">
                               <Lock className="h-3.5 w-3.5" />
-                              <span>Khóa</span>
+                              <span>Chưa mở</span>
                             </div>
                           )}
                         </div>
@@ -572,4 +570,5 @@ export default function RoadmapPage() {
     </div>
   );
 }
+
 
