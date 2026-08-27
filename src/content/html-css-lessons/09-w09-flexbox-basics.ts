@@ -2,8 +2,8 @@ import { Lesson } from '@/types/lesson';
 
 export const LESSON_W09: Lesson = {
   id: 'w09-flexbox-basics',
-  title: 'Tuần 9: Flexbox Cơ Bản - Dàn Hàng Ngang Linh Hoạt',
-  shortDescription: 'Bắt đầu Giai đoạn 3: Làm quen với siêu công nghệ Flexbox. Xếp các thẻ sở thích, kỹ năng dàn hàng ngang đều nhau với display: flex và gap.',
+  title: 'Buổi 9: Bố Cục Flexbox Cơ Bản (1 Chiều)',
+  shortDescription: 'Làm quen display: flex dàn hàng ngang, căn ngang justify-content (center, space-between), căn dọc align-items và khoảng cách tự động gap.',
   category: 'css-flexbox',
   course: 'html-css',
   track: 'w-flexbox-responsive',
@@ -14,108 +14,181 @@ export const LESSON_W09: Lesson = {
   week: 9,
   durationMinutes: 60,
 
-  story: `Chào mừng bạn đến với **Tuần 9 — Khám phá sức mạnh Flexbox**! 📐
+  story: `Chào mừng bạn đến với **Buổi 9: Bố cục Flexbox cơ bản (1 chiều)**! 📐
 
-Mặc định các khối thẻ \`<div>\` luôn xếp chồng lên nhau thành hàng dọc. Làm sao để xếp chúng dàn hàng ngang như các website chuyên nghiệp?
-- \`display: flex\`: Biến khối cha thành **Flex Container** và ngay lập tức dàn tất cả phần tử con thành **hàng ngang**!
-- \`gap: 16px\`: Tự động tạo khoảng cách đều đặn giữa các cột mà không cần tính toán margin phức tạp.`,
+Flexbox là công nghệ dàn trang mạnh mẽ và quan trọng nhất của lập trình web hiện đại:
+- **\`display: flex\`**: Bật chế độ Flexbox cho khung cha (Flex Container), biến toàn bộ các phần tử con thành hàng ngang ngay lập tức.
+- **Căn chỉnh trục chính (Ngang) \`justify-content\`**:
+  - \`center\`: Đưa toàn bộ nội dung vào chính giữa.
+  - \`space-between\`: Đẩy 2 đầu phần tử dạt về 2 phía mép khung (dành cho Logo bên trái, Menu bên phải).
+- **Căn chỉnh trục phụ (Dọc) \`align-items: center\`**: Canh thẳng hàng các phần tử theo chiều cao dọc.
+- **Khoảng cách tự động \`gap\`**: Tạo khoảng cách đều đặn giữa các nút hay cột mà không cần margin.`,
 
   taskInstructions: [
-    'Đặt `display: flex` cho `.skills-container` để các thẻ kỹ năng dàn thành hàng ngang',
-    'Đặt `gap: 16px` cho `.skills-container` để các thẻ cách đều nhau',
-    'Đặt `flex: 1` cho mỗi thẻ `.skill-item` để các thẻ có chiều rộng tự động co giãn bằng nhau'
+    '🟢 Bài 9.1: Đặt `display: flex` cho `.container` để 3 thẻ con tự động dàn thành hàng ngang',
+    '🟢 Bài 9.2: Đặt cho khung `.banner`: `display: flex; justify-content: center; align-items: center; height: 250px;` để căn giữa tiêu đề',
+    '🟡 Bài 9.3: Cài đặt cho khung `.header`: `display: flex; justify-content: space-between; align-items: center;` để đẩy Logo sang trái, Menu sang phải',
+    '🟡 Bài 9.4: Đặt `display: flex` và `gap: 15px` cho `.button-group` tạo khoảng cách đều giữa các nút'
   ],
 
   hints: {
-    level1: 'Viết .skills-container { display: flex; gap: 16px; } và .skill-item { flex: 1; }',
-    level2: 'Ví dụ:\n.skills-container {\n  display: flex;\n  gap: 16px;\n}\n.skill-item {\n  flex: 1;\n}',
-    solution: '.skills-container {\n  display: flex;\n  gap: 16px;\n}\n.skill-item {\n  flex: 1;\n}'
+    level1: 'Viết các thuộc tính Flexbox cho .container, .banner, .header, và .button-group.',
+    level2: `/* Gợi ý cú pháp */
+.container {
+  display: flex;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+}`,
+    solution: `.container {
+  display: flex;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+}`
   },
 
-  htmlContent: `<div class="wrapper">
-  <h2>Kỹ Năng Của Tôi</h2>
-  <div class="skills-container">
-    <div class="skill-item">
-      <span class="badge">🌐</span>
-      <h3>HTML5</h3>
-      <p>Dựng khung web</p>
-    </div>
-    <div class="skill-item">
-      <span class="badge">🎨</span>
-      <h3>CSS3</h3>
-      <p>Trang trí giao diện</p>
-    </div>
-    <div class="skill-item">
-      <span class="badge">⚡</span>
-      <h3>Logic</h3>
-      <p>Tư duy lập trình</p>
-    </div>
-  </div>
+  htmlContent: `<div class="header">
+  <div class="logo">🚀 MyBrand</div>
+  <nav class="nav-menu">
+    <a href="#">Trang chủ</a> • <a href="#">Dự án</a> • <a href="#">Liên hệ</a>
+  </nav>
+</div>
+
+<div class="banner">
+  <h2>Chào Mừng Đến Với Thế Giới Flexbox</h2>
+</div>
+
+<h3>Các khối hộp ngang:</h3>
+<div class="container">
+  <div class="box">Khối 1</div>
+  <div class="box">Khối 2</div>
+  <div class="box">Khối 3</div>
+</div>
+
+<h3>Hàng nút bấm:</h3>
+<div class="button-group">
+  <button class="btn">Nút 1</button>
+  <button class="btn">Nút 2</button>
+  <button class="btn">Nút 3</button>
+  <button class="btn">Nút 4</button>
 </div>`,
   cssContent: `body {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #f1f5f9;
-  padding: 40px 20px;
+  background: #f8fafc;
+  padding: 20px;
   margin: 0;
 }
-.wrapper {
-  max-width: 600px;
-  margin: 0 auto;
+.header {
+  background: white;
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-h2 {
-  color: #0f172a;
+.logo {
+  font-weight: bold;
+  color: #4f46e5;
+}
+.banner {
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  color: white;
+  border-radius: 16px;
   margin-bottom: 20px;
   text-align: center;
 }
-.skill-item {
+.box {
   background: white;
-  padding: 20px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border: 1px solid #e2e8f0;
+  padding: 16px 24px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  margin-right: 8px;
 }
-.badge {
-  font-size: 28px;
-  display: block;
-  margin-bottom: 6px;
-}
-.skill-item h3 {
-  margin: 0 0 4px;
-  color: #3b82f6;
-  font-size: 16px;
-}
-.skill-item p {
-  margin: 0;
-  color: #64748b;
-  font-size: 13px;
+.btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
 }`,
 
-  initialCssCode: `/* Tuần 9: Bật display: flex và gap cho .skills-container và flex: 1 cho .skill-item */
-.skills-container {
+  initialCssCode: `/* Buổi 9: Thực hành Flexbox cho .container, .banner, .header và .button-group */
+.container {
 
 }
 
-.skill-item {
+.banner {
+
+}
+
+.header {
+
+}
+
+.button-group {
 
 }
 `,
-  solutionCssCode: `.skills-container {
+  solutionCssCode: `.container {
   display: flex;
-  gap: 16px;
 }
 
-.skill-item {
-  flex: 1;
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
 }
 `,
 
   tests: [
     {
       id: 'w09-t1',
-      description: '.skills-container có display là flex',
+      description: 'Bài 9.1: .container có display: flex',
       tester: (doc: Document, win: Window) => {
-        const container = doc.querySelector('.skills-container');
+        const container = doc.querySelector('.container');
         if (!container) return false;
         const style = win.getComputedStyle(container);
         return style.display === 'flex';
@@ -123,22 +196,32 @@ h2 {
     },
     {
       id: 'w09-t2',
-      description: '.skills-container có thuộc tính gap: 16px',
+      description: 'Bài 9.2: .banner có display: flex, justify-content: center, align-items: center và height: 250px',
       tester: (doc: Document, win: Window) => {
-        const container = doc.querySelector('.skills-container');
-        if (!container) return false;
-        const style = win.getComputedStyle(container);
-        return style.gap === '16px' || style.columnGap === '16px';
+        const banner = doc.querySelector('.banner');
+        if (!banner) return false;
+        const style = win.getComputedStyle(banner);
+        return style.display === 'flex' && style.justifyContent === 'center' && style.alignItems === 'center' && style.height === '250px';
       }
     },
     {
       id: 'w09-t3',
-      description: '.skill-item có flex-grow hoặc flex: 1',
+      description: 'Bài 9.3: .header có display: flex, justify-content: space-between và align-items: center',
       tester: (doc: Document, win: Window) => {
-        const item = doc.querySelector('.skill-item');
-        if (!item) return false;
-        const style = win.getComputedStyle(item);
-        return style.flexGrow === '1';
+        const header = doc.querySelector('.header');
+        if (!header) return false;
+        const style = win.getComputedStyle(header);
+        return style.display === 'flex' && style.justifyContent === 'space-between' && style.alignItems === 'center';
+      }
+    },
+    {
+      id: 'w09-t4',
+      description: 'Bài 9.4: .button-group có display: flex và gap: 15px',
+      tester: (doc: Document, win: Window) => {
+        const group = doc.querySelector('.button-group');
+        if (!group) return false;
+        const style = win.getComputedStyle(group);
+        return style.display === 'flex' && (style.gap === '15px' || style.columnGap === '15px');
       }
     }
   ]

@@ -2,233 +2,388 @@ import { Lesson } from '@/types/lesson';
 
 export const LESSON_W16: Lesson = {
   id: 'w16-capstone-final',
-  title: 'Tuần 16 (Đồ Án GĐ 4): Hoàn Thiện, Responsive & Xuất Bản',
-  shortDescription: 'Chạm đỉnh vinh quang: Tinh chỉnh hiệu ứng hover mượt mà, tối ưu Responsive trên điện thoại 100%, hoàn thiện trọn vẹn Trang Web Cá Nhân và mở khóa Huy Hiệu Tốt Nghiệp!',
+  title: 'Buổi 16: Dự Án Cuối Khóa (4/4) — Hoàn Thiện & Tổng Kết',
+  shortDescription: 'Kiểm thử toàn diện, chuẩn hóa Clean Code, hoàn thiện bài thuyết trình giới thiệu website cá nhân và xuất sắc nhận Huy Hiệu Tốt Nghiệp!',
   category: 'html-css-project',
   course: 'html-css',
   track: 'w-capstone-portfolio',
-  editorLanguage: 'css',
+  editorLanguage: 'html',
   difficulty: 'hard',
   xpReward: 200,
   order: 16,
   week: 16,
   durationMinutes: 60,
 
-  story: `🎉 **CHÚC MỪNG BẠN ĐÃ ĐẾN VỚI TUẦN 16 — BUỔI HỌC VỀ ĐÍCH CỦA KHÓA HỌC!** 🏆
+  story: `🎉 CHÚC MỪNG BẠN ĐÃ CHẠM TỚI **BUỔI 16 — BUỔI TỐT NGHIỆP KHÓA HỌC HTML & CSS**! 🏆
 
-Hôm nay là tiết học cuối cùng, bạn sẽ hoàn thiện những nét vẽ tinh tế nhất cho Website Cá Nhân của mình:
-1. Thêm hiệu ứng hover cho tất cả các thẻ dự án và nút bấm.
-2. Tối ưu Media Query trên màn hình điện thoại (chuyển các hàng ngang sang hàng dọc, canh chỉnh kích thước hoàn hảo).
-3. Hoàn tất sản phẩm để sẵn sàng xuất bản và báo cáo trước lớp!`,
+Trải qua hành trình 16 tuần từ con số 0:
+1. Bạn đã làm chủ ngôn ngữ **HTML5** để tạo nên bộ khung xương vững chắc.
+2. Bạn đã trở thành phù thủy sắc màu với **CSS3**, **Box Model**, **CSS Position**.
+3. Bạn đã làm chủ công nghệ bố cục hiện đại **Flexbox** và kỹ thuật **Responsive Web Design**.
+4. Bạn đã tự tay hoàn thiện một **Website Cá Nhân** chuẩn chỉnh từ A đến Z!
+
+Hôm nay là buổi kiểm tra toàn diện lần cuối để tự tin xuất bản sản phẩm và báo cáo thuyết trình trước lớp!`,
 
   taskInstructions: [
-    'Thêm hiệu ứng `.project-card:hover` với `transform: translateY(-6px)` và `box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2)`',
-    'Thêm hiệu ứng `.btn-send:hover` với `background: #4338ca` và `transform: scale(1.03)`',
-    'Thêm Media Query `@media (max-width: 768px)` để chuyển `.projects-grid` thành `flex-direction: column` trên màn hình điện thoại'
+    '🟢 Nhiệm vụ 1: Rà soát cấu trúc HTML Semantic hoàn chỉnh: Đủ `<header>`, `<nav>`, `<main>`, `<section class="hero">`, `<section id="about">`, `<section id="projects">`, `<section id="contact">`, `<footer>`',
+    '🟢 Nhiệm vụ 2: Rà soát CSS: Bảng biến màu `:root`, `box-sizing: border-box`, Flexbox dàn Navbar và Lưới dự án',
+    '🟡 Nhiệm vụ 3: Rà soát Responsive: Cú pháp `@media (max-width: 768px)` giúp website hiển thị hoàn hảo trên điện thoại',
+    '🟡 Nhiệm vụ 4: Kiểm tra Clean Code & Tự tin hoàn thành khóa học để nhận Huy Hiệu Tốt Nghiệp "Tác Giả Website Cá Nhân"!'
   ],
 
   hints: {
-    level1: 'Viết .project-card:hover { transform: translateY(-6px); } và @media (max-width: 768px) { .projects-grid { flex-direction: column; } }',
-    level2: 'Ví dụ mẫu:\n.project-card:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);\n}\n.btn-send:hover {\n  background: #4338ca;\n  transform: scale(1.03);\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    flex-direction: column;\n  }\n}',
-    solution: '.project-card:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);\n}\n.btn-send:hover {\n  background: #4338ca;\n  transform: scale(1.03);\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    flex-direction: column;\n  }\n}'
-  },
+    level1: 'Kiểm tra xem file HTML và CSS đã chứa đầy đủ tất cả các thành phần của một trang web hoàn chỉnh.',
+    level2: `<!-- Cấu trúc toàn diện mẫu cho Buổi 16 -->
+<header>
+  <div class="logo">⭐ MinhAnh Portfolio</div>
+  <nav class="nav-menu">
+    <a href="#about">Về Tôi</a>
+    <a href="#projects">Dự Án</a>
+    <a href="#contact">Liên Hệ</a>
+  </nav>
+</header>
 
-  htmlContent: `<div class="portfolio-page">
-  <header class="navbar">
-    <div class="brand">🌟 NamDev</div>
-    <nav><a href="#contact" class="btn-small">Liên Hệ</a></nav>
-  </header>
-
+<main>
   <section class="hero">
-    <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Avatar">
-    <h1>Nguyễn Hoàng Nam</h1>
-    <p>Nhà sáng tạo web trẻ tuổi đầy nhiệt huyết</p>
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Avatar" class="avatar">
+    <h1>Xin chào, tôi là Minh Anh</h1>
+    <p>Học sinh lớp 8 • Lập trình viên Web tương lai</p>
+    <button class="btn">Kết Nối Với Tôi</button>
   </section>
 
-  <section class="projects">
-    <h2>Dự Án Tiêu Biểu</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>Game Vui Nhộn</h3>
-        <p>Ứng dụng mini game tương tác</p>
-      </div>
-      <div class="project-card">
-        <h3>Web Cá Nhân</h3>
-        <p>Sản phẩm tốt nghiệp HTML CSS</p>
-      </div>
+  <section id="about">
+    <h2>Giới Thiệu Bản Thân</h2>
+    <p>Tôi đam mê công nghệ và đã tự tay hoàn thành khóa học lập trình web 16 tuần.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Dự Án Đã Thực Hiện</h2>
+    <div class="project-grid">
+      <article class="project-card">
+        <h3>Trang Web Cá Nhân</h3>
+        <p>Website hoàn thiện bằng HTML & CSS.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Mini Game DOM</h3>
+        <p>Game tương tác vui nhộn.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Báo Tin Học</h3>
+        <p>Trang tin tức học đường.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
     </div>
   </section>
 
-  <section class="contact">
-    <h2>Liên Hệ Với Tôi</h2>
-    <button class="btn-send">Gửi Tin Nhắn Nhanh</button>
+  <section id="contact">
+    <h2>Liên Hệ</h2>
+    <form>
+      <input type="text" placeholder="Họ tên" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Tin nhắn"></textarea>
+      <button type="submit" class="btn">Gửi Lời Nhắn</button>
+    </form>
   </section>
-</div>`,
-  cssContent: `body {
+</main>
+
+<footer>
+  <p>© 2026 Bản quyền thuộc về Minh Anh</p>
+</footer>`,
+    solution: `<header>
+  <div class="logo">⭐ MinhAnh Portfolio</div>
+  <nav class="nav-menu">
+    <a href="#about">Về Tôi</a>
+    <a href="#projects">Dự Án</a>
+    <a href="#contact">Liên Hệ</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Avatar" class="avatar">
+    <h1>Xin chào, tôi là Minh Anh</h1>
+    <p>Học sinh lớp 8 • Lập trình viên Web tương lai</p>
+    <button class="btn">Kết Nối Với Tôi</button>
+  </section>
+
+  <section id="about">
+    <h2>Giới Thiệu Bản Thân</h2>
+    <p>Tôi đam mê công nghệ và đã tự tay hoàn thành khóa học lập trình web 16 tuần.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Dự Án Đã Thực Hiện</h2>
+    <div class="project-grid">
+      <article class="project-card">
+        <h3>Trang Web Cá Nhân</h3>
+        <p>Website hoàn thiện bằng HTML & CSS.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Mini Game DOM</h3>
+        <p>Game tương tác vui nhộn.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Báo Tin Học</h3>
+        <p>Trang tin tức học đường.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Liên Hệ</h2>
+    <form>
+      <input type="text" placeholder="Họ tên" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Tin nhắn"></textarea>
+      <button type="submit" class="btn">Gửi Lời Nhắn</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Bản quyền thuộc về Minh Anh</p>
+</footer>`
+  },
+
+  htmlContent: `<!-- Buổi 16: Rà soát và hoàn thiện mã nguồn toàn diện cho website cá nhân -->\n`,
+  cssContent: `:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #06b6d4;
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-color: #f8fafc;
+}
+* {
+  box-sizing: border-box;
+}
+body {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #0f172a;
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  line-height: 1.6;
 }
-.portfolio-page {
-  max-width: 680px;
-  margin: 0 auto;
-}
-.navbar {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
-  background: rgba(30, 41, 59, 0.7);
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 24px;
+  padding: 16px 30px;
+  background: var(--card-bg);
+  border-bottom: 1px solid #334155;
 }
-.brand {
-  font-weight: bold;
-  color: #38bdf8;
+.logo {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--secondary-color);
 }
-.btn-small {
-  background: #6366f1;
-  color: white;
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-}
-.hero {
-  text-align: center;
-  background: rgba(30, 41, 59, 0.5);
-  padding: 30px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 24px;
-}
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #38bdf8;
-  object-fit: cover;
-  margin-bottom: 12px;
-}
-.hero h1 {
-  margin: 0 0 6px;
-  color: white;
-}
-.hero p {
-  color: #94a3b8;
-  margin: 0;
-}
-.projects {
-  background: rgba(30, 41, 59, 0.5);
-  padding: 30px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 24px;
-}
-.projects h2, .contact h2 {
-  color: #38bdf8;
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-.projects-grid {
+.nav-menu {
   display: flex;
   gap: 16px;
 }
+.nav-menu a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+section {
+  background: var(--card-bg);
+  padding: 28px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: 1px solid #334155;
+}
+.hero {
+  text-align: center;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--secondary-color);
+  object-fit: cover;
+  margin-bottom: 14px;
+}
+h1 {
+  font-size: 28px;
+  color: var(--secondary-color);
+  margin: 0 0 8px;
+}
+h2 {
+  color: #818cf8;
+  margin-top: 0;
+}
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 .project-card {
-  flex: 1;
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  width: calc(33.333% - 11px);
+  background: #0f172a;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
 }
 .project-card h3 {
   margin: 0 0 6px;
+  color: var(--secondary-color);
+  font-size: 15px;
+}
+input, textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
   color: white;
-  font-size: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
-.project-card p {
-  margin: 0;
-  color: #94a3b8;
-  font-size: 13px;
-}
-.contact {
-  text-align: center;
-  background: rgba(30, 41, 59, 0.5);
-  padding: 30px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.btn-send {
-  background: #6366f1;
+.btn {
+  background: var(--primary-color);
   color: white;
   border: none;
-  padding: 12px 28px;
-  border-radius: 12px;
+  padding: 10px 22px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-}`,
-
-  initialCssCode: `/* Tuần 16: Tinh chỉnh hiệu ứng hover và Media Query Responsive */
-.project-card:hover {
-
+  transition: 0.3s;
 }
-
-.btn-send:hover {
-
-}
-
-@media (max-width: 768px) {
-  .projects-grid {
-
-  }
-}
-`,
-  solutionCssCode: `.project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);
-}
-
-.btn-send:hover {
+.btn:hover {
   background: #4338ca;
-  transform: scale(1.03);
 }
-
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #64748b;
+  font-size: 13px;
+}
 @media (max-width: 768px) {
-  .projects-grid {
+  .project-card {
+    width: 100%;
+  }
+  .nav-menu {
     flex-direction: column;
   }
-}
-`,
+}`,
+
+  initialHtmlCode: `<!-- Buổi 16: Tổng duyệt toàn bộ HTML Semantic của Website Cá Nhân -->\n`,
+  solutionHtmlCode: `<header>
+  <div class="logo">⭐ MinhAnh Portfolio</div>
+  <nav class="nav-menu">
+    <a href="#about">Về Tôi</a>
+    <a href="#projects">Dự Án</a>
+    <a href="#contact">Liên Hệ</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Avatar" class="avatar">
+    <h1>Xin chào, tôi là Minh Anh</h1>
+    <p>Học sinh lớp 8 • Lập trình viên Web tương lai</p>
+    <button class="btn">Kết Nối Với Tôi</button>
+  </section>
+
+  <section id="about">
+    <h2>Giới Thiệu Bản Thân</h2>
+    <p>Tôi đam mê công nghệ và đã tự tay hoàn thành khóa học lập trình web 16 tuần.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Dự Án Đã Thực Hiện</h2>
+    <div class="project-grid">
+      <article class="project-card">
+        <h3>Trang Web Cá Nhân</h3>
+        <p>Website hoàn thiện bằng HTML & CSS.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Mini Game DOM</h3>
+        <p>Game tương tác vui nhộn.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+      <article class="project-card">
+        <h3>Báo Tin Học</h3>
+        <p>Trang tin tức học đường.</p>
+        <button class="btn">Xem Chi Tiết</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Liên Hệ</h2>
+    <form>
+      <input type="text" placeholder="Họ tên" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Tin nhắn"></textarea>
+      <button type="submit" class="btn">Gửi Lời Nhắn</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Bản quyền thuộc về Minh Anh</p>
+</footer>`,
 
   tests: [
     {
       id: 'w16-t1',
-      description: 'Quy tắc .project-card:hover có transform hoặc box-shadow',
+      description: 'Nhiệm vụ 1: Cấu trúc HTML Semantic hoàn chỉnh (Header, Hero, About, Projects, Contact, Footer)',
       tester: (doc: Document) => {
-        const styles = Array.from(doc.querySelectorAll('style')).map((s) => s.textContent).join('\n');
-        return styles.includes('.project-card:hover') && (styles.includes('translateY') || styles.includes('box-shadow'));
+        const header = doc.querySelector('header');
+        const hero = doc.querySelector('.hero');
+        const about = doc.querySelector('#about');
+        const projects = doc.querySelector('#projects');
+        const contact = doc.querySelector('#contact');
+        const footer = doc.querySelector('footer');
+        return !!header && !!hero && !!about && !!projects && !!contact && !!footer;
       }
     },
     {
       id: 'w16-t2',
-      description: 'Quy tắc .btn-send:hover có transform hoặc background',
+      description: 'Nhiệm vụ 2: Có đầy đủ các dự án (.project-card) và nút bấm tương tác (.btn)',
       tester: (doc: Document) => {
-        const styles = Array.from(doc.querySelectorAll('style')).map((s) => s.textContent).join('\n');
-        return styles.includes('.btn-send:hover') && (styles.includes('scale') || styles.includes('background'));
+        const cards = doc.querySelectorAll('.project-card');
+        const btns = doc.querySelectorAll('.btn, button');
+        return cards.length >= 3 && btns.length >= 2;
       }
     },
     {
       id: 'w16-t3',
-      description: 'Có Media Query @media (max-width: 768px) xử lý .projects-grid flex-direction: column',
+      description: 'Nhiệm vụ 3: Form liên hệ có các ô input, email, textarea và nút submit',
       tester: (doc: Document) => {
-        const styles = Array.from(doc.querySelectorAll('style')).map((s) => s.textContent).join('\n');
-        return styles.includes('@media') && styles.includes('max-width') && styles.includes('column');
+        const form = doc.querySelector('form');
+        const email = form?.querySelector('input[type="email"]');
+        const textarea = form?.querySelector('textarea');
+        return !!form && !!email && !!textarea;
+      }
+    },
+    {
+      id: 'w16-t4',
+      description: 'Nhiệm vụ 4: Kiểm tra toàn bộ mã nguồn hợp lệ, sẵn sàng báo cáo thuyết trình và nhận Huy Hiệu Tốt Nghiệp',
+      tester: (doc: Document) => {
+        const h1 = doc.querySelector('h1');
+        const avatar = doc.querySelector('.avatar');
+        return !!h1 && !!avatar;
       }
     }
   ]

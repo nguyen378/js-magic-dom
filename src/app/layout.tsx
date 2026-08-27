@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/navbar';
 import { AuthProvider } from '@/context/auth-context';
+import { Analytics } from '@vercel/analytics/next';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

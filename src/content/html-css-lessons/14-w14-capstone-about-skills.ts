@@ -2,123 +2,277 @@ import { Lesson } from '@/types/lesson';
 
 export const LESSON_W14: Lesson = {
   id: 'w14-capstone-about-skills',
-  title: 'Tuần 14 (Đồ Án GĐ 2): Khối "Về Tôi" & "Kỹ Năng"',
-  shortDescription: 'Xây dựng phần thân trang web cá nhân: Thiết kế khối giới thiệu bản thân 2 cột và lưới huy hiệu kỹ năng/sở thích sinh động với Flexbox.',
-  category: 'html-css-project',
+  title: 'Buổi 14: Dự Án Cuối Khóa (2/4) — Thiết Kế CSS & Bố Cục Flexbox',
+  shortDescription: 'Thiết kế giao diện CSS & Dàn layout Flexbox trên màn hình máy tính: Bảng màu :root, Header ngang space-between, Lưới 3 cột sản phẩm/dự án, Đổ bóng Card 3D và Bo góc nút bấm chuẩn UI.',
+  category: 'css-flexbox',
   course: 'html-css',
   track: 'w-capstone-portfolio',
-  editorLanguage: 'html',
+  editorLanguage: 'css',
   difficulty: 'medium',
   xpReward: 150,
   order: 14,
   week: 14,
   durationMinutes: 60,
 
-  story: `Chào mừng bạn đến với **Tuần 14 — Đồ Án Giai Đoạn 2**! 🌟
+  story: `Chào mừng bạn đến với **Buổi 14: Dự án cuối khóa (2/4) — Thiết kế CSS & Bố cục Flexbox**! 🎨📐
 
-Hôm nay chúng ta sẽ tiếp tục xây dựng 2 phần nội dung cốt lõi của website cá nhân:
-1. **Section "Về Tôi" (About Me)**: Kể câu chuyện, ước mơ và điểm mạnh của bản thân.
-2. **Section "Kỹ Năng & Sở Thích" (Skills & Badges)**: Dùng Flexbox để xếp các thẻ kỹ năng thành hàng/lưới linh hoạt với các icon sinh động.`,
+Hôm nay chúng ta sẽ trang điểm toàn bộ giao diện và dàn layout máy tính chuyên nghiệp:
+- **Biến màu sắc \`:root\`**: Định nghĩa hệ thống màu đồng nhất (\`--primary-color\`, \`--bg-color\`, \`--card-bg\`, \`--text-color\`).
+- **Header ngang**: Sử dụng \`display: flex; justify-content: space-between; align-items: center;\`.
+- **Lưới 3 cột dự án**: Sử dụng \`display: flex; flex-wrap: wrap; gap: 20px;\` kết hợp \`width: calc(33.333% - 14px);\`.
+- **Card UI**: Bo góc mềm mại \`border-radius: 12px;\`, đổ bóng nhẹ \`box-shadow: 0 4px 12px rgba(0,0,0,0.1);\`.`,
 
   taskInstructions: [
-    'Tạo thẻ `<section id="about" class="about-section">` chứa tiêu đề `<h2>Về Tôi</h2>` và 2 đoạn văn `<p>` giới thiệu câu chuyện của bạn',
-    'Tạo thẻ `<section id="skills" class="skills-section">` chứa tiêu đề `<h2>Kỹ Năng & Điểm Mạnh</h2>`',
-    'Bên trong Skills, tạo khối `<div class="skills-grid">` chứa ít nhất 3 thẻ `<div class="skill-badge">` (gồm Icon, Tên kỹ năng và mô tả ngắn)'
+    '🟢 Nhiệm vụ 1: Khai báo `:root` với các biến màu (`--primary-color`, `--bg-color`, `--card-bg`, `--text-color`) và đặt `* { box-sizing: border-box; }`',
+    '🟢 Nhiệm vụ 2: Cài đặt cho `header` hoặc `.navbar`: `display: flex; justify-content: space-between; align-items: center;`',
+    '🟡 Nhiệm vụ 3: Dàn layout `.project-grid`: `display: flex; flex-wrap: wrap; gap: 20px;` và mỗi thẻ `.project-card` có `width: calc(33.333% - 14px);` (hoặc tương đương cho 3 cột)',
+    '🟡 Nhiệm vụ 4: Định dạng cho `.project-card` có `background: var(--card-bg)`, `border-radius: 12px;`, `box-shadow` và nút `.btn` có nền `var(--primary-color)`, chữ trắng, bo góc'
   ],
 
   hints: {
-    level1: 'Sử dụng <section id="about">...</section> và <section id="skills"><div class="skills-grid"><div class="skill-badge">...</div></div></section>',
-    level2: 'Ví dụ mẫu:\n<section id="about" class="about-section">\n  <h2>Về Tôi</h2>\n  <p>Tôi là một học sinh luôn tò mò về cách các ứng dụng công nghệ hoạt động.</p>\n  <p>Mục tiêu của tôi là tạo ra các trang web hữu ích phục vụ cộng đồng.</p>\n</section>\n<section id="skills" class="skills-section">\n  <h2>Kỹ Năng & Điểm Mạnh</h2>\n  <div class="skills-grid">\n    <div class="skill-badge">💻 <strong>HTML5 & CSS3</strong> (Dựng giao diện)</div>\n    <div class="skill-badge">⚡ <strong>Tư Duy Logic</strong> (Thuật toán)</div>\n    <div class="skill-badge">🎨 <strong>Sáng Tạo UI</strong> (Màu sắc & Bố cục)</div>\n  </div>\n</section>',
-    solution: '<section id="about" class="about-section">\n  <h2>Về Tôi</h2>\n  <p>Tôi là một học sinh luôn tò mò về cách các ứng dụng công nghệ hoạt động.</p>\n  <p>Mục tiêu của tôi là tạo ra các trang web hữu ích phục vụ cộng đồng.</p>\n</section>\n<section id="skills" class="skills-section">\n  <h2>Kỹ Năng & Điểm Mạnh</h2>\n  <div class="skills-grid">\n    <div class="skill-badge">💻 <strong>HTML5 & CSS3</strong> (Dựng giao diện)</div>\n    <div class="skill-badge">⚡ <strong>Tư Duy Logic</strong> (Thuật toán)</div>\n    <div class="skill-badge">🎨 <strong>Sáng Tạo UI</strong> (Màu sắc & Bố cục)</div>\n  </div>\n</section>'
-  },
+    level1: 'Sử dụng :root, header, .project-grid, .project-card, .btn',
+    level2: `/* Gợi ý cú pháp */
+:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+}
 
-  htmlContent: `<!-- Tuần 14: Viết HTML cho section About Me và Skills Grid bên dưới -->\n`,
-  cssContent: `body {
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
-  padding: 30px 20px;
-  margin: 0;
-}
-section {
-  max-width: 680px;
-  margin: 0 auto 30px;
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid #e2e8f0;
-}
-h2 {
-  color: #4f46e5;
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 22px;
-}
-p {
-  color: #475569;
-  line-height: 1.7;
-}
-.skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px;
-}
-.skill-badge {
-  background: #f1f5f9;
-  padding: 12px 18px;
-  border-radius: 12px;
-  color: #334155;
-  border: 1px solid #cbd5e1;
-  font-size: 14px;
-  flex: 1 1 calc(50% - 12px);
+* {
   box-sizing: border-box;
 }
-.skill-badge strong {
-  color: #4f46e5;
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.project-card {
+  width: calc(33.333% - 14px);
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}`,
+    solution: `:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.project-card {
+  width: calc(33.333% - 14px);
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}`
+  },
+
+  htmlContent: `<header style="padding: 16px 24px; background: white; margin-bottom: 20px; border-radius: 12px;">
+  <div class="logo" style="font-weight: bold; color: #4f46e5;">🚀 MinhAnh Portfolio</div>
+  <nav style="display: flex; gap: 16px;">
+    <a href="#" style="text-decoration: none; color: #475569;">Trang Chủ</a>
+    <a href="#" style="text-decoration: none; color: #475569;">Dự Án</a>
+    <a href="#" style="text-decoration: none; color: #475569;">Liên Hệ</a>
+  </nav>
+</header>
+
+<main style="max-width: 900px; margin: 0 auto;">
+  <h2>Dự Án Nổi Bật</h2>
+  <div class="project-grid">
+    <div class="project-card" style="padding: 20px;">
+      <h3 style="margin-top: 0; color: #4f46e5;">1. Website Portfolio</h3>
+      <p style="font-size: 14px; color: #64748b;">Trang web giới thiệu năng lực cá nhân viết bằng HTML và CSS.</p>
+      <button class="btn">Xem Dự Án</button>
+    </div>
+    <div class="project-card" style="padding: 20px;">
+      <h3 style="margin-top: 0; color: #4f46e5;">2. Mini Game Web</h3>
+      <p style="font-size: 14px; color: #64748b;">Game tương tác thú vị kết hợp hiệu ứng âm thanh và DOM.</p>
+      <button class="btn">Xem Dự Án</button>
+    </div>
+    <div class="project-card" style="padding: 20px;">
+      <h3 style="margin-top: 0; color: #4f46e5;">3. Bảng Tin Sinh Hoạt</h3>
+      <p style="font-size: 14px; color: #64748b;">Trang tin tức học tập dành cho học sinh câu lạc bộ tin học.</p>
+      <button class="btn">Xem Dự Án</button>
+    </div>
+  </div>
+</main>`,
+  cssContent: `body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+  padding: 20px;
 }`,
 
-  initialHtmlCode: `<!-- Tuần 14: Xây dựng khối Về Tôi và Kỹ Năng / Sở Thích -->\n`,
-  solutionHtmlCode: `<section id="about" class="about-section">
-  <h2>Về Tôi</h2>
-  <p>Tôi là một học sinh luôn tò mò về cách các ứng dụng công nghệ hoạt động.</p>
-  <p>Mục tiêu của tôi là tạo ra các trang web hữu ích phục vụ cộng đồng.</p>
-</section>
-<section id="skills" class="skills-section">
-  <h2>Kỹ Năng & Điểm Mạnh</h2>
-  <div class="skills-grid">
-    <div class="skill-badge">💻 <strong>HTML5 & CSS3</strong> (Dựng giao diện)</div>
-    <div class="skill-badge">⚡ <strong>Tư Duy Logic</strong> (Thuật toán)</div>
-    <div class="skill-badge">🎨 <strong>Sáng Tạo UI</strong> (Màu sắc & Bố cục)</div>
-  </div>
-</section>`,
+  initialCssCode: `/* Buổi 14: Thiết lập bảng màu :root, dàn Header ngang, Lưới 3 cột .project-grid và Card UI */
+:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+}
+
+* {
+
+}
+
+body {
+
+}
+
+header {
+
+}
+
+.project-grid {
+
+}
+
+.project-card {
+
+}
+
+.btn {
+
+}
+`,
+  solutionCssCode: `:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.project-card {
+  width: calc(33.333% - 14px);
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+`,
 
   tests: [
     {
       id: 'w14-t1',
-      description: 'Có thẻ <section id="about"> chứa tiêu đề <h2> và đoạn văn giới thiệu',
+      description: 'Nhiệm vụ 1: Có khai báo :root với các biến màu và * { box-sizing: border-box; }',
       tester: (doc: Document) => {
-        const about = doc.querySelector('section#about');
-        const h2 = doc.querySelector('section#about h2');
-        const p = doc.querySelector('section#about p');
-        return !!about && !!h2 && !!p;
+        const styles = Array.from(doc.querySelectorAll('style')).map((s) => s.textContent).join('\n');
+        return styles.includes(':root') && styles.includes('--primary-color') && styles.includes('box-sizing');
       }
     },
     {
       id: 'w14-t2',
-      description: 'Có thẻ <section id="skills"> chứa danh sách hoặc lưới kỹ năng',
-      tester: (doc: Document) => {
-        const skills = doc.querySelector('section#skills');
-        return !!skills;
+      description: 'Nhiệm vụ 2: header có display: flex, justify-content: space-between và align-items: center',
+      tester: (doc: Document, win: Window) => {
+        const header = doc.querySelector('header');
+        if (!header) return false;
+        const style = win.getComputedStyle(header);
+        return style.display === 'flex' && style.justifyContent === 'space-between' && style.alignItems === 'center';
       }
     },
     {
       id: 'w14-t3',
-      description: 'Có ít nhất 3 thẻ .skill-badge liệt kê các kỹ năng / sở thích',
-      tester: (doc: Document) => {
-        const badges = doc.querySelectorAll('.skill-badge');
-        return badges.length >= 3;
+      description: 'Nhiệm vụ 3: .project-grid có display: flex, flex-wrap: wrap và gap: 20px',
+      tester: (doc: Document, win: Window) => {
+        const grid = doc.querySelector('.project-grid');
+        if (!grid) return false;
+        const style = win.getComputedStyle(grid);
+        return style.display === 'flex' && style.flexWrap === 'wrap';
+      }
+    },
+    {
+      id: 'w14-t4',
+      description: 'Nhiệm vụ 4: .project-card có border-radius: 12px, box-shadow và .btn có màu nền, bo góc',
+      tester: (doc: Document, win: Window) => {
+        const card = doc.querySelector('.project-card');
+        const btn = doc.querySelector('.btn');
+        if (!card || !btn) return false;
+        const cardStyle = win.getComputedStyle(card);
+        const btnStyle = win.getComputedStyle(btn);
+        const hasCardStyle = cardStyle.borderRadius === '12px' && cardStyle.boxShadow !== 'none';
+        const hasBtnStyle = btnStyle.borderRadius === '8px' || parseInt(btnStyle.borderRadius) > 0;
+        return hasCardStyle && hasBtnStyle;
       }
     }
   ]

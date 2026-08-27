@@ -226,23 +226,23 @@ export const StorageService = {
     }
 
     // HTML & CSS 16-Week Badges
-    if ((updatedCompleted.includes('w01-first-page') || updatedCompleted.includes('w02-text-image') || updatedCompleted.includes('w03-lists-links') || updatedCompleted.includes('w04-semantic-layout')) && !currentBadges.has('html_starter')) {
+    if ((updatedCompleted.includes('w01-first-page') || updatedCompleted.includes('w02-lists-links') || updatedCompleted.includes('w02-text-image') || updatedCompleted.includes('w03-semantic-layout') || updatedCompleted.includes('w03-lists-links') || updatedCompleted.includes('w04-html-forms') || updatedCompleted.includes('w04-semantic-layout')) && !currentBadges.has('html_starter')) {
       newBadges.push('html_starter');
       currentBadges.add('html_starter');
     }
-    if ((updatedCompleted.includes('w05-colors-fonts') || updatedCompleted.includes('w06-borders-shadow')) && !currentBadges.has('css_color_wizard')) {
+    if ((updatedCompleted.includes('w05-colors-fonts') || updatedCompleted.includes('w06-box-model') || updatedCompleted.includes('w06-borders-shadow')) && !currentBadges.has('css_color_wizard')) {
       newBadges.push('css_color_wizard');
       currentBadges.add('css_color_wizard');
     }
-    if ((updatedCompleted.includes('w07-box-model') || updatedCompleted.includes('w08-hover-transitions')) && !currentBadges.has('box_model_master')) {
+    if ((updatedCompleted.includes('w07-borders-hover') || updatedCompleted.includes('w07-box-model') || updatedCompleted.includes('w08-position') || updatedCompleted.includes('w08-hover-transitions')) && !currentBadges.has('box_model_master')) {
       newBadges.push('box_model_master');
       currentBadges.add('box_model_master');
     }
-    if ((updatedCompleted.includes('w09-flexbox-basics') || updatedCompleted.includes('w10-flexbox-align') || updatedCompleted.includes('w11-flex-gallery')) && !currentBadges.has('flexbox_ninja')) {
+    if ((updatedCompleted.includes('w09-flexbox-basics') || updatedCompleted.includes('w10-flexbox-advanced') || updatedCompleted.includes('w10-flexbox-align') || updatedCompleted.includes('w11-responsive-basic') || updatedCompleted.includes('w11-flex-gallery')) && !currentBadges.has('flexbox_ninja')) {
       newBadges.push('flexbox_ninja');
       currentBadges.add('flexbox_ninja');
     }
-    if (updatedCompleted.includes('w12-responsive-basic') && !currentBadges.has('responsive_engineer')) {
+    if ((updatedCompleted.includes('w12-review-project-prep') || updatedCompleted.includes('w12-responsive-basic')) && !currentBadges.has('responsive_engineer')) {
       newBadges.push('responsive_engineer');
       currentBadges.add('responsive_engineer');
     }
