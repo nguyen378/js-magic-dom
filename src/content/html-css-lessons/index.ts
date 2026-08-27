@@ -1,63 +1,86 @@
 import { Lesson } from '@/types/lesson';
-import { LESSON_W01 } from './01-w01-first-page';
-import { LESSON_W02 } from './02-w02-lists-links';
-import { LESSON_W03 } from './03-w03-semantic-layout';
-import { LESSON_W04 } from './04-w04-html-forms';
-import { LESSON_W05 } from './05-w05-colors-fonts';
-import { LESSON_W06 } from './06-w06-box-model';
-import { LESSON_W07 } from './07-w07-borders-hover';
-import { LESSON_W08 } from './08-w08-position';
-import { LESSON_W09 } from './09-w09-flexbox-basics';
-import { LESSON_W10 } from './10-w10-flexbox-advanced';
-import { LESSON_W11 } from './11-w11-responsive-basic';
-import { LESSON_W12 } from './12-w12-review-project-prep';
-import { LESSON_W13 } from './13-w13-capstone-hero';
-import { LESSON_W14 } from './14-w14-capstone-about-skills';
-import { LESSON_W15 } from './15-w15-capstone-gallery-contact';
-import { LESSON_W16 } from './16-w16-capstone-final';
+import { B01_LESSONS } from './01-b01-html-first-tags';
+import { B02_LESSONS } from './02-b02-lists-links';
+import { B03_LESSONS } from './03-b03-semantic-table';
+import { B04_LESSONS } from './04-b04-html-forms';
+import { B05_LESSONS } from './05-b05-css-basics';
+import { B06_LESSONS } from './06-b06-box-model';
+import { B07_LESSONS } from './07-b07-borders-hover';
+import { B08_LESSONS } from './08-b08-position';
+import { B09_LESSONS } from './09-b09-flexbox-basics';
+import { B10_LESSONS } from './10-b10-flexbox-advanced';
+import { B11_LESSONS } from './11-b11-responsive';
+import { B12_LESSONS } from './12-b12-review-project-prep';
+import { B13_LESSONS } from './13-b13-capstone-html';
+import { B14_LESSONS } from './14-b14-capstone-css';
+import { B15_LESSONS } from './15-b15-capstone-responsive';
+import { B16_LESSONS } from './16-b16-capstone-final';
 
-// Giai đoạn 1: Nền tảng cấu trúc HTML5 (Buổi 1 - 4)
-export const WEEK1_4_HTML_FOUNDATION: Lesson[] = [
-  LESSON_W01,
-  LESSON_W02,
-  LESSON_W03,
-  LESSON_W04,
+export {
+  B01_LESSONS,
+  B02_LESSONS,
+  B03_LESSONS,
+  B04_LESSONS,
+  B05_LESSONS,
+  B06_LESSONS,
+  B07_LESSONS,
+  B08_LESSONS,
+  B09_LESSONS,
+  B10_LESSONS,
+  B11_LESSONS,
+  B12_LESSONS,
+  B13_LESSONS,
+  B14_LESSONS,
+  B15_LESSONS,
+  B16_LESSONS,
+};
+
+// Giai đoạn 1: Nền tảng cấu trúc HTML5 (Buổi 1 - 4: 16 bài)
+export const STAGE1_HTML_FOUNDATION: Lesson[] = [
+  ...B01_LESSONS,
+  ...B02_LESSONS,
+  ...B03_LESSONS,
+  ...B04_LESSONS,
 ];
 
-// Giai đoạn 2: Tô màu & Định kiểu CSS (Buổi 5 - 8)
-export const WEEK5_8_CSS_STYLING: Lesson[] = [
-  LESSON_W05,
-  LESSON_W06,
-  LESSON_W07,
-  LESSON_W08,
+// Giai đoạn 2: Tô màu & Định kiểu CSS Box Model (Buổi 5 - 8: 16 bài)
+export const STAGE2_CSS_STYLING: Lesson[] = [
+  ...B05_LESSONS,
+  ...B06_LESSONS,
+  ...B07_LESSONS,
+  ...B08_LESSONS,
 ];
 
-// Giai đoạn 3: Bố cục Flexbox & Thiết kế Responsive (Buổi 9 - 12)
-export const WEEK9_12_FLEXBOX_RESPONSIVE: Lesson[] = [
-  LESSON_W09,
-  LESSON_W10,
-  LESSON_W11,
-  LESSON_W12,
+// Giai đoạn 3: Bố cục Flexbox & Thiết kế Responsive (Buổi 9 - 12: 16 bài)
+export const STAGE3_FLEXBOX_RESPONSIVE: Lesson[] = [
+  ...B09_LESSONS,
+  ...B10_LESSONS,
+  ...B11_LESSONS,
+  ...B12_LESSONS,
 ];
 
-// Giai đoạn 4: Dự án cuối khóa — Xây dựng Website Cá Nhân Hoàn Chỉnh (Buổi 13 - 16)
-export const WEEK13_16_CAPSTONE_PORTFOLIO: Lesson[] = [
-  LESSON_W13,
-  LESSON_W14,
-  LESSON_W15,
-  LESSON_W16,
+// Giai đoạn 4: Dự án cuối khóa — Xây dựng Website Cá Nhân (Buổi 13 - 16: 8 bài)
+export const STAGE4_CAPSTONE_PORTFOLIO: Lesson[] = [
+  ...B13_LESSONS,
+  ...B14_LESSONS,
+  ...B15_LESSONS,
+  ...B16_LESSONS,
 ];
 
-// Toàn bộ 16 Buổi học HTML & CSS
+// Toàn bộ 56 Bài tập HTML & CSS độc lập
 export const HTML_CSS_LESSONS: Lesson[] = [
-  ...WEEK1_4_HTML_FOUNDATION,
-  ...WEEK5_8_CSS_STYLING,
-  ...WEEK9_12_FLEXBOX_RESPONSIVE,
-  ...WEEK13_16_CAPSTONE_PORTFOLIO,
+  ...STAGE1_HTML_FOUNDATION,
+  ...STAGE2_CSS_STYLING,
+  ...STAGE3_FLEXBOX_RESPONSIVE,
+  ...STAGE4_CAPSTONE_PORTFOLIO,
 ];
 
 // Aliases for compatibility
-export const HTML_FOUNDATION_LESSONS = WEEK1_4_HTML_FOUNDATION;
-export const CSS_FOUNDATION_LESSONS = WEEK5_8_CSS_STYLING;
-export const CSS_LAYOUT_LESSONS = WEEK9_12_FLEXBOX_RESPONSIVE;
-export const HTML_CSS_CAPSTONE_LESSONS = WEEK13_16_CAPSTONE_PORTFOLIO;
+export const WEEK1_4_HTML_FOUNDATION = STAGE1_HTML_FOUNDATION;
+export const WEEK5_8_CSS_STYLING = STAGE2_CSS_STYLING;
+export const WEEK9_12_FLEXBOX_RESPONSIVE = STAGE3_FLEXBOX_RESPONSIVE;
+export const WEEK13_16_CAPSTONE_PORTFOLIO = STAGE4_CAPSTONE_PORTFOLIO;
+export const HTML_FOUNDATION_LESSONS = STAGE1_HTML_FOUNDATION;
+export const CSS_FOUNDATION_LESSONS = STAGE2_CSS_STYLING;
+export const CSS_LAYOUT_LESSONS = STAGE3_FLEXBOX_RESPONSIVE;
+export const HTML_CSS_CAPSTONE_LESSONS = STAGE4_CAPSTONE_PORTFOLIO;

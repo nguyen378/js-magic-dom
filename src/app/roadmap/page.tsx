@@ -429,16 +429,25 @@ export default function RoadmapPage() {
                     // Unlocked if first in track/chapter, or first overall in course, or previous lesson completed
                     const isUnlocked = 
                       courseIdx === 0 || 
+                      lesson.id === 'b01-01' ||
+                      lesson.id === 'b05-01' ||
+                      lesson.id === 'b09-01' ||
+                      lesson.id === 'b13-01' ||
                       lesson.id === 'w01-first-page' ||
-                      lesson.id === 'w05-colors-fonts' ||
-                      lesson.id === 'w09-flexbox-basics' ||
-                      lesson.id === 'w13-capstone-hero' ||
                       lesson.id === '01-select-element' || 
                       lesson.id === 'adv01-es6-features' ||
                       lesson.id === '13-todo-list' ||
                       progress.completedLessons.includes(currentCourseLessons[courseIdx - 1]?.id);
 
                     const getLessonBadgeLabel = () => {
+                      if (lesson.id.startsWith('b')) {
+                        const parts = lesson.id.replace('b', '').split('-');
+                        if (parts.length === 2) {
+                          const buoi = parseInt(parts[0], 10);
+                          const bai = parseInt(parts[1], 10);
+                          return `${buoi}.${bai}`;
+                        }
+                      }
                       if (lesson.course === 'html-css' || lesson.id.startsWith('w')) {
                         return `T${lesson.week || lesson.order}`;
                       }
@@ -486,34 +495,19 @@ export default function RoadmapPage() {
                               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                                 {lesson.title}
                               </h3>
-                              {lesson.track === 'w-capstone-portfolio' && (
-                                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                                  👑 Đồ Án Cá Nhân
+                              {lesson.difficulty === 'easy' && (
+                                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                                  🟢 Cơ bản
                                 </span>
                               )}
-                              {lesson.track === 'w-html-foundation' && (
-                                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-black text-orange-800 dark:bg-orange-950 dark:text-orange-300">
-                                  🌐 Khung HTML
+                              {lesson.difficulty === 'medium' && (
+                                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                                  🟡 Nâng cao
                                 </span>
                               )}
-                              {lesson.track === 'w-css-styling' && (
-                                <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-[10px] font-black text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
-                                  🎨 Tô Màu CSS
-                                </span>
-                              )}
-                              {lesson.track === 'w-flexbox-responsive' && (
-                                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-black text-purple-800 dark:bg-purple-950 dark:text-purple-300">
-                                  📐 Bố Cục Flexbox
-                                </span>
-                              )}
-                              {lesson.track === 'capstone' && (
-                                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-black text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                                  👑 Đồ Án Game
-                                </span>
-                              )}
-                              {lesson.track === 'foundation' && (
-                                <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-black text-blue-800 dark:bg-blue-950 dark:text-blue-300">
-                                  📘 JS Căn Bản
+                              {lesson.difficulty === 'hard' && (
+                                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-800 dark:bg-purple-950 dark:text-purple-300">
+                                  👑 Đồ án
                                 </span>
                               )}
                             </div>
