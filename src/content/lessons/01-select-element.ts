@@ -93,8 +93,29 @@ console.log(titleElement);`,
       }
     },
     {
-      id: 'variable_exists',
-      description: 'Lệnh console.log đã in đúng phần tử #magic-title ra console',
+      id: 'select_element',
+      description: 'Đã tìm phần tử #magic-title và lưu vào biến titleElement',
+      tester: (doc, win) => {
+        const el = doc.getElementById('magic-title');
+        const capturedLogs = win.__capturedLogs || [];
+        const hasLogged = capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => {
+            if (arg && typeof arg === 'object') {
+              const elArg = arg as { id?: string; nodeType?: number };
+              if (elArg.id === 'magic-title') return true;
+            }
+            if (typeof arg === 'string' && (arg.includes('magic-title') || arg.includes('Chiếc Cúp'))) {
+              return true;
+            }
+            return false;
+          })
+        );
+        return Boolean(el !== null && (hasLogged || (el && el.classList.contains('js-magic-highlight'))));
+      }
+    },
+    {
+      id: 'logged_title_element',
+      description: 'Lệnh console.log đã in đúng phần tử #magic-title ra bảng điều khiển Console',
       tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
         const hasLoggedTitle = capturedLogs.some((l) => 

@@ -109,6 +109,14 @@ status.innerText = "Trạng thái: Siêu Anh Hùng!";`,
 
   tests: [
     {
+      id: 'find_avatar',
+      description: 'Phần tử ảnh #hero-avatar tồn tại trong DOM',
+      tester: (doc) => {
+        const el = doc.getElementById('hero-avatar');
+        return el !== null;
+      }
+    },
+    {
       id: 'avatar_src_changed',
       description: 'Ảnh #hero-avatar đã được đổi src thành siêu anh hùng (chứa superhero.svg)',
       tester: (doc) => {

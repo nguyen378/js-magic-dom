@@ -38,7 +38,33 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
   };
 
   const totalTasks = lesson.taskInstructions.length;
-  const completedTasks = lesson.tests.filter((t) => passedList.includes(t.id)).length;
+  const allTestsPassed = lesson.tests.length > 0 && lesson.tests.every((t) => passedList.includes(t.id));
+
+  const getTaskStatus = (idx: number) => {
+    if (allTestsPassed) return true;
+    if (passedList.length === 0) return false;
+
+    // Direct 1-to-1 match
+    if (lesson.tests.length === totalTasks) {
+      const testItem = lesson.tests[idx];
+      return Boolean(testItem && passedList.includes(testItem.id));
+    }
+
+    // Direct index test
+    if (lesson.tests[idx] && passedList.includes(lesson.tests[idx].id)) {
+      return true;
+    }
+
+    // Proportional match when test counts differ
+    const passRatio = passedList.length / lesson.tests.length;
+    const taskThreshold = (idx + 1) / totalTasks;
+    return passRatio >= taskThreshold;
+  };
+
+  const completedTasks = allTestsPassed
+    ? totalTasks
+    : lesson.taskInstructions.filter((_, idx) => getTaskStatus(idx)).length;
+
   const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
@@ -116,8 +142,7 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
 
         <div className="space-y-2">
           {lesson.taskInstructions.map((task, idx) => {
-            const testItem = lesson.tests[idx];
-            const isDone = testItem && passedList.includes(testItem.id);
+            const isDone = getTaskStatus(idx);
             return (
               <div
                 key={idx}

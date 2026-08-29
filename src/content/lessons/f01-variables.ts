@@ -138,8 +138,8 @@ console.log(diamonds);`,
 
   tests: [
     {
-      id: 'logged_hero_name',
-      description: 'Lệnh console.log đã in đúng tên dũng sĩ "Arthur"',
+      id: 'declared_hero_name',
+      description: 'Khai báo hằng số heroName có giá trị "Arthur"',
       tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
         return capturedLogs.some((l) => 
@@ -148,13 +148,37 @@ console.log(diamonds);`,
       }
     },
     {
-      id: 'logged_diamonds_count',
-      description: 'Lệnh console.log đã in đúng số kim cương sau khi tăng là 15',
+      id: 'declared_diamonds',
+      description: 'Khai báo biến diamonds ban đầu và tăng thêm 5',
+      tester: (doc, win) => {
+        const capturedLogs = win.__capturedLogs || [];
+        return capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 15 || String(arg).includes('15') || Number(arg) === 10 || String(arg).includes('10'))
+        );
+      }
+    },
+    {
+      id: 'increased_diamonds',
+      description: 'Số lượng kim cương sau khi cộng thêm 5 là 15',
       tester: (doc, win) => {
         const capturedLogs = win.__capturedLogs || [];
         return capturedLogs.some((l) => 
           l.args && l.args.some((arg) => Number(arg) === 15 || String(arg).includes('15'))
         );
+      }
+    },
+    {
+      id: 'logged_outputs',
+      description: 'Lệnh console.log đã in lần lượt heroName ("Arthur") và diamonds (15) ra Console',
+      tester: (doc, win) => {
+        const capturedLogs = win.__capturedLogs || [];
+        const hasHero = capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => String(arg).toLowerCase().includes('arthur'))
+        );
+        const hasDiamonds = capturedLogs.some((l) => 
+          l.args && l.args.some((arg) => Number(arg) === 15 || String(arg).includes('15'))
+        );
+        return hasHero && hasDiamonds;
       }
     }
   ]

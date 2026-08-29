@@ -210,17 +210,26 @@ img {
   tests: [
     {
       id: 'b01-03-t1',
-      description: 'Thẻ <img> có thuộc tính src hợp lệ và alt="Ảnh nhân vật"',
+      description: 'Thẻ <img> có thuộc tính src chèn ảnh placeholder',
       tester: (doc: Document) => {
         const img = doc.querySelector('img');
         if (!img) return false;
         const src = img.getAttribute('src') || '';
-        const alt = img.getAttribute('alt') || '';
-        return src.length > 5 && alt.toLowerCase().includes('ảnh nhân vật');
+        return src.length > 5 && src.includes('placeholder');
       }
     },
     {
       id: 'b01-03-t2',
+      description: 'Thẻ <img> có thuộc tính alt="Ảnh nhân vật"',
+      tester: (doc: Document) => {
+        const img = doc.querySelector('img');
+        if (!img) return false;
+        const alt = img.getAttribute('alt') || '';
+        return alt.toLowerCase().includes('ảnh nhân vật');
+      }
+    },
+    {
+      id: 'b01-03-t3',
       description: 'Thẻ <img> có thuộc tính width="300"',
       tester: (doc: Document) => {
         const img = doc.querySelector('img');

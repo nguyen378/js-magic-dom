@@ -88,6 +88,14 @@ monster.style.display = "none";`,
 
   tests: [
     {
+      id: 'find_monster',
+      description: 'Phần tử quái vật #monster tồn tại trong DOM',
+      tester: (doc) => {
+        const el = doc.getElementById('monster');
+        return el !== null;
+      }
+    },
+    {
       id: 'monster_hidden',
       description: 'Quái vật #monster phải có thuộc tính display là "none"',
       tester: (doc) => {

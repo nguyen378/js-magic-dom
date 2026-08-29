@@ -80,6 +80,14 @@ giftBox.style.color = "crimson";`,
 
   tests: [
     {
+      id: 'find_gift_box',
+      description: 'Phần tử #gift-box tồn tại trong DOM',
+      tester: (doc) => {
+        const el = doc.getElementById('gift-box');
+        return el !== null;
+      }
+    },
+    {
       id: 'bg_color_gold',
       description: 'Màu nền của #gift-box phải đổi thành gold',
       tester: (doc) => {

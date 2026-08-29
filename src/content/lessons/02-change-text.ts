@@ -81,6 +81,14 @@ chest.innerText = "Vừng ơi mở ra!";`,
 
   tests: [
     {
+      id: 'find_chest',
+      description: 'Phần tử #chest-message tồn tại trong DOM',
+      tester: (doc) => {
+        const el = doc.getElementById('chest-message');
+        return el !== null;
+      }
+    },
+    {
       id: 'text_changed',
       description: 'Nội dung của phần tử id "chest-message" phải là "Vừng ơi mở ra!"',
       tester: (doc) => {
