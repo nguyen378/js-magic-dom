@@ -1,19 +1,43 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lesson } from '@/types/lesson';
+import { Lesson, EditorLanguage } from '@/types/lesson';
 import { KnowledgeSection } from '@/components/workspace/knowledge-section';
 import { CheckSquare, Lightbulb, Key, ChevronDown, ChevronUp, Sparkles, Wand2, CheckCircle2 } from 'lucide-react';
 
 interface LessonGuideProps {
   lesson: Lesson;
   passedList: string[]; // List of passed test IDs
+  currentLanguage?: EditorLanguage;
   onApplySolution: (solutionCode: string) => void;
 }
 
-export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuideProps) {
+export function LessonGuide({
+  lesson,
+  passedList,
+  currentLanguage,
+  onApplySolution,
+}: LessonGuideProps) {
   const [hintLevel, setHintLevel] = useState<number>(0);
   const [showSolution, setShowSolution] = useState(false);
+
+  const activeLang = currentLanguage || lesson.editorLanguage || 'javascript';
+
+  const getSolutionCode = () => {
+    if (activeLang === 'python') return lesson.solutionPyCode || lesson.solutionJsCode || '';
+    if (activeLang === 'cpp') return lesson.solutionCppCode || lesson.solutionJsCode || '';
+    if (activeLang === 'html') return lesson.solutionHtmlCode || lesson.solutionJsCode || '';
+    if (activeLang === 'css') return lesson.solutionCssCode || lesson.solutionJsCode || '';
+    return lesson.solutionJsCode || '';
+  };
+
+  const getSolutionFileName = () => {
+    if (activeLang === 'python') return 'solution.py';
+    if (activeLang === 'cpp') return 'solution.cpp';
+    if (activeLang === 'html') return 'solution.html';
+    if (activeLang === 'css') return 'solution.css';
+    return 'solution.js';
+  };
 
   const getDifficultyColor = (diff: string) => {
     switch (diff) {
@@ -223,16 +247,11 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
             <div className="mt-2 rounded-xl bg-slate-900 p-3 text-xs text-slate-100 border border-slate-800 animate-in fade-in">
               <div className="flex items-center justify-between mb-2 pb-1 border-b border-slate-800">
                 <span className="font-mono text-indigo-400 font-bold text-[11px]">
-                  {lesson.editorLanguage === 'html' ? 'solution.html' : lesson.editorLanguage === 'css' ? 'solution.css' : 'solution.js'}
+                  {getSolutionFileName()}
                 </span>
                 <button
                   onClick={() => {
-                    const solutionCode = lesson.editorLanguage === 'html'
-                      ? (lesson.solutionHtmlCode || lesson.solutionJsCode || '')
-                      : lesson.editorLanguage === 'css'
-                      ? (lesson.solutionCssCode || lesson.solutionJsCode || '')
-                      : (lesson.solutionJsCode || '');
-                    onApplySolution(solutionCode);
+                    onApplySolution(getSolutionCode());
                   }}
                   className="flex items-center gap-1 rounded bg-indigo-600 px-2 py-0.5 text-[11px] font-bold text-white hover:bg-indigo-700 transition cursor-pointer"
                 >
@@ -241,11 +260,7 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
                 </button>
               </div>
               <pre className="font-mono text-[11px] whitespace-pre-wrap text-emerald-400">
-                {lesson.editorLanguage === 'html'
-                  ? (lesson.solutionHtmlCode || lesson.solutionJsCode || '')
-                  : lesson.editorLanguage === 'css'
-                  ? (lesson.solutionCssCode || lesson.solutionJsCode || '')
-                  : (lesson.solutionJsCode || '')}
+                {getSolutionCode()}
               </pre>
             </div>
           )}

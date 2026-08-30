@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { RotateCw, Terminal, Eye, Trash2, Columns2 } from 'lucide-react';
 import { buildIframeHtml } from '@/lib/dom-tester';
 
-interface ConsoleLog {
+import { EditorLanguage } from '@/types/lesson';
+
+export interface ConsoleLog {
   type: 'log' | 'error' | 'warn' | 'info';
   message: string;
   timestamp: string;
@@ -14,6 +16,8 @@ interface LivePreviewProps {
   htmlContent: string;
   cssContent: string;
   jsCode: string;
+  language?: EditorLanguage;
+  customLogs?: ConsoleLog[];
   iframeRef: React.RefObject<HTMLIFrameElement | null>;
   onIframeLoaded?: () => void;
 }
@@ -22,12 +26,31 @@ export function LivePreview({
   htmlContent,
   cssContent,
   jsCode,
+  language = 'javascript',
+  customLogs,
   iframeRef,
   onIframeLoaded,
 }: LivePreviewProps) {
-  const [viewMode, setViewMode] = useState<'split' | 'dom_only' | 'console_only'>('split');
+  const isMultiLangConsole = language === 'python' || language === 'cpp';
+  const [viewMode, setViewMode] = useState<'split' | 'dom_only' | 'console_only'>(
+    isMultiLangConsole ? 'console_only' : 'split'
+  );
   const [logs, setLogs] = useState<ConsoleLog[]>([]);
   const [key, setKey] = useState(0);
+
+  // Sync customLogs if provided from Python / C++ execution
+  useEffect(() => {
+    if (customLogs) {
+      setLogs(customLogs);
+    }
+  }, [customLogs]);
+
+  // Adjust default viewMode when language changes
+  useEffect(() => {
+    if (language === 'python' || language === 'cpp') {
+      setViewMode('console_only');
+    }
+  }, [language]);
 
   // Capture logs from iframe postMessage
   useEffect(() => {
@@ -183,18 +206,30 @@ export function LivePreview({
             : 'hidden'
         }`}>
           <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-800 text-[11px] text-slate-400 font-sans">
-            <span className="flex items-center gap-1 font-bold">
-              <Terminal className="h-3 w-3 text-amber-400" />
-              <span>Bảng Điều Khiển Console:</span>
+            <span className="flex items-center gap-1.5 font-bold">
+              <Terminal className="h-3.5 w-3.5 text-amber-400" />
+              <span>
+                {language === 'python'
+                  ? '🐍 Python 3 Live Console (stdout):'
+                  : language === 'cpp'
+                  ? '🔷 C++17 Live Console (cout):'
+                  : '🪄 Bảng Điều Khiển Console:'}
+              </span>
             </span>
-            <span>{logs.length} tin nhắn</span>
+            <span>{logs.length} dòng</span>
           </div>
 
           {logs.length === 0 ? (
             <div className="flex flex-1 flex-col items-center justify-center text-slate-500 py-2">
               <p className="text-[11px]">Chưa có dữ liệu in ra.</p>
               <p className="text-[10px] mt-0.5 text-slate-600">
-                Lệnh <code className="text-amber-400">console.log(...)</code> sẽ xuất hiện tại đây!
+                {language === 'python' ? (
+                  <>Lệnh <code className="text-emerald-400">print(...)</code> sẽ xuất hiện tại đây!</>
+                ) : language === 'cpp' ? (
+                  <>Lệnh <code className="text-sky-400">cout &lt;&lt; ... &lt;&lt; endl;</code> sẽ xuất hiện tại đây!</>
+                ) : (
+                  <>Lệnh <code className="text-amber-400">console.log(...)</code> sẽ xuất hiện tại đây!</>
+                )}
               </p>
             </div>
           ) : (

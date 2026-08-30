@@ -1,57 +1,64 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonML06: Lesson = {
+export const lessonML06_STRINGS: Lesson = {
   id: "ml06-strings",
-  title: "ML06. Xử Lý Chuỗi Ký Tự (String Manipulation & Slicing)",
-  shortDescription: "Làm chủ nối chuỗi, định dạng hoa/thường, cắt chuỗi và đo độ dài chuỗi",
+  title: "ML06. Xử Lý Chuỗi & Định Dạng (JS • Python • C++)",
+  shortDescription: "Cắt ghép chuỗi, nối chuỗi và định dạng Template/F-Strings chuyên nghiệp",
   category: "ml-strings",
   course: 'multi-lang',
   track: "ml-control",
+  editorLanguage: 'javascript',
+  availableLanguages: ['javascript', 'python', 'cpp'],
   difficulty: "medium",
-  xpReward: 65,
+  xpReward: 70,
   order: 6,
   week: 6,
   durationMinutes: 60,
   
-  story: "**Chuỗi ký tự (String)** là tập hợp các chữ cái, số hoặc biểu tượng được đặt trong dấu ngoặc kép hoặc đơn.\n\n### So sánh các thao tác xử lý chuỗi:\n\n#### 1. JavaScript (Template Literals `${}` & Methods)\n```javascript\nlet name = \"alice\";\nlet upper = name.toUpperCase(); // \"ALICE\"\nlet greeting = `Xin chào, ${upper}!`;\nlet sub = name.slice(0, 3);     // \"ali\" (cắt từ vị trí 0 đến 3)\n```\n\n#### 2. Python (F-strings `f\"\"` & Slicing)\n```python\nname = \"alice\"\nupper = name.upper()            # \"ALICE\"\ngreeting = f\"Xin chào, {upper}!\"\nsub = name[0:3]                 # \"ali\" (Cú pháp cắt chuỗi cực đẹp [start:stop])\n```\n\n#### 3. C++ (`std::string` & `substr`)\n```cpp\nstring name = \"alice\";\nstring greeting = \"Xin chào, \" + name + \"!\";\nstring sub = name.substr(0, 3); // (vị trí bắt đầu, độ dài cần lấy)\n```\n",
+  story: "Xử lý chuỗi ký tự String:\n* **JS**: `const msg = `Hi ${name}, rank ${rank}!`;`\n* **Python**: `msg = f\"Hi {name}, rank {rank}!\"`\n* **C++**: `string msg = \"Hi \" + name + \", rank \" + rank + \"!\";`\n",
 
   taskInstructions: [
-  "Khai báo biến `let rawName = \"nguyen van a\";`.",
-  "Chuyển chuỗi thành chữ hoa: `let upperName = rawName.toUpperCase();`.",
-  "Đo độ dài chuỗi bằng `rawName.length`.",
-  "Tạo chuỗi chào mừng bằng Template string: `let message = `Xin chào: ${upperName}`;`.",
-  "In `upperName` và `message` ra console."
+  "Khai báo biến `name` bằng `\"Luna\"` và `rank` bằng `\"Master\"`.",
+  "Tạo chuỗi thông báo định dạng `\"Player Luna has rank Master\"`.",
+  "In chuỗi ra Console."
 ],
 
   hints: {
-    level1: "Dùng .toUpperCase() để đổi chữ hoa, dấu backtick `...${biến}...` để ghép chuỗi.",
-    level2: "let rawName = \"nguyen van a\";\nlet upperName = rawName.toUpperCase();\nlet message = `Xin chào: ${upperName}`;\nconsole.log(upperName);\nconsole.log(message);",
-    solution: "let rawName = \"nguyen van a\";\nlet upperName = rawName.toUpperCase();\nlet message = `Xin chào: ${upperName}`;\n\nconsole.log(upperName);\nconsole.log(message);"
+    level1: "Ghép name và rank vào câu thông báo.",
+    level2: "JS: console.log(`Player ${name} has rank ${rank}`);",
+    solution: "const name = \"Luna\";\nconst rank = \"Master\";\nconst message = `Player ${name} has rank ${rank}`;\nconsole.log(message);"
   },
 
-  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🔤 MODULE 06: XỬ LÝ CHUỖI KÝ TỰ</div>\n  <h2 class=\"ml-title\">Nối Chuỗi & Biến Đổi Văn Bản</h2>\n  <div class=\"lang-grid\">\n    <div class=\"lang-box js\">\n      <div class=\"lang-tag\">JavaScript</div>\n      <div class=\"code-snippet\"><code>str.toUpperCase()<br>`Hello ${name}`</code></div>\n    </div>\n    <div class=\"lang-box py\">\n      <div class=\"lang-tag\">Python</div>\n      <div class=\"code-snippet\"><code>str.upper()<br>f\"Hello {name}\"</code></div>\n    </div>\n    <div class=\"lang-box cpp\">\n      <div class=\"lang-tag\">C++</div>\n      <div class=\"code-snippet\"><code>str.substr(0, 3)<br>\"Hello \" + name</code></div>\n    </div>\n  </div>\n</div>",
+  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🌐 ML06: Xử Lý Chuỗi & Định Dạng (JS • Python • C++)</div>\n  <h2 class=\"ml-title\">Chạy Trực Tiếp Đa Ngôn Ngữ (JS • Python • C++)</h2>\n  <div class=\"status-box\">💡 Chọn tab ngôn ngữ bạn muốn học (JavaScript, Python hoặc C++), viết mã và nhấn \"Chạy thử\" để xem output Console!</div>\n</div>",
 
-  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #eab308; border-radius: 20px; padding: 20px; color: white; text-align: center; }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #fde047; background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; }\n.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.lang-box { background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 12px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.08); }\n.lang-box.js { border-top: 3px solid #f59e0b; }\n.lang-box.py { border-top: 3px solid #10b981; }\n.lang-box.cpp { border-top: 3px solid #06b6d4; }\n.lang-tag { font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #94a3b8; }\n.code-snippet code { font-family: monospace; font-size: 11px; color: #e2e8f0; }",
+  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #3b82f6; border-radius: 20px; padding: 20px; color: white; text-align: center; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3); }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #60a5fa; background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #f8fafc; }\n.status-box { background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px; font-size: 12px; color: #93c5fd; }",
 
-  initialJsCode: "// ML06: Xử lý chuỗi ký tự\nlet rawName = \"nguyen van a\";\n\n// 1. Chuyển thành chữ in hoa\n\n\n// 2. Tạo chuỗi chào mừng\n\n\n// 3. In ra console\n",
+  initialJsCode: "const name = \"Luna\";\nconst rank = \"Master\";\n// Tạo và in thông báo\n",
+  solutionJsCode: "const name = \"Luna\";\nconst rank = \"Master\";\nconst message = `Player ${name} has rank ${rank}`;\nconsole.log(message);",
 
-  solutionJsCode: "let rawName = \"nguyen van a\";\nlet upperName = rawName.toUpperCase();\nlet message = `Xin chào: ${upperName}`;\n\nconsole.log(upperName);\nconsole.log(message);",
+  initialPyCode: "name = \"Luna\"\nrank = \"Master\"\n# Tạo và in thông báo f-string\n",
+  solutionPyCode: "name = \"Luna\"\nrank = \"Master\"\nmessage = f\"Player {name} has rank {rank}\"\nprint(message)",
+
+  initialCppCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string name = \"Luna\";\n    string rank = \"Master\";\n    string message = \"Player \" + name + \" has rank \" + rank;\n    cout << message << endl;\n    return 0;\n}",
+  solutionCppCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string name = \"Luna\";\n    string rank = \"Master\";\n    string message = \"Player \" + name + \" has rank \" + rank;\n    cout << message << endl;\n    return 0;\n}",
 
   tests: [
     {
-      id: "ml06_upper_check",
-      description: "Chuyển đổi thành \"NGUYEN VAN A\"",
-      tester: (doc, win) => {
+      id: "ml06_str",
+      description: "Chuỗi in ra chứa \"Player Luna has rank Master\"",
+      tester: (doc, win, context) => {
+        const expected = "player luna has rank master";
+        // Check multi-lang context stdout first (for Python / C++ / direct JS)
+        if (context && context.stdout && context.stdout.length > 0) {
+          const text = context.stdout.join(' ').toLowerCase();
+          if (text.includes(expected)) return true;
+        }
+        // Check window captured logs (for iframe JS)
         const logs = win.__capturedLogs || [];
-        return logs.some((l) => l.args && l.args.some((a) => String(a).includes('NGUYEN VAN A')));
-      }
-    },
-    {
-      id: "ml06_msg_check",
-      description: "In lời chào chứa \"Xin chào: NGUYEN VAN A\"",
-      tester: (doc, win) => {
-        const logs = win.__capturedLogs || [];
-        return logs.some((l) => l.args && l.args.some((a) => String(a).includes('Xin chào: NGUYEN VAN A')));
+        return logs.some((l) =>
+          l.args &&
+          l.args.some((a) => String(a).toLowerCase().includes(expected))
+        );
       }
     }
   ]

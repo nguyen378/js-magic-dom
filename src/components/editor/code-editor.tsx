@@ -10,6 +10,8 @@ const Monaco = dynamic(() => import('@monaco-editor/react'), { ssr: false });
 interface CodeEditorProps {
   code: string;
   language?: EditorLanguage;
+  availableLanguages?: EditorLanguage[];
+  onLanguageChange?: (lang: EditorLanguage) => void;
   fileName?: string;
   onChange: (newCode: string) => void;
   onReset: () => void;
@@ -19,6 +21,8 @@ interface CodeEditorProps {
 export function CodeEditor({ 
   code, 
   language = 'javascript', 
+  availableLanguages,
+  onLanguageChange,
   fileName, 
   onChange, 
   onReset, 
@@ -52,22 +56,22 @@ export function CodeEditor({
         return {
           title: fileName || 'main.py',
           icon: <Code2 className="h-3.5 w-3.5 text-emerald-400" />,
-          footerBadge: 'Python 3.12',
+          footerBadge: 'Python 3.12 (Live)',
           badgeColor: 'text-emerald-400',
         };
       case 'cpp':
         return {
           title: fileName || 'main.cpp',
           icon: <Code2 className="h-3.5 w-3.5 text-sky-400" />,
-          footerBadge: 'C++ (C++17/20)',
+          footerBadge: 'C++17/20 (Live)',
           badgeColor: 'text-sky-400',
         };
       default:
         return {
           title: fileName || 'script.js',
           icon: <Code2 className="h-3.5 w-3.5 text-amber-400" />,
-          footerBadge: 'JavaScript (ES6+)',
-          badgeColor: 'text-indigo-400',
+          footerBadge: 'JavaScript (V8 Live)',
+          badgeColor: 'text-amber-400',
         };
     }
   };
@@ -78,17 +82,44 @@ export function CodeEditor({
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-sm dark:border-slate-800">
       
       {/* Editor Header Bar */}
-      <div className="flex h-11 items-center justify-between border-b border-slate-800 bg-slate-950 px-4">
+      <div className="flex h-11 items-center justify-between border-b border-slate-800 bg-slate-950 px-3">
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-red-500/80" />
-            <span className="h-3 w-3 rounded-full bg-amber-500/80" />
-            <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
+          <div className="hidden sm:flex items-center gap-1.5 mr-1">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
           </div>
-          <span className="ml-2 flex items-center gap-1.5 text-xs font-bold text-slate-300">
-            {langDetails.icon}
-            {langDetails.title}
-          </span>
+
+          {/* If availableLanguages provided, show Interactive Language Switch Tabs */}
+          {availableLanguages && availableLanguages.length > 1 ? (
+            <div className="flex items-center p-0.5 rounded-lg bg-slate-900 border border-slate-800 gap-0.5">
+              {availableLanguages.map((lang) => {
+                const isActive = language === lang;
+                return (
+                  <button
+                    key={lang}
+                    onClick={() => onLanguageChange?.(lang)}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                      isActive
+                        ? lang === 'python'
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : lang === 'cpp'
+                          ? 'bg-sky-600 text-white shadow-xs'
+                          : 'bg-amber-500 text-slate-950 shadow-xs'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                    }`}
+                  >
+                    <span>{lang === 'python' ? '🐍 Python' : lang === 'cpp' ? '🔷 C++' : '🟨 JS'}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-300">
+              {langDetails.icon}
+              {langDetails.title}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-1.5">

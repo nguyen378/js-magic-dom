@@ -1,49 +1,64 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonML10: Lesson = {
+export const lessonML10_EXCEPTIONS: Lesson = {
   id: "ml10-exceptions",
-  title: "ML10. Xử Lý Lỗi & Bẫy Ngoại Lệ (Exception Handling)",
-  shortDescription: "Bảo vệ chương trình không bị sập (crash) với khối try-catch và try-except",
+  title: "ML10. Xử Lý Ngoại Lệ: Try / Catch / Except",
+  shortDescription: "Bẫy lỗi chia cho số 0 an toàn không làm dừng chương trình",
   category: "ml-exceptions",
   course: 'multi-lang',
   track: "ml-data-oop",
+  editorLanguage: 'javascript',
+  availableLanguages: ['javascript', 'python', 'cpp'],
   difficulty: "hard",
-  xpReward: 75,
+  xpReward: 80,
   order: 10,
   week: 10,
   durationMinutes: 60,
   
-  story: "Trong lập trình thực tế, lỗi có thể xảy ra bất cứ lúc nào: chia cho số 0, đọc file không tồn tại, hoặc mất kết nối mạng.\n\nKhối **Try-Catch / Try-Except** giúp bẫy lỗi an toàn để chương trình tiếp tục hoạt động mượt mà!\n\n### So sánh cơ chế Xử lý Ngoại lệ:\n\n#### 1. JavaScript (`try...catch...finally`)\n```javascript\ntry {\n  let result = JSON.parse(\"chuỗi lỗi không phải json\");\n} catch (error) {\n  console.error(\"Bắt được lỗi:\", error.message);\n} finally {\n  console.log(\"Luôn luôn chạy khối này!\");\n}\n```\n\n#### 2. Python (`try...except...finally`)\n```python\ntry:\n    num = 10 / 0  # Lỗi ZeroDivisionError\nexcept ZeroDivisionError as e:\n    print(f\"Bắt được lỗi chia cho 0: {e}\")\nfinally:\n    print(\"Hoàn tất tiến trình.\")\n```\n\n#### 3. C++ (`try...catch`)\n```cpp\ntry {\n    throw runtime_error(\"Lỗi kết nối máy chủ!\");\n} catch (const exception& e) {\n    cout << \"Bắt được lỗi: \" << e.what() << endl;\n}\n```\n",
+  story: "Xử lý ngoại lệ (Exception Handling) giúp ứng dụng hoạt động ổn định kể cả khi có dữ liệu bất thường.",
 
   taskInstructions: [
-  "Viết hàm `function safeDivide(a, b)` an toàn.",
-  "Nếu `b === 0`, ném ngoại lệ bằng `throw new Error(\"Không thể chia cho 0\");`.",
-  "Nếu không, trả về `a / b;`.",
-  "Bọc lệnh gọi `safeDivide(10, 0)` trong khối `try...catch(err)`.",
-  "Trong khối catch, in `err.message` ra console."
+  "Viết hàm `safeDivide(a, b)` chia `a` cho `b`.",
+  "Nếu `b === 0`: ném lỗi hoặc bẫy ngoại lệ và in ra `\"Error: Cannot divide by zero\"`.",
+  "Thực hiện gọi `safeDivide(10, 0)`."
 ],
 
   hints: {
-    level1: "Dùng if (b === 0) throw new Error(\"Không thể chia cho 0\"); và bọc trong try { safeDivide(10, 0); } catch(err) { console.log(err.message); }",
-    level2: "function safeDivide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Không thể chia cho 0\");\n  }\n  return a / b;\n}\ntry {\n  safeDivide(10, 0);\n} catch (err) {\n  console.log(err.message);\n}",
-    solution: "function safeDivide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Không thể chia cho 0\");\n  }\n  return a / b;\n}\n\ntry {\n  safeDivide(10, 0);\n} catch (err) {\n  console.log(err.message);\n}"
+    level1: "Dùng try...catch (JS/C++) hoặc try...except (Python).",
+    level2: "JS: try { if (b === 0) throw new Error(\"Cannot divide by zero\"); } catch (e) { console.log(\"Error: \" + e.message); }",
+    solution: "function safeDivide(a, b) {\n  try {\n    if (b === 0) {\n      throw new Error(\"Cannot divide by zero\");\n    }\n    console.log(a / b);\n  } catch (err) {\n    console.log(\"Error: \" + err.message);\n  }\n}\n\nsafeDivide(10, 0);"
   },
 
-  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🛡️ MODULE 10: XỬ LÝ LỖI & NGOẠI LỆ</div>\n  <h2 class=\"ml-title\">Bẫy Lỗi An Toàn (Exception Handling)</h2>\n  <div class=\"lang-grid\">\n    <div class=\"lang-box js\">\n      <div class=\"lang-tag\">JavaScript</div>\n      <div class=\"code-snippet\"><code>try { ... }<br>catch (err) { ... }</code></div>\n    </div>\n    <div class=\"lang-box py\">\n      <div class=\"lang-tag\">Python</div>\n      <div class=\"code-snippet\"><code>try:<br>&nbsp;&nbsp;...<br>except Exception:</code></div>\n    </div>\n    <div class=\"lang-box cpp\">\n      <div class=\"lang-tag\">C++</div>\n      <div class=\"code-snippet\"><code>try { ... }<br>catch (exception& e)</code></div>\n    </div>\n  </div>\n</div>",
+  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🌐 ML10: Xử Lý Ngoại Lệ: Try / Catch / Except</div>\n  <h2 class=\"ml-title\">Chạy Trực Tiếp Đa Ngôn Ngữ (JS • Python • C++)</h2>\n  <div class=\"status-box\">💡 Chọn tab ngôn ngữ bạn muốn học (JavaScript, Python hoặc C++), viết mã và nhấn \"Chạy thử\" để xem output Console!</div>\n</div>",
 
-  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #ef4444; border-radius: 20px; padding: 20px; color: white; text-align: center; }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #fca5a5; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; }\n.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.lang-box { background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 12px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.08); }\n.lang-box.js { border-top: 3px solid #f59e0b; }\n.lang-box.py { border-top: 3px solid #10b981; }\n.lang-box.cpp { border-top: 3px solid #06b6d4; }\n.lang-tag { font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #94a3b8; }\n.code-snippet code { font-family: monospace; font-size: 11px; color: #e2e8f0; }",
+  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #3b82f6; border-radius: 20px; padding: 20px; color: white; text-align: center; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3); }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #60a5fa; background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #f8fafc; }\n.status-box { background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px; font-size: 12px; color: #93c5fd; }",
 
-  initialJsCode: "// ML10: Bắt ngoại lệ chia cho 0\n// 1. Viết hàm safeDivide(a, b)\n\n\n// 2. Bọc trong khối try...catch và in thông báo lỗi\n",
+  initialJsCode: "// Định nghĩa safeDivide(a, b) với try/catch\n\n\nsafeDivide(10, 0);\n",
+  solutionJsCode: "function safeDivide(a, b) {\n  try {\n    if (b === 0) {\n      throw new Error(\"Cannot divide by zero\");\n    }\n    console.log(a / b);\n  } catch (err) {\n    console.log(\"Error: \" + err.message);\n  }\n}\n\nsafeDivide(10, 0);",
 
-  solutionJsCode: "function safeDivide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Không thể chia cho 0\");\n  }\n  return a / b;\n}\n\ntry {\n  safeDivide(10, 0);\n} catch (err) {\n  console.log(err.message);\n}",
+  initialPyCode: "# Định nghĩa safe_divide(a, b) với try/except\n\n\nsafe_divide(10, 0)\n",
+  solutionPyCode: "def safe_divide(a, b):\n    try:\n        if b == 0:\n            raise Exception(\"Cannot divide by zero\")\n        print(a / b)\n    except Exception as err:\n        print(f\"Error: {err}\")\n\nsafe_divide(10, 0)",
+
+  initialCppCode: "#include <iostream>\n#include <stdexcept>\n#include <string>\nusing namespace std;\n\nvoid safeDivide(int a, int b) {\n    try {\n        if (b == 0) {\n            throw runtime_error(\"Cannot divide by zero\");\n        }\n        cout << (a / b) << endl;\n    } catch (const exception& e) {\n        cout << \"Error: \" << e.what() << endl;\n    }\n}\n\nint main() {\n    safeDivide(10, 0);\n    return 0;\n}",
+  solutionCppCode: "#include <iostream>\n#include <stdexcept>\n#include <string>\nusing namespace std;\n\nvoid safeDivide(int a, int b) {\n    try {\n        if (b == 0) {\n            throw runtime_error(\"Cannot divide by zero\");\n        }\n        cout << (a / b) << endl;\n    } catch (const exception& e) {\n        cout << \"Error: \" << e.what() << endl;\n    }\n}\n\nint main() {\n    safeDivide(10, 0);\n    return 0;\n}",
 
   tests: [
     {
-      id: "ml10_catch_error",
-      description: "Bắt được thông báo lỗi \"Không thể chia cho 0\"",
-      tester: (doc, win) => {
+      id: "ml10_catch",
+      description: "Bẫy lỗi thành công thông báo \"Cannot divide by zero\"",
+      tester: (doc, win, context) => {
+        const expected = "cannot divide by zero";
+        // Check multi-lang context stdout first (for Python / C++ / direct JS)
+        if (context && context.stdout && context.stdout.length > 0) {
+          const text = context.stdout.join(' ').toLowerCase();
+          if (text.includes(expected)) return true;
+        }
+        // Check window captured logs (for iframe JS)
         const logs = win.__capturedLogs || [];
-        return logs.some((l) => l.args && l.args.some((a) => String(a).includes('Không thể chia cho 0')));
+        return logs.some((l) =>
+          l.args &&
+          l.args.some((a) => String(a).toLowerCase().includes(expected))
+        );
       }
     }
   ]

@@ -67,16 +67,25 @@ export interface SandboxLog {
   args: unknown[];
 }
 
+export interface MultiLangTestContext {
+  language: EditorLanguage;
+  code: string;
+  stdout: string[];
+  stderr: string[];
+  variables?: Record<string, any>;
+}
+
 export interface SandboxWindow extends Window {
   __capturedLogs?: SandboxLog[];
+  __multiLangContext?: MultiLangTestContext;
   [key: string]: unknown;
 }
 
 export interface TestCase {
   id: string;
   description: string;
-  // Function evaluated against document and window of iframe
-  tester: (doc: Document, win: SandboxWindow) => boolean | Promise<boolean>;
+  // Function evaluated against document, window of iframe and optional multi-lang execution context
+  tester: (doc: Document, win: SandboxWindow, context?: MultiLangTestContext) => boolean | Promise<boolean>;
 }
 
 export interface MultiLangSnippet {
@@ -109,6 +118,7 @@ export interface Lesson {
     | 'ml-data-oop'
     | 'ml-capstone';
   editorLanguage?: EditorLanguage; // 'javascript' (default) | 'html' | 'css' | 'python' | 'cpp'
+  availableLanguages?: EditorLanguage[]; // ['javascript', 'python', 'cpp'] for multi-lang lessons
   difficulty: Difficulty;
   xpReward: number;
   order: number;

@@ -1,4 +1,4 @@
-import { TestCase, SandboxWindow } from '@/types/lesson';
+import { TestCase, SandboxWindow, MultiLangTestContext } from '@/types/lesson';
 
 export interface TestRunResult {
   passed: boolean;
@@ -168,11 +168,12 @@ export function buildIframeHtml(
 }
 
 /**
- * Runs student code and evaluates all test cases against the iframe DOM.
+ * Runs student code and evaluates all test cases against the iframe DOM and multi-language context.
  */
 export async function evaluateTests(
-  iframe: HTMLIFrameElement,
-  tests: TestCase[]
+  iframe: HTMLIFrameElement | null,
+  tests: TestCase[],
+  context?: MultiLangTestContext
 ): Promise<TestRunResult> {
   const result: TestRunResult = {
     passed: true,
@@ -182,20 +183,16 @@ export async function evaluateTests(
     consoleLogs: [],
   };
 
-  const doc = iframe.contentDocument;
-  const win = iframe.contentWindow as unknown as SandboxWindow | null;
+  const doc = iframe?.contentDocument || (typeof document !== 'undefined' ? document : ({} as Document));
+  const win = (iframe?.contentWindow as unknown as SandboxWindow) || (typeof window !== 'undefined' ? (window as unknown as SandboxWindow) : ({} as SandboxWindow));
 
-  if (!doc || !win) {
-    return {
-      ...result,
-      passed: false,
-      runtimeError: 'Không thể kết nối tới môi trường Sandbox DOM.',
-    };
+  if (win && context) {
+    win.__multiLangContext = context;
   }
 
   for (const test of tests) {
     try {
-      const isPass = await test.tester(doc, win);
+      const isPass = await test.tester(doc, win, context);
       if (isPass) {
         result.passedTests += 1;
         result.testDetails.push({

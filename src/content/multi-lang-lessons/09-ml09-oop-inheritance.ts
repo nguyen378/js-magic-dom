@@ -1,49 +1,64 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonML09: Lesson = {
+export const lessonML09_OOP_INHERITANCE: Lesson = {
   id: "ml09-oop-inheritance",
-  title: "ML09. OOP Nâng Cao — Kế Thừa & Đa Hình (Inheritance & Polymorphism)",
-  shortDescription: "Kế thừa thuộc tính từ lớp cha và ghi đè phương thức (Override) trong 3 ngôn ngữ",
+  title: "ML09. OOP Nâng Cao: Kế Thừa & Đa Hình",
+  shortDescription: "Xây dựng lớp Mage kế thừa từ Hero với thuộc tính năng lượng MP",
   category: "ml-oop-inheritance",
   course: 'multi-lang',
   track: "ml-data-oop",
+  editorLanguage: 'javascript',
+  availableLanguages: ['javascript', 'python', 'cpp'],
   difficulty: "hard",
-  xpReward: 75,
+  xpReward: 80,
   order: 9,
   week: 9,
   durationMinutes: 60,
   
-  story: "**Kế thừa (Inheritance)** cho phép một lớp con kế thừa toàn bộ thuộc tính và phương thức từ lớp cha mà không cần viết lại mã.\n\n### So sánh Kế thừa & Đa hình:\n\n#### 1. JavaScript (`extends` & `super`)\n```javascript\nclass Animal {\n  speak() { return \"Âm thanh động vật\"; }\n}\n\nclass Dog extends Animal {\n  speak() { return \"Gâu gâu!\"; } // Ghi đè phương thức (Override)\n}\n```\n\n#### 2. Python (`class Con(Cha):`)\n```python\nclass Animal:\n    def speak(self):\n        return \"Âm thanh động vật\"\n\nclass Dog(Animal):\n    def speak(self):\n        return \"Gâu gâu!\"\n```\n\n#### 3. C++ (`class Con : public Cha`)\n```cpp\nclass Animal {\npublic:\n    virtual string speak() { return \"Âm thanh động vật\"; }\n};\n\nclass Dog : public Animal {\npublic:\n    string speak() override { return \"Gâu gâu!\"; }\n};\n```\n",
+  story: "Kế thừa (Inheritance) cho phép lớp con tái sử dụng toàn bộ thuộc tính và phương thức từ lớp cha.",
 
   taskInstructions: [
-  "Tạo class cha `Vehicle` có phương thức `getType() { return \"Phương tiện chung\"; }`.",
-  "Tạo class con `Car extends Vehicle`.",
-  "Trong `Car`, ghi đè phương thức `getType() { return \"Ô tô bốn bánh\"; }`.",
-  "Khởi tạo `const myCar = new Car();`.",
-  "In ra console kết quả của `myCar.getType()`."
+  "Tạo lớp `Hero` với `name` và `hp`.",
+  "Tạo lớp `Mage` kế thừa `Hero` và bổ sung thêm thuộc tính `mp`.",
+  "Khởi tạo pháp sư `\"Merlin\"`, `hp = 80`, `mp = 200` và in ra `\"{name} HP: {hp} MP: {mp}\"`."
 ],
 
   hints: {
-    level1: "Dùng cú pháp class Car extends Vehicle { getType() { return \"Ô tô bốn bánh\"; } }",
-    level2: "class Vehicle {\n  getType() { return \"Phương tiện chung\"; }\n}\nclass Car extends Vehicle {\n  getType() { return \"Ô tô bốn bánh\"; }\n}\nconst myCar = new Car();\nconsole.log(myCar.getType());",
-    solution: "class Vehicle {\n  getType() {\n    return \"Phương tiện chung\";\n  }\n}\n\nclass Car extends Vehicle {\n  getType() {\n    return \"Ô tô bốn bánh\";\n  }\n}\n\nconst myCar = new Car();\nconsole.log(myCar.getType());"
+    level1: "Sử dụng extends (JS/C++) hoặc Class(Parent) (Python).",
+    level2: "JS: class Mage extends Hero { constructor(name, hp, mp) { super(name, hp); this.mp = mp; } }",
+    solution: "class Hero {\n  constructor(name, hp) {\n    this.name = name;\n    this.hp = hp;\n  }\n}\n\nclass Mage extends Hero {\n  constructor(name, hp, mp) {\n    super(name, hp);\n    this.mp = mp;\n  }\n  getInfo() {\n    return `${this.name} HP: ${this.hp} MP: ${this.mp}`;\n  }\n}\n\nconst mage = new Mage(\"Merlin\", 80, 200);\nconsole.log(mage.getInfo());"
   },
 
-  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🧬 MODULE 09: KẾ THỪA & ĐA HÌNH</div>\n  <h2 class=\"ml-title\">Kế Thừa Lớp Cha Sang Lớp Con</h2>\n  <div class=\"lang-grid\">\n    <div class=\"lang-box js\">\n      <div class=\"lang-tag\">JavaScript</div>\n      <div class=\"code-snippet\"><code>class Dog extends Animal {}</code></div>\n    </div>\n    <div class=\"lang-box py\">\n      <div class=\"lang-tag\">Python</div>\n      <div class=\"code-snippet\"><code>class Dog(Animal):</code></div>\n    </div>\n    <div class=\"lang-box cpp\">\n      <div class=\"lang-tag\">C++</div>\n      <div class=\"code-snippet\"><code>class Dog : public Animal {}</code></div>\n    </div>\n  </div>\n</div>",
+  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🌐 ML09: OOP Nâng Cao: Kế Thừa & Đa Hình</div>\n  <h2 class=\"ml-title\">Chạy Trực Tiếp Đa Ngôn Ngữ (JS • Python • C++)</h2>\n  <div class=\"status-box\">💡 Chọn tab ngôn ngữ bạn muốn học (JavaScript, Python hoặc C++), viết mã và nhấn \"Chạy thử\" để xem output Console!</div>\n</div>",
 
-  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #a855f7; border-radius: 20px; padding: 20px; color: white; text-align: center; }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #d8b4fe; background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; }\n.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.lang-box { background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 12px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.08); }\n.lang-box.js { border-top: 3px solid #f59e0b; }\n.lang-box.py { border-top: 3px solid #10b981; }\n.lang-box.cpp { border-top: 3px solid #06b6d4; }\n.lang-tag { font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #94a3b8; }\n.code-snippet code { font-family: monospace; font-size: 11px; color: #e2e8f0; }",
+  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #3b82f6; border-radius: 20px; padding: 20px; color: white; text-align: center; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3); }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #60a5fa; background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #f8fafc; }\n.status-box { background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px; font-size: 12px; color: #93c5fd; }",
 
-  initialJsCode: "// ML09: Kế thừa và ghi đè phương thức\n// 1. Tạo class Vehicle\n\n\n// 2. Tạo class Car kế thừa Vehicle\n\n\n// 3. Khởi tạo myCar và in myCar.getType()\n",
+  initialJsCode: "// Định nghĩa class Hero và class Mage extends Hero\n",
+  solutionJsCode: "class Hero {\n  constructor(name, hp) {\n    this.name = name;\n    this.hp = hp;\n  }\n}\n\nclass Mage extends Hero {\n  constructor(name, hp, mp) {\n    super(name, hp);\n    this.mp = mp;\n  }\n  getInfo() {\n    return `${this.name} HP: ${this.hp} MP: ${this.mp}`;\n  }\n}\n\nconst mage = new Mage(\"Merlin\", 80, 200);\nconsole.log(mage.getInfo());",
 
-  solutionJsCode: "class Vehicle {\n  getType() {\n    return \"Phương tiện chung\";\n  }\n}\n\nclass Car extends Vehicle {\n  getType() {\n    return \"Ô tô bốn bánh\";\n  }\n}\n\nconst myCar = new Car();\nconsole.log(myCar.getType());",
+  initialPyCode: "# Định nghĩa class Hero và class Mage(Hero)\n",
+  solutionPyCode: "class Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\nclass Mage(Hero):\n    def __init__(self, name, hp, mp):\n        super().__init__(name, hp)\n        self.mp = mp\n    def get_info(self):\n        return f\"{self.name} HP: {self.hp} MP: {self.mp}\"\n\nmage = Mage(\"Merlin\", 80, 200)\nprint(mage.get_info())",
+
+  initialCppCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Hero {\npublic:\n    string name;\n    int hp;\n    Hero(string n, int h) : name(n), hp(h) {}\n};\n\nclass Mage : public Hero {\npublic:\n    int mp;\n    Mage(string n, int h, int m) : Hero(n, h), mp(m) {}\n    string getInfo() {\n        return name + \" HP: \" + to_string(hp) + \" MP: \" + to_string(mp);\n    }\n};\n\nint main() {\n    Mage mage(\"Merlin\", 80, 200);\n    cout << mage.getInfo() << endl;\n    return 0;\n}",
+  solutionCppCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Hero {\npublic:\n    string name;\n    int hp;\n    Hero(string n, int h) : name(n), hp(h) {}\n};\n\nclass Mage : public Hero {\npublic:\n    int mp;\n    Mage(string n, int h, int m) : Hero(n, h), mp(m) {}\n    string getInfo() {\n        return name + \" HP: \" + to_string(hp) + \" MP: \" + to_string(mp);\n    }\n};\n\nint main() {\n    Mage mage(\"Merlin\", 80, 200);\n    cout << mage.getInfo() << endl;\n    return 0;\n}",
 
   tests: [
     {
-      id: "ml09_car_type",
-      description: "Phương thức getType() của Car trả về \"Ô tô bốn bánh\"",
-      tester: (doc, win) => {
+      id: "ml09_mage",
+      description: "Lớp Mage khởi tạo đúng Merlin với HP 80 và MP 200",
+      tester: (doc, win, context) => {
+        const expected = "merlin hp: 80 mp: 200";
+        // Check multi-lang context stdout first (for Python / C++ / direct JS)
+        if (context && context.stdout && context.stdout.length > 0) {
+          const text = context.stdout.join(' ').toLowerCase();
+          if (text.includes(expected)) return true;
+        }
+        // Check window captured logs (for iframe JS)
         const logs = win.__capturedLogs || [];
-        return logs.some((l) => l.args && l.args.some((a) => String(a).includes('Ô tô bốn bánh')));
+        return logs.some((l) =>
+          l.args &&
+          l.args.some((a) => String(a).toLowerCase().includes(expected))
+        );
       }
     }
   ]

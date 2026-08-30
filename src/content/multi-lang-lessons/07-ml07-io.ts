@@ -1,48 +1,65 @@
 import { Lesson } from '@/types/lesson';
 
-export const lessonML07: Lesson = {
+export const lessonML07_IO: Lesson = {
   id: "ml07-io",
-  title: "ML07. Nhập/Xuất Dữ Liệu & Console I/O (Input & Output)",
-  shortDescription: "Khám phá cách đọc dữ liệu đầu vào và in dữ liệu ra luồng đầu ra trong 3 ngôn ngữ",
+  title: "ML07. Nhập / Xuất Dữ Liệu & Console I/O",
+  shortDescription: "Làm chủ các luồng xuất dữ liệu chuẩn và định dạng nhiều dòng",
   category: "ml-io",
   course: 'multi-lang',
   track: "ml-data-oop",
+  editorLanguage: 'javascript',
+  availableLanguages: ['javascript', 'python', 'cpp'],
   difficulty: "medium",
   xpReward: 70,
   order: 7,
   week: 7,
   durationMinutes: 60,
   
-  story: "Mọi chương trình máy tính đều hoạt động theo mô hình **IPO (Input → Process → Output)**:\n1. **Input (Nhập)**: Nhận thông tin từ bàn phím, file hoặc mạng.\n2. **Process (Xử lý)**: Tính toán logic, điều kiện, vòng lặp.\n3. **Output (Xuất)**: In kết quả ra màn hình console hoặc lưu vào file.\n\n### So sánh cơ chế I/O:\n\n#### 1. JavaScript (Browser & Node.js)\n```javascript\n// Xuất dữ liệu\nconsole.log(\"Xin chào thế giới!\");\nconsole.warn(\"Cảnh báo!\");\nconsole.error(\"Báo lỗi!\");\n```\n\n#### 2. Python (`input()` & `print()`)\n```python\n# Nhập chuỗi từ bàn phím\nuser_name = input(\"Nhập tên của bạn: \")\nage = int(input(\"Nhập tuổi: \")) # Ép kiểu sang số nguyên int\n\n# Xuất ra màn hình\nprint(\"Chào mừng:\", user_name, \"Tuổi:\", age)\n```\n\n#### 3. C++ (`cin` & `cout` từ `<iostream>`)\n```cpp\n#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string userName;\n    int age;\n    cout << \"Nhập tên: \";\n    cin >> userName; // Luồng đọc dữ liệu cin\n    cout << \"Chào mừng \" << userName << endl;\n    return 0;\n}\n```\n",
+  story: "Khám phá các phương thức xuất dữ liệu chuẩn ra màn hình Console.",
 
   taskInstructions: [
-  "Viết hàm mô phỏng định dạng đầu ra `function formatUserLog(name, role)`.",
-  "Bên trong hàm, trả về chuỗi `\"[USER] \" + name + \" - \" + role`.",
-  "Gọi hàm `formatUserLog(\"Admin\", \"Superuser\")` và lưu vào biến `let result`.",
-  "In `result` ra console bằng `console.log(result)`."
+  "In ra dòng 1: `\"=== GAME MENU ===\"`.",
+  "In ra dòng 2: `\"1. Start Game\"`.",
+  "In ra dòng 3: `\"2. Settings\"`.",
+  "In ra dòng 4: `\"3. Exit\"`."
 ],
 
   hints: {
-    level1: "Định nghĩa function formatUserLog(name, role) { return \"[USER] \" + name + \" - \" + role; }",
-    level2: "function formatUserLog(name, role) {\n  return `[USER] ${name} - ${role}`;\n}\nlet result = formatUserLog(\"Admin\", \"Superuser\");\nconsole.log(result);",
-    solution: "function formatUserLog(name, role) {\n  return `[USER] ${name} - ${role}`;\n}\n\nlet result = formatUserLog(\"Admin\", \"Superuser\");\nconsole.log(result);"
+    level1: "In 4 dòng menu lần lượt.",
+    level2: "JS: console.log(\"=== GAME MENU ===\"); ...",
+    solution: "console.log(\"=== GAME MENU ===\");\nconsole.log(\"1. Start Game\");\nconsole.log(\"2. Settings\");\nconsole.log(\"3. Exit\");"
   },
 
-  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">📥 MODULE 07: NHẬP XUẤT I/O</div>\n  <h2 class=\"ml-title\">Luồng Dữ Liệu Input / Output</h2>\n  <div class=\"lang-grid\">\n    <div class=\"lang-box js\">\n      <div class=\"lang-tag\">JavaScript</div>\n      <div class=\"code-snippet\"><code>console.log(data);<br>prompt(\"Nhập:\");</code></div>\n    </div>\n    <div class=\"lang-box py\">\n      <div class=\"lang-tag\">Python</div>\n      <div class=\"code-snippet\"><code>print(data)<br>x = input(\"Nhập: \")</code></div>\n    </div>\n    <div class=\"lang-box cpp\">\n      <div class=\"lang-tag\">C++</div>\n      <div class=\"code-snippet\"><code>cout << data;<br>cin >> x;</code></div>\n    </div>\n  </div>\n</div>",
+  htmlContent: "\n<div class=\"ml-card\">\n  <div class=\"ml-badge\">🌐 ML07: Nhập / Xuất Dữ Liệu & Console I/O</div>\n  <h2 class=\"ml-title\">Chạy Trực Tiếp Đa Ngôn Ngữ (JS • Python • C++)</h2>\n  <div class=\"status-box\">💡 Chọn tab ngôn ngữ bạn muốn học (JavaScript, Python hoặc C++), viết mã và nhấn \"Chạy thử\" để xem output Console!</div>\n</div>",
 
-  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #14b8a6; border-radius: 20px; padding: 20px; color: white; text-align: center; }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #5eead4; background: rgba(20, 184, 166, 0.15); border: 1px solid #14b8a6; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; }\n.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.lang-box { background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 12px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.08); }\n.lang-box.js { border-top: 3px solid #f59e0b; }\n.lang-box.py { border-top: 3px solid #10b981; }\n.lang-box.cpp { border-top: 3px solid #06b6d4; }\n.lang-tag { font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #94a3b8; }\n.code-snippet code { font-family: monospace; font-size: 11px; color: #e2e8f0; }",
+  cssContent: "\n.ml-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #3b82f6; border-radius: 20px; padding: 20px; color: white; text-align: center; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3); }\n.ml-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #60a5fa; background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px; }\n.ml-title { font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #f8fafc; }\n.status-box { background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px; font-size: 12px; color: #93c5fd; }",
 
-  initialJsCode: "// ML07: Định dạng I/O log\n// 1. Viết hàm formatUserLog(name, role)\n\n\n// 2. Gọi hàm và in ra console\n",
+  initialJsCode: "// In 4 dòng menu ra console\n",
+  solutionJsCode: "console.log(\"=== GAME MENU ===\");\nconsole.log(\"1. Start Game\");\nconsole.log(\"2. Settings\");\nconsole.log(\"3. Exit\");",
 
-  solutionJsCode: "function formatUserLog(name, role) {\n  return `[USER] ${name} - ${role}`;\n}\n\nlet result = formatUserLog(\"Admin\", \"Superuser\");\nconsole.log(result);",
+  initialPyCode: "# In 4 dòng menu ra console\n",
+  solutionPyCode: "print(\"=== GAME MENU ===\")\nprint(\"1. Start Game\")\nprint(\"2. Settings\")\nprint(\"3. Exit\")",
+
+  initialCppCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"=== GAME MENU ===\" << endl;\n    cout << \"1. Start Game\" << endl;\n    cout << \"2. Settings\" << endl;\n    cout << \"3. Exit\" << endl;\n    return 0;\n}",
+  solutionCppCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"=== GAME MENU ===\" << endl;\n    cout << \"1. Start Game\" << endl;\n    cout << \"2. Settings\" << endl;\n    cout << \"3. Exit\" << endl;\n    return 0;\n}",
 
   tests: [
     {
-      id: "ml07_formatted_output",
-      description: "In chính xác \"[USER] Admin - Superuser\"",
-      tester: (doc, win) => {
+      id: "ml07_menu",
+      description: "Menu hiển thị đầy đủ \"Start Game\", \"Settings\", \"Exit\"",
+      tester: (doc, win, context) => {
+        const expected = "start game";
+        // Check multi-lang context stdout first (for Python / C++ / direct JS)
+        if (context && context.stdout && context.stdout.length > 0) {
+          const text = context.stdout.join(' ').toLowerCase();
+          if (text.includes(expected)) return true;
+        }
+        // Check window captured logs (for iframe JS)
         const logs = win.__capturedLogs || [];
-        return logs.some((l) => l.args && l.args.some((a) => String(a).includes('[USER] Admin - Superuser')));
+        return logs.some((l) =>
+          l.args &&
+          l.args.some((a) => String(a).toLowerCase().includes(expected))
+        );
       }
     }
   ]
