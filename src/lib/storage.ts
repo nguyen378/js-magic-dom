@@ -251,6 +251,32 @@ export const StorageService = {
       currentBadges.add('personal_web_author');
     }
 
+    // Multi-Language Course Badges
+    if (updatedCompleted.includes('ml01-variables') && !currentBadges.has('polyglot_starter')) {
+      newBadges.push('polyglot_starter');
+      currentBadges.add('polyglot_starter');
+    }
+    if ((updatedCompleted.includes('ml02-conditionals') || updatedCompleted.includes('ml03-loops')) && !currentBadges.has('control_flow_master')) {
+      newBadges.push('control_flow_master');
+      currentBadges.add('control_flow_master');
+    }
+    if ((updatedCompleted.includes('ml04-functions') || updatedCompleted.includes('ml05-collections') || updatedCompleted.includes('ml06-strings')) && !currentBadges.has('function_collection_guru')) {
+      newBadges.push('function_collection_guru');
+      currentBadges.add('function_collection_guru');
+    }
+    if ((updatedCompleted.includes('ml08-oop-basics') || updatedCompleted.includes('ml09-oop-inheritance')) && !currentBadges.has('oop_polyglot_architect')) {
+      newBadges.push('oop_polyglot_architect');
+      currentBadges.add('oop_polyglot_architect');
+    }
+    if ((updatedCompleted.includes('ml10-exceptions') || updatedCompleted.includes('ml11-stdlib')) && !currentBadges.has('error_hunter_pro')) {
+      newBadges.push('error_hunter_pro');
+      currentBadges.add('error_hunter_pro');
+    }
+    if (updatedCompleted.includes('ml12-capstone') && !currentBadges.has('polyglot_legend')) {
+      newBadges.push('polyglot_legend');
+      currentBadges.add('polyglot_legend');
+    }
+
     const newProgress: UserProgress = {
       xp: updatedXP,
       completedLessons: updatedCompleted,

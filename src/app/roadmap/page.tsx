@@ -13,7 +13,12 @@ import {
   WEEK1_4_HTML_FOUNDATION,
   WEEK5_8_CSS_STYLING,
   WEEK9_12_FLEXBOX_RESPONSIVE,
-  WEEK13_16_CAPSTONE_PORTFOLIO
+  WEEK13_16_CAPSTONE_PORTFOLIO,
+  MULTI_LANG_LESSONS,
+  ML_STAGE1_FOUNDATION,
+  ML_STAGE2_CONTROL_COLLECTIONS,
+  ML_STAGE3_OOP_EXCEPTIONS,
+  ML_STAGE4_CAPSTONE
 } from '@/content/lessons';
 import { BADGES } from '@/content/badges';
 import { useProgress } from '@/lib/storage';
@@ -32,7 +37,9 @@ import {
   Globe,
   Palette,
   Layout,
-  Crown
+  Crown,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 
 interface Chapter {
@@ -152,13 +159,67 @@ const HTML_CSS_CHAPTERS: Chapter[] = [
   },
 ];
 
+const MULTI_LANG_CHAPTERS: Chapter[] = [
+  {
+    id: 'ml_stage1',
+    course: 'multi-lang',
+    track: 'ml-foundation',
+    title: 'Giai Đoạn 1 (Module 1 - 3): Nền Tảng Cú Pháp & Logic',
+    subtitle: 'So sánh đối chiếu cú pháp Biến số, Kiểu dữ liệu, Cấu trúc rẽ nhánh điều kiện If/Else/Elif và Vòng lặp For/While trên JavaScript, Python và C++.',
+    icon: '💻',
+    color: 'from-blue-500 to-indigo-600',
+    lessons: ML_STAGE1_FOUNDATION,
+  },
+  {
+    id: 'ml_stage2',
+    course: 'multi-lang',
+    track: 'ml-control',
+    title: 'Giai Đoạn 2 (Module 4 - 6): Hàm & Cấu Trúc Tập Hợp',
+    subtitle: 'Định nghĩa Hàm Function & Tham số, Quản lý mảng Array (JS) vs List (Python) vs std::vector (C++), Xử lý và cắt chuỗi ký tự String Slicing.',
+    icon: '🎒',
+    color: 'from-emerald-500 to-teal-600',
+    lessons: ML_STAGE2_CONTROL_COLLECTIONS,
+  },
+  {
+    id: 'ml_stage3',
+    course: 'multi-lang',
+    track: 'ml-data-oop',
+    title: 'Giai Đoạn 3 (Module 7 - 10): I/O, Hướng Đối Tượng (OOP) & Ngoại Lệ',
+    subtitle: 'Luồng nhập xuất dữ liệu Console I/O, Lớp Class & Đối tượng Object, Kế thừa & Đa hình (Inheritance), Bẫy lỗi an toàn với Try-Catch và Try-Except.',
+    icon: '🏛️',
+    color: 'from-purple-500 to-pink-600',
+    lessons: ML_STAGE3_OOP_EXCEPTIONS,
+  },
+  {
+    id: 'ml_stage4',
+    course: 'multi-lang',
+    track: 'ml-capstone',
+    title: 'Giai Đoạn 4 (Module 11 - 12): Thư Viện Chuẩn & Đồ Án Capstone',
+    subtitle: 'Khai thác Thư viện chuẩn (Math, Random, Sorting) và Hoàn thành Đồ án Tốt nghiệp Đa Ngôn Ngữ: Ứng dụng Quản lý Task & Hệ Thống Điểm Thưởng.',
+    icon: '👑',
+    color: 'from-amber-500 to-rose-600',
+    lessons: ML_STAGE4_CAPSTONE,
+  },
+];
+
 export default function RoadmapPage() {
   const progress = useProgress();
   const [selectedCourse, setSelectedCourse] = useState<CourseType>('html-css');
   const [activeTab, setActiveTab] = useState<string>('all');
 
-  const currentCourseLessons = selectedCourse === 'html-css' ? HTML_CSS_LESSONS : JAVASCRIPT_LESSONS;
-  const currentCourseChapters = selectedCourse === 'html-css' ? HTML_CSS_CHAPTERS : JS_CHAPTERS;
+  const currentCourseLessons = 
+    selectedCourse === 'html-css' 
+      ? HTML_CSS_LESSONS 
+      : selectedCourse === 'multi-lang'
+      ? MULTI_LANG_LESSONS
+      : JAVASCRIPT_LESSONS;
+
+  const currentCourseChapters = 
+    selectedCourse === 'html-css' 
+      ? HTML_CSS_CHAPTERS 
+      : selectedCourse === 'multi-lang'
+      ? MULTI_LANG_CHAPTERS
+      : JS_CHAPTERS;
 
   const completedInCourse = currentCourseLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
   const courseProgressPercent = Math.round((completedInCourse / currentCourseLessons.length) * 100);
@@ -181,41 +242,61 @@ export default function RoadmapPage() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 mb-3">
             <Sparkles className="h-4 w-4 text-indigo-500" />
-            <span>Chương Trình 16 Tuần: 12 Tuần Thực Hành + 4 Tuần Xây Dựng Website Cá Nhân</span>
+            <span>
+              {selectedCourse === 'multi-lang'
+                ? 'Lộ Trình Đa Ngôn Ngữ: JavaScript • Python • C++ (12 Module Thực Chiến)'
+                : selectedCourse === 'html-css'
+                ? 'Chương Trình 16 Tuần: 12 Tuần Thực Hành + 4 Tuần Xây Dựng Website Cá Nhân'
+                : 'Lộ Trình JavaScript DOM: 32 Bài Học Tương Tác & Chế Tạo Game'}
+            </span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-            Bản Đồ Phiêu Lưu Lập Trình Web
+            Bản Đồ Phiêu Lưu Lập Trình
           </h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Mỗi tuần 1 tiết 60 phút thực hành trực quan: từ tạo khung xương, tô màu giao diện đến hoàn thiện Website cá nhân hoàn chỉnh!
+            {selectedCourse === 'multi-lang'
+              ? 'Học lập trình toàn diện: Nắm vững tư duy logic và đối chiếu cú pháp song song giữa JavaScript, Python và C++!'
+              : 'Mỗi tuần 1 tiết 60 phút thực hành trực quan: từ tạo khung xương, tô màu giao diện đến hoàn thiện Website cá nhân hoàn chỉnh!'}
           </p>
         </div>
 
         {/* Course Switcher Tabs */}
         <div className="mb-8 flex justify-center">
-          <div className="inline-flex p-1.5 rounded-2xl bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-md shadow-inner">
+          <div className="inline-flex flex-wrap p-1.5 rounded-2xl bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-md shadow-inner gap-1">
             <button
               onClick={() => handleCourseChange('html-css')}
-              className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
                 selectedCourse === 'html-css'
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/25 scale-[1.02]'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Globe className="h-4 w-4" />
-              <span>🌐 Lộ Trình HTML & CSS (16 Tuần Học)</span>
+              <span>🌐 HTML & CSS (16 Tuần)</span>
             </button>
 
             <button
               onClick={() => handleCourseChange('javascript')}
-              className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
                 selectedCourse === 'javascript'
                   ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25 scale-[1.02]'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Zap className="h-4 w-4" />
-              <span>🪄 Lộ Trình JavaScript ({JAVASCRIPT_LESSONS.length} bài)</span>
+              <span>🪄 JS Magic DOM ({JAVASCRIPT_LESSONS.length} bài)</span>
+            </button>
+
+            <button
+              onClick={() => handleCourseChange('multi-lang')}
+              className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+                selectedCourse === 'multi-lang'
+                  ? 'bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Terminal className="h-4 w-4" />
+              <span>💻 Đa Ngôn Ngữ: JS • Python • C++ ({MULTI_LANG_LESSONS.length} Mod)</span>
             </button>
           </div>
         </div>
@@ -341,6 +422,56 @@ export default function RoadmapPage() {
                 <span>👑 GĐ 4: Đồ Án (Tuần 13-16)</span>
               </button>
             </>
+          ) : selectedCourse === 'multi-lang' ? (
+            <>
+              <button
+                onClick={() => setActiveTab('ml-foundation')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'ml-foundation'
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Code className="h-3.5 w-3.5" />
+                <span>💻 GĐ 1: Cú Pháp (Mod 1-3)</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('ml-control')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'ml-control'
+                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Layers className="h-3.5 w-3.5" />
+                <span>🎒 GĐ 2: Hàm & Mảng (Mod 4-6)</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('ml-data-oop')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'ml-data-oop'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Cpu className="h-3.5 w-3.5" />
+                <span>🏛️ GĐ 3: OOP & Lỗi (Mod 7-10)</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('ml-capstone')}
+                className={`flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-black transition-all cursor-pointer ${
+                  activeTab === 'ml-capstone'
+                    ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25 scale-105'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                <Crown className="h-3.5 w-3.5" />
+                <span>👑 GĐ 4: Capstone (Mod 11-12)</span>
+              </button>
+            </>
           ) : (
             <>
               <button
@@ -416,7 +547,7 @@ export default function RoadmapPage() {
                     </div>
                   </div>
                   <div className="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full self-start sm:self-auto">
-                    {completedInChapter} / {chapter.lessons.length} tuần hoàn thành
+                    {completedInChapter} / {chapter.lessons.length} {selectedCourse === 'multi-lang' ? 'module hoàn thành' : 'bài hoàn thành'}
                   </div>
                 </div>
 
@@ -437,9 +568,16 @@ export default function RoadmapPage() {
                       lesson.id === '01-select-element' || 
                       lesson.id === 'adv01-es6-features' ||
                       lesson.id === '13-todo-list' ||
+                      lesson.id === 'ml01-variables' ||
+                      lesson.id === 'ml04-functions' ||
+                      lesson.id === 'ml07-io' ||
+                      lesson.id === 'ml11-stdlib' ||
                       progress.completedLessons.includes(currentCourseLessons[courseIdx - 1]?.id);
 
                     const getLessonBadgeLabel = () => {
+                      if (lesson.id.startsWith('ml')) {
+                        return `M${lesson.order}`;
+                      }
                       if (lesson.id.startsWith('b')) {
                         const parts = lesson.id.replace('b', '').split('-');
                         if (parts.length === 2) {

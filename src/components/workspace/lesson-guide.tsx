@@ -82,7 +82,9 @@ export function LessonGuide({ lesson, passedList, onApplySolution }: LessonGuide
           </span>
         </div>
         <span className="text-xs font-medium text-slate-400">
-          {lesson.course === 'html-css' || lesson.id.startsWith('w')
+          {lesson.course === 'multi-lang' || lesson.id.startsWith('ml')
+            ? `Module ${lesson.order} / 12 (Đa Ngôn Ngữ)`
+            : lesson.course === 'html-css' || lesson.id.startsWith('w')
             ? `Tuần ${lesson.week || lesson.order} / 16 (60 phút)`
             : lesson.track === 'foundation'
             ? `Bài F${lesson.order} / 10`

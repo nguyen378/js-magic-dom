@@ -91,6 +91,14 @@ import {
   HTML_CSS_CAPSTONE_LESSONS 
 } from '../html-css-lessons';
 
+import {
+  MULTI_LANG_LESSONS,
+  ML_STAGE1_FOUNDATION,
+  ML_STAGE2_CONTROL_COLLECTIONS,
+  ML_STAGE3_OOP_EXCEPTIONS,
+  ML_STAGE4_CAPSTONE,
+} from '../multi-lang-lessons';
+
 export {
   HTML_CSS_LESSONS,
   WEEK1_4_HTML_FOUNDATION,
@@ -101,6 +109,11 @@ export {
   CSS_FOUNDATION_LESSONS,
   CSS_LAYOUT_LESSONS,
   HTML_CSS_CAPSTONE_LESSONS,
+  MULTI_LANG_LESSONS,
+  ML_STAGE1_FOUNDATION,
+  ML_STAGE2_CONTROL_COLLECTIONS,
+  ML_STAGE3_OOP_EXCEPTIONS,
+  ML_STAGE4_CAPSTONE,
 };
 
 export const JAVASCRIPT_LESSONS: Lesson[] = [
@@ -113,21 +126,40 @@ export const JAVASCRIPT_LESSONS: Lesson[] = [
 export const ALL_LESSONS: Lesson[] = [
   ...HTML_CSS_LESSONS,
   ...JAVASCRIPT_LESSONS,
+  ...MULTI_LANG_LESSONS,
 ];
 
-export function getLessonsByCourse(course: 'javascript' | 'html-css'): Lesson[] {
-  return course === 'html-css' ? HTML_CSS_LESSONS : JAVASCRIPT_LESSONS;
+export function getLessonsByCourse(course: 'javascript' | 'html-css' | 'multi-lang'): Lesson[] {
+  if (course === 'html-css') return HTML_CSS_LESSONS;
+  if (course === 'multi-lang') return MULTI_LANG_LESSONS;
+  return JAVASCRIPT_LESSONS;
 }
 
 export function getLessonById(id: string): Lesson | undefined {
   return ALL_LESSONS.find((l) => l.id === id);
 }
 
+function getCourseLessonsForLesson(lesson?: Lesson): Lesson[] {
+  if (!lesson) return JAVASCRIPT_LESSONS;
+  if (lesson.course === 'multi-lang' || lesson.id.startsWith('ml')) {
+    return MULTI_LANG_LESSONS;
+  }
+  if (
+    lesson.course === 'html-css' ||
+    lesson.id.startsWith('w') ||
+    lesson.id.startsWith('b') ||
+    lesson.id.startsWith('html') ||
+    lesson.id.startsWith('css') ||
+    lesson.id.startsWith('proj-html')
+  ) {
+    return HTML_CSS_LESSONS;
+  }
+  return JAVASCRIPT_LESSONS;
+}
+
 export function getNextLessonId(currentId: string): string | null {
   const currentLesson = getLessonById(currentId);
-  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('w') || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
-    ? HTML_CSS_LESSONS 
-    : JAVASCRIPT_LESSONS;
+  const courseLessons = getCourseLessonsForLesson(currentLesson);
 
   const currentIndex = courseLessons.findIndex((l) => l.id === currentId);
   if (currentIndex !== -1 && currentIndex < courseLessons.length - 1) {
@@ -138,9 +170,7 @@ export function getNextLessonId(currentId: string): string | null {
 
 export function getPrevLessonId(currentId: string): string | null {
   const currentLesson = getLessonById(currentId);
-  const courseLessons = currentLesson?.course === 'html-css' || currentLesson?.id.startsWith('w') || currentLesson?.id.startsWith('html') || currentLesson?.id.startsWith('css') || currentLesson?.id.startsWith('proj-html')
-    ? HTML_CSS_LESSONS 
-    : JAVASCRIPT_LESSONS;
+  const courseLessons = getCourseLessonsForLesson(currentLesson);
 
   const currentIndex = courseLessons.findIndex((l) => l.id === currentId);
   if (currentIndex > 0) {

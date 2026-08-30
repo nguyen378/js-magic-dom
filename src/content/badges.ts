@@ -196,5 +196,55 @@ export const BADGES: Badge[] = [
     requirement: 'Hoàn thành trọn vẹn 16 buổi học HTML & CSS',
     course: 'html-css',
   },
+
+  // --- MULTI-LANGUAGE (JS • PYTHON • C++) COURSE BADGES ---
+  {
+    id: 'polyglot_starter',
+    title: 'Tân Binh Đa Ngôn Ngữ',
+    description: 'Bắt đầu hành trình khai phá Biến số & Kiểu dữ liệu trên cả 3 ngôn ngữ JS, Python và C++',
+    icon: '🌐',
+    requirement: 'Hoàn thành Module ML01',
+    course: 'multi-lang',
+  },
+  {
+    id: 'control_flow_master',
+    title: 'Bậc Thầy Rẽ Nhánh & Vòng Lặp',
+    description: 'Làm chủ cấu trúc điều kiện if/else/elif và vòng lặp for/while trên nhiều ngôn ngữ',
+    icon: '🔄',
+    requirement: 'Hoàn thành Module ML02 & ML03',
+    course: 'multi-lang',
+  },
+  {
+    id: 'function_collection_guru',
+    title: 'Pháp Sư Hàm & Tập Hợp',
+    description: 'Thành thạo xây dựng hàm và thao tác mảng Array, Python List và C++ Vector',
+    icon: '📜',
+    requirement: 'Hoàn thành Module ML04, ML05 & ML06',
+    course: 'multi-lang',
+  },
+  {
+    id: 'oop_polyglot_architect',
+    title: 'Kiến Trúc Sư Hướng Đối Tượng (OOP)',
+    description: 'Làm chủ thiết kế Lớp Class, Đối tượng, Kế thừa và Đa hình trên JS, Python và C++',
+    icon: '🏛️',
+    requirement: 'Hoàn thành Module ML08 & ML09',
+    course: 'multi-lang',
+  },
+  {
+    id: 'error_hunter_pro',
+    title: 'Thợ Săn Lỗi & Thuật Toán',
+    description: 'Thành thạo bẫy lỗi Exception an toàn và áp dụng thư viện chuẩn Standard Library',
+    icon: '🛡️',
+    requirement: 'Hoàn thành Module ML10 & ML11',
+    course: 'multi-lang',
+  },
+  {
+    id: 'polyglot_legend',
+    title: 'Đại Sư Lập Trình Đa Ngôn Ngữ',
+    description: 'Xuất sắc hoàn thành Đồ án Tốt nghiệp Capstone và toàn bộ 12 Module Lập trình Đa Ngôn Ngữ',
+    icon: '👑',
+    requirement: 'Hoàn thành trọn bộ 12 Module Đa Ngôn Ngữ',
+    course: 'multi-lang',
+  },
 ];
 

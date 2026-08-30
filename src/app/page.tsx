@@ -2,12 +2,17 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Globe, Zap, Code2, Trophy } from 'lucide-react';
-import { HTML_CSS_LESSONS, JAVASCRIPT_LESSONS } from '@/content/lessons';
+import { Sparkles, ArrowRight, Globe, Zap, Code2, Trophy, Terminal } from 'lucide-react';
+import { HTML_CSS_LESSONS, JAVASCRIPT_LESSONS, MULTI_LANG_LESSONS } from '@/content/lessons';
 
 export default function HomePage() {
-  const [previewCourse, setPreviewCourse] = useState<'html-css' | 'javascript'>('html-css');
-  const previewLessons = previewCourse === 'html-css' ? HTML_CSS_LESSONS : JAVASCRIPT_LESSONS;
+  const [previewCourse, setPreviewCourse] = useState<'html-css' | 'javascript' | 'multi-lang'>('html-css');
+  const previewLessons = 
+    previewCourse === 'html-css' 
+      ? HTML_CSS_LESSONS 
+      : previewCourse === 'multi-lang'
+      ? MULTI_LANG_LESSONS
+      : JAVASCRIPT_LESSONS;
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-50 dark:bg-slate-950">
@@ -15,53 +20,55 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24">
         {/* Background Gradients */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[600px] rounded-full bg-gradient-to-tr from-orange-500/15 via-indigo-500/20 to-pink-500/15 blur-3xl -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[600px] rounded-full bg-gradient-to-tr from-orange-500/15 via-indigo-500/20 to-teal-500/15 blur-3xl -z-10" />
 
-        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
           
           {/* Badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-4 py-1.5 text-xs font-bold text-indigo-700 backdrop-blur-md shadow-xs dark:border-indigo-900/50 dark:bg-indigo-950/40 dark:text-indigo-300 mb-6 animate-in fade-in">
             <Sparkles className="h-4 w-4 text-amber-500" />
-            <span>Nền Tảng Thực Hành Lập Trình Web Trực Quan Dành Cho Học Sinh</span>
+            <span>Nền Tảng Thực Hành Lập Trình Trực Quan & Đa Ngôn Ngữ Dành Cho Học Sinh</span>
           </div>
 
           {/* Heading */}
           <h1 className="text-4xl font-black tracking-tight text-slate-900 sm:text-6xl dark:text-white leading-tight">
-            Học Lập Trình Web <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-orange-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-orange-400 dark:via-purple-400 dark:to-indigo-400">
-              Trực Quan & Hứng Thú
+            Học Lập Trình <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-orange-500 via-purple-600 to-teal-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-purple-400 dark:to-teal-400">
+              Trực Quan & Đa Ngôn Ngữ
             </span>
           </h1>
 
           {/* Description */}
-          <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-slate-600 dark:text-slate-300">
-            Khám phá 2 lộ trình học tập chuyên biệt: từ kiến tạo khung xương và trang trí giao diện với <strong>HTML & CSS</strong> đến phù phép tương tác và tạo game kỳ diệu với <strong>JavaScript DOM</strong>!
+          <p className="mx-auto mt-6 max-w-3xl text-base sm:text-lg text-slate-600 dark:text-slate-300">
+            Khám phá 3 lộ trình học tập chuyên biệt: từ kiến tạo giao diện với <strong>HTML & CSS</strong>, phù phép tương tác cùng <strong>JavaScript DOM</strong>, đến rèn luyện tư duy lập trình toàn diện trên <strong>JavaScript • Python • C++</strong>!
           </p>
 
-          {/* 2 Dedicated Course Cards */}
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto text-left">
+          {/* 3 Dedicated Course Cards */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto text-left">
             
             {/* Course 1: HTML & CSS */}
-            <div className="relative group rounded-3xl border-2 border-orange-200 bg-white p-6 shadow-xl shadow-orange-500/5 hover:border-orange-400 hover:shadow-orange-500/15 transition-all dark:border-orange-950 dark:bg-slate-900">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 dark:bg-orange-950 dark:text-orange-400 text-2xl shadow-inner">
-                  🌐
+            <div className="relative group rounded-3xl border-2 border-orange-200 bg-white p-6 shadow-xl shadow-orange-500/5 hover:border-orange-400 hover:shadow-orange-500/15 transition-all dark:border-orange-950 dark:bg-slate-900 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 dark:bg-orange-950 dark:text-orange-400 text-2xl shadow-inner">
+                    🌐
+                  </div>
+                  <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-black text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 border border-orange-200 dark:border-orange-900">
+                    16 Tuần Học
+                  </span>
                 </div>
-                <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-black text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 border border-orange-200 dark:border-orange-900">
-                  Lộ Trình 1 (16 Tuần Học)
-                </span>
+                <h2 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                  HTML & CSS: Xây Dựng Website
+                </h2>
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Thiết kế chuẩn 1 tiết 60p/tuần: 12 tuần kỹ năng thẻ HTML, tô màu, Box Model, Flexbox, Responsive + 4 tuần làm Website Cá Nhân!
+                </p>
               </div>
-              <h2 className="text-xl font-black text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                HTML & CSS: Xây Dựng Website Cá Nhân
-              </h2>
-              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Thiết kế chuẩn 1 tiết 60 phút/tuần: 12 tuần rèn luyện kỹ năng cốt lõi (Thẻ HTML, tô màu, Box Model, Flexbox, Responsive) + 4 tuần hoàn thiện Website Cá Nhân!
-              </p>
               <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs font-bold text-slate-400">12 tuần học + 4 tuần đồ án</span>
+                <span className="text-xs font-bold text-slate-400">12 tuần + 4 tuần đồ án</span>
                 <Link
                   href="/lesson/w01-first-page"
-                  className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/25 hover:bg-orange-600 transition"
+                  className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/25 hover:bg-orange-600 transition"
                 >
                   <span>Vào Tuần 1</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -70,28 +77,60 @@ export default function HomePage() {
             </div>
 
             {/* Course 2: JavaScript & DOM */}
-            <div className="relative group rounded-3xl border-2 border-indigo-200 bg-white p-6 shadow-xl shadow-indigo-500/5 hover:border-indigo-400 hover:shadow-indigo-500/15 transition-all dark:border-indigo-950 dark:bg-slate-900">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 text-2xl shadow-inner">
-                  🪄
+            <div className="relative group rounded-3xl border-2 border-indigo-200 bg-white p-6 shadow-xl shadow-indigo-500/5 hover:border-indigo-400 hover:shadow-indigo-500/15 transition-all dark:border-indigo-950 dark:bg-slate-900 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 text-2xl shadow-inner">
+                    🪄
+                  </div>
+                  <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-black text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900">
+                    32 Bài Học
+                  </span>
                 </div>
-                <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-black text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900">
-                  Lộ Trình 2 (32 bài)
-                </span>
+                <h2 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  JavaScript & Magic DOM
+                </h2>
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Khai phá tư duy tương tác: Biến số, hàm, vòng lặp, tương tác cây DOM trực quan, sự kiện click, ES6+ và chế tạo Mini-Game Capstone!
+                </p>
               </div>
-              <h2 className="text-xl font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                JavaScript & Magic DOM
-              </h2>
-              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Khai phá tư duy logic: Biến số, hàm, vòng lặp, tương tác cây DOM trực quan, sự kiện click, ES6+ và chế tạo Mini-Game Capstone!
-              </p>
               <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
                 <span className="text-xs font-bold text-slate-400">Tương tác & Logic</span>
                 <Link
                   href="/lesson/01-select-element"
-                  className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-indigo-500/25 hover:bg-indigo-700 transition"
+                  className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-indigo-500/25 hover:bg-indigo-700 transition"
                 >
                   <span>Học Bài 1</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Course 3: Multi-Language Programming */}
+            <div className="relative group rounded-3xl border-2 border-teal-200 bg-white p-6 shadow-xl shadow-teal-500/5 hover:border-teal-400 hover:shadow-teal-500/15 transition-all dark:border-teal-950 dark:bg-slate-900 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100 text-teal-600 dark:bg-teal-950 dark:text-teal-400 text-2xl shadow-inner">
+                    💻
+                  </div>
+                  <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-black text-teal-700 dark:bg-teal-950/60 dark:text-teal-300 border border-teal-200 dark:border-teal-900">
+                    12 Module Đa Ngữ
+                  </span>
+                </div>
+                <h2 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                  Đa Ngôn Ngữ: JS • Python • C++
+                </h2>
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Lập trình toàn diện: Đối chiếu cú pháp song song giữa JS, Python và C++. Nắm chắc Biến, Vòng lặp, Mảng/List/Vector, OOP và Đồ án!
+                </p>
+              </div>
+              <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+                <span className="text-xs font-bold text-slate-400">JS • Python • C++</span>
+                <Link
+                  href="/lesson/ml01-variables"
+                  className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-teal-500/25 hover:opacity-90 transition"
+                >
+                  <span>Vào Mod 1</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -100,22 +139,22 @@ export default function HomePage() {
           </div>
 
           {/* Key Metric Highlights */}
-          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl mx-auto">
+          <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-4xl mx-auto">
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-orange-500">48+</div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Bài Học & Đồ Án</div>
+              <div className="text-2xl sm:text-3xl font-black text-orange-500">60+</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Bài Học & Module</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
               <div className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">100%</div>
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Chấm Điểm Tự Động</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-amber-500">24</div>
+              <div className="text-2xl sm:text-3xl font-black text-amber-500">30</div>
               <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Huy Hiệu Danh Dự</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4 text-center dark:border-slate-800 dark:bg-slate-900/70">
-              <div className="text-2xl sm:text-3xl font-black text-indigo-500">16 Tuần</div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Tự Làm Web Riêng</div>
+              <div className="text-2xl sm:text-3xl font-black text-indigo-500">3 Lộ Trình</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Từ Cơ Bản Đến Dự Án</div>
             </div>
           </div>
 
@@ -187,7 +226,7 @@ export default function HomePage() {
             
             {/* Switch preview course */}
             <div className="flex items-center gap-2">
-              <div className="flex rounded-xl bg-slate-200 dark:bg-slate-800 p-1 text-xs font-bold">
+              <div className="flex flex-wrap rounded-xl bg-slate-200 dark:bg-slate-800 p-1 text-xs font-bold gap-1">
                 <button
                   onClick={() => setPreviewCourse('html-css')}
                   className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
@@ -207,6 +246,16 @@ export default function HomePage() {
                   }`}
                 >
                   JavaScript ({JAVASCRIPT_LESSONS.length})
+                </button>
+                <button
+                  onClick={() => setPreviewCourse('multi-lang')}
+                  className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                    previewCourse === 'multi-lang'
+                      ? 'bg-white dark:bg-slate-900 text-teal-600 dark:text-teal-400 shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                >
+                  Đa Ngôn Ngữ ({MULTI_LANG_LESSONS.length})
                 </button>
               </div>
 
@@ -230,7 +279,9 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-center justify-between text-xs mb-2">
                     <span className="font-bold text-indigo-600 dark:text-indigo-400">
-                      {lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')
+                      {lesson.course === 'multi-lang' || lesson.id.startsWith('ml')
+                        ? `Module ${lesson.order}`
+                        : lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')
                         ? `Bài ${lesson.order}`
                         : `Bài ${lesson.order}`}
                     </span>

@@ -458,11 +458,19 @@ interface CodeBlockViewProps {
 
 function CodeBlockView({ code, language, isCopied, onCopy, onApply }: CodeBlockViewProps) {
   const getLangBadge = (lang: string) => {
-    switch (lang.toLowerCase()) {
+    const l = lang.toLowerCase();
+    switch (l) {
       case 'html':
         return { label: 'HTML5', icon: <FileCode className="h-3 w-3 text-orange-400" />, color: 'text-orange-400' };
       case 'css':
         return { label: 'CSS3', icon: <Palette className="h-3 w-3 text-cyan-400" />, color: 'text-cyan-400' };
+      case 'python':
+      case 'py':
+        return { label: 'Python 3', icon: <Code2 className="h-3 w-3 text-emerald-400" />, color: 'text-emerald-400' };
+      case 'cpp':
+      case 'c++':
+      case 'c':
+        return { label: 'C++', icon: <Code2 className="h-3 w-3 text-sky-400" />, color: 'text-sky-400' };
       default:
         return { label: 'JavaScript', icon: <Code2 className="h-3 w-3 text-amber-400" />, color: 'text-amber-400' };
     }
@@ -552,35 +560,55 @@ function highlightSyntax(code: string, language: string): React.ReactNode {
 }
 
 function tokenizeLine(line: string, language: string): React.ReactNode {
-  if (line.trim().startsWith('//') || line.trim().startsWith('/*') || line.trim().startsWith('<!--')) {
+  const l = language.toLowerCase();
+  const trimmed = line.trim();
+  if (trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('<!--') || ((l === 'python' || l === 'py') && trimmed.startsWith('#'))) {
     return <span className="text-slate-500 italic">{line}</span>;
   }
 
   // Tokenize comments at the end of line
-  const commentIndex = line.indexOf('//');
-  if (commentIndex !== -1 && !line.slice(0, commentIndex).includes('"') && !line.slice(0, commentIndex).includes("'")) {
-    const codePart = line.slice(0, commentIndex);
-    const commentPart = line.slice(commentIndex);
-    return (
-      <>
-        {renderTokens(codePart, language)}
-        <span className="text-slate-500 italic">{commentPart}</span>
-      </>
-    );
+  if (l === 'python' || l === 'py') {
+    const hashIndex = line.indexOf('#');
+    if (hashIndex !== -1 && !line.slice(0, hashIndex).includes('"') && !line.slice(0, hashIndex).includes("'")) {
+      const codePart = line.slice(0, hashIndex);
+      const commentPart = line.slice(hashIndex);
+      return (
+        <>
+          {renderTokens(codePart, language)}
+          <span className="text-slate-500 italic">{commentPart}</span>
+        </>
+      );
+    }
+  } else {
+    const commentIndex = line.indexOf('//');
+    if (commentIndex !== -1 && !line.slice(0, commentIndex).includes('"') && !line.slice(0, commentIndex).includes("'")) {
+      const codePart = line.slice(0, commentIndex);
+      const commentPart = line.slice(commentIndex);
+      return (
+        <>
+          {renderTokens(codePart, language)}
+          <span className="text-slate-500 italic">{commentPart}</span>
+        </>
+      );
+    }
   }
 
   return renderTokens(line, language);
 }
 
 function renderTokens(text: string, language: string): React.ReactNode {
-  // Simple multi-pass tokenizer
+  const l = language.toLowerCase();
   const tokens: { type: string; value: string }[] = [];
   
   // Master regex pattern matching strings, keywords, tags, numbers, operators
-  const masterRegex = language === 'html'
+  const masterRegex = l === 'html'
     ? /(<!--[\s\S]*?-->)|(<\/?[a-zA-Z0-9-]+)|([a-zA-Z-]+(?==))|("[^"]*"|'[^']*')|(\d+)|([<>\/=])/g
-    : language === 'css'
+    : l === 'css'
     ? /(\/\*[\s\S]*?\*\/)|([.#][a-zA-Z0-9_-]+)|([a-zA-Z-]+(?=:))|("[^"]*"|'[^']*')|(\d+(?:px|rem|%|em|s|ms|deg)?)|([{}():;,])/g
+    : (l === 'python' || l === 'py')
+    ? /(#[^\n]*)|(\b(?:def|class|import|from|return|if|elif|else|for|in|while|try|except|finally|with|as|lambda|pass|break|continue|global|nonlocal|raise|yield|async|await|True|False|None|and|or|not|is)\b)|(\b(?:print|len|range|int|str|float|bool|list|dict|set|tuple|input|type|max|min|sum|sorted|enumerate|zip|open)\b)|(\b[a-zA-Z_][a-zA-Z0-9_]*(?=\())|("[^"]*"|'[^']*'|"""[\s\S]*?"""|'''[\s\S]*?''')|(\b\d+\b)|([+\-*/%=<>!&|^~?:;.,{}()\[\]])/g
+    : (l === 'cpp' || l === 'c++' || l === 'c')
+    ? /(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|(#include[^\n]*|#define[^\n]*)|(\b(?:int|float|double|char|bool|void|auto|const|return|if|else|for|while|do|switch|case|break|continue|default|struct|class|public|private|protected|template|typename|namespace|using|new|delete|try|catch|throw|virtual|override|static|sizeof|true|false)\b)|(\b(?:std|cout|cin|endl|vector|string|map|set|pair|make_pair|push_back|size|length|sort|max|min|printf|scanf)\b)|(\b[a-zA-Z_][a-zA-Z0-9_]*(?=\())|("[^"]*"|'[^']*')|(\b\d+\b)|([+\-*/%=<>!&|^~?:;.,{}()\[\]])/g
     : /(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|(\b(?:const|let|var|function|return|if|else|for|while|import|export|from|new|class|async|await|typeof|instanceof|true|false|null|undefined)\b)|(\b(?:document|console|window|Math|JSON|Array|Object|String|Number)\b)|(\b[a-zA-Z_$][a-zA-Z0-9_$]*(?=\())|("[^"]*"|'[^']*'|`[^`]*`)|(\b\d+\b)|([+\-*/%=<>!&|^~?:;.,{}()\[\]])/g;
 
   let lastIndex = 0;
@@ -592,20 +620,51 @@ function renderTokens(text: string, language: string): React.ReactNode {
     }
 
     const val = match[0];
-    if (language === 'html') {
+    if (l === 'html') {
       if (val.startsWith('<!--')) tokens.push({ type: 'comment', value: val });
       else if (val.startsWith('<')) tokens.push({ type: 'tag', value: val });
       else if (val.startsWith('"') || val.startsWith("'")) tokens.push({ type: 'string', value: val });
       else if (/^\d+$/.test(val)) tokens.push({ type: 'number', value: val });
       else if (/^[a-zA-Z-]+$/.test(val)) tokens.push({ type: 'attribute', value: val });
       else tokens.push({ type: 'operator', value: val });
-    } else if (language === 'css') {
+    } else if (l === 'css') {
       if (val.startsWith('/*')) tokens.push({ type: 'comment', value: val });
       else if (val.startsWith('.') || val.startsWith('#')) tokens.push({ type: 'selector', value: val });
       else if (val.startsWith('"') || val.startsWith("'")) tokens.push({ type: 'string', value: val });
       else if (/^\d+/.test(val)) tokens.push({ type: 'number', value: val });
       else if (/^[a-zA-Z-]+$/.test(val)) tokens.push({ type: 'property', value: val });
       else tokens.push({ type: 'operator', value: val });
+    } else if (l === 'python' || l === 'py') {
+      if (val.startsWith('#')) tokens.push({ type: 'comment', value: val });
+      else if (/^(def|class|import|from|return|if|elif|else|for|in|while|try|except|finally|with|as|lambda|pass|break|continue|global|nonlocal|raise|yield|async|await|True|False|None|and|or|not|is)$/.test(val)) {
+        tokens.push({ type: 'keyword', value: val });
+      } else if (/^(print|len|range|int|str|float|bool|list|dict|set|tuple|input|type|max|min|sum|sorted|enumerate|zip|open)$/.test(val)) {
+        tokens.push({ type: 'builtin', value: val });
+      } else if (val.startsWith('"') || val.startsWith("'")) {
+        tokens.push({ type: 'string', value: val });
+      } else if (/^\d+$/.test(val)) {
+        tokens.push({ type: 'number', value: val });
+      } else if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(val) && masterRegex.lastIndex < text.length && text[masterRegex.lastIndex] === '(') {
+        tokens.push({ type: 'function', value: val });
+      } else {
+        tokens.push({ type: 'operator', value: val });
+      }
+    } else if (l === 'cpp' || l === 'c++' || l === 'c') {
+      if (val.startsWith('//') || val.startsWith('/*')) tokens.push({ type: 'comment', value: val });
+      else if (val.startsWith('#')) tokens.push({ type: 'preprocessor', value: val });
+      else if (/^(int|float|double|char|bool|void|auto|const|return|if|else|for|while|do|switch|case|break|continue|default|struct|class|public|private|protected|template|typename|namespace|using|new|delete|try|catch|throw|virtual|override|static|sizeof|true|false)$/.test(val)) {
+        tokens.push({ type: 'keyword', value: val });
+      } else if (/^(std|cout|cin|endl|vector|string|map|set|pair|make_pair|push_back|size|length|sort|max|min|printf|scanf)$/.test(val)) {
+        tokens.push({ type: 'builtin', value: val });
+      } else if (val.startsWith('"') || val.startsWith("'")) {
+        tokens.push({ type: 'string', value: val });
+      } else if (/^\d+$/.test(val)) {
+        tokens.push({ type: 'number', value: val });
+      } else if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(val) && masterRegex.lastIndex < text.length && text[masterRegex.lastIndex] === '(') {
+        tokens.push({ type: 'function', value: val });
+      } else {
+        tokens.push({ type: 'operator', value: val });
+      }
     } else {
       // JavaScript
       if (val.startsWith('//') || val.startsWith('/*')) tokens.push({ type: 'comment', value: val });
@@ -637,6 +696,8 @@ function renderTokens(text: string, language: string): React.ReactNode {
         switch (tok.type) {
           case 'keyword':
             return <span key={i} className="text-purple-400 font-semibold">{tok.value}</span>;
+          case 'preprocessor':
+            return <span key={i} className="text-rose-400 font-semibold">{tok.value}</span>;
           case 'builtin':
             return <span key={i} className="text-amber-300 font-semibold">{tok.value}</span>;
           case 'function':

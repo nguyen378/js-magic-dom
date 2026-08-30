@@ -48,6 +48,20 @@ export function CodeEditor({
           footerBadge: 'CSS3 (Stylesheet)',
           badgeColor: 'text-cyan-400',
         };
+      case 'python':
+        return {
+          title: fileName || 'main.py',
+          icon: <Code2 className="h-3.5 w-3.5 text-emerald-400" />,
+          footerBadge: 'Python 3.12',
+          badgeColor: 'text-emerald-400',
+        };
+      case 'cpp':
+        return {
+          title: fileName || 'main.cpp',
+          icon: <Code2 className="h-3.5 w-3.5 text-sky-400" />,
+          footerBadge: 'C++ (C++17/20)',
+          badgeColor: 'text-sky-400',
+        };
       default:
         return {
           title: fileName || 'script.js',

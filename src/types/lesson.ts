@@ -1,8 +1,8 @@
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
-export type CourseType = 'javascript' | 'html-css';
+export type CourseType = 'javascript' | 'html-css' | 'multi-lang';
 
-export type EditorLanguage = 'javascript' | 'html' | 'css';
+export type EditorLanguage = 'javascript' | 'html' | 'css' | 'python' | 'cpp';
 
 export type Category = 
   | 'variable'
@@ -47,7 +47,20 @@ export type Category =
   | 'css-position'
   | 'css-flexbox'
   | 'css-effects'
-  | 'html-css-project';
+  | 'html-css-project'
+  // Multi-Language Programming categories
+  | 'ml-variables'
+  | 'ml-conditionals'
+  | 'ml-loops'
+  | 'ml-functions'
+  | 'ml-collections'
+  | 'ml-strings'
+  | 'ml-io'
+  | 'ml-oop-basics'
+  | 'ml-oop-inheritance'
+  | 'ml-exceptions'
+  | 'ml-stdlib'
+  | 'ml-capstone';
 
 export interface SandboxLog {
   level: string;
@@ -66,12 +79,18 @@ export interface TestCase {
   tester: (doc: Document, win: SandboxWindow) => boolean | Promise<boolean>;
 }
 
+export interface MultiLangSnippet {
+  js: string;
+  python: string;
+  cpp: string;
+}
+
 export interface Lesson {
   id: string;
   title: string;
   shortDescription: string;
   category: Category;
-  course?: CourseType; // 'javascript' | 'html-css'
+  course?: CourseType; // 'javascript' | 'html-css' | 'multi-lang'
   track?: 
     | 'foundation' 
     | 'dom' 
@@ -84,12 +103,16 @@ export interface Lesson {
     | 'w-html-foundation'
     | 'w-css-styling'
     | 'w-flexbox-responsive'
-    | 'w-capstone-portfolio';
-  editorLanguage?: EditorLanguage; // 'javascript' (default) | 'html' | 'css'
+    | 'w-capstone-portfolio'
+    | 'ml-foundation'
+    | 'ml-control'
+    | 'ml-data-oop'
+    | 'ml-capstone';
+  editorLanguage?: EditorLanguage; // 'javascript' (default) | 'html' | 'css' | 'python' | 'cpp'
   difficulty: Difficulty;
   xpReward: number;
   order: number;
-  week?: number; // Tuần học (1 - 16)
+  week?: number; // Tuần / Buổi học
   durationMinutes?: number; // 60 phút
   
   // Lesson story & instructions
@@ -114,6 +137,13 @@ export interface Lesson {
   solutionHtmlCode?: string;
   initialCssCode?: string;
   solutionCssCode?: string;
+
+  // For Multi-language (Python / C++)
+  initialPyCode?: string;
+  solutionPyCode?: string;
+  initialCppCode?: string;
+  solutionCppCode?: string;
+  multiLangSnippets?: MultiLangSnippet;
 
   // Validation tests
   tests: TestCase[];
