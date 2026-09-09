@@ -54,23 +54,23 @@ export default function HomePage() {
                     🌐
                   </div>
                   <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-black text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 border border-orange-200 dark:border-orange-900">
-                    16 Tuần Học
+                    16 Buổi (56 Bài)
                   </span>
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                   HTML & CSS: Xây Dựng Website
                 </h2>
                 <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Thiết kế chuẩn 1 tiết 60p/tuần: 12 tuần kỹ năng thẻ HTML, tô màu, Box Model, Flexbox, Responsive + 4 tuần làm Website Cá Nhân!
+                  Thiết kế chuẩn 16 buổi: 12 buổi rèn luyện kỹ năng (56 bài tập phân cấp Cơ bản & Nâng cao) + 4 buổi Đồ án Website Cá Nhân!
                 </p>
               </div>
               <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs font-bold text-slate-400">12 tuần + 4 tuần đồ án</span>
+                <span className="text-xs font-bold text-slate-400">12 buổi + 4 buổi đồ án</span>
                 <Link
-                  href="/lesson/w01-first-page"
+                  href="/lesson/b01-01"
                   className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/25 hover:bg-orange-600 transition"
                 >
-                  <span>Vào Tuần 1</span>
+                  <span>Học Bài 1.1</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -281,8 +281,11 @@ export default function HomePage() {
                     <span className="font-bold text-indigo-600 dark:text-indigo-400">
                       {lesson.course === 'multi-lang' || lesson.id.startsWith('ml')
                         ? `Module ${lesson.order}`
-                        : lesson.course === 'html-css' || lesson.id.startsWith('html') || lesson.id.startsWith('css') || lesson.id.startsWith('proj-html')
-                        ? `Bài ${lesson.order}`
+                        : lesson.id.startsWith('b')
+                        ? (() => {
+                            const parts = lesson.id.replace('b', '').split('-');
+                            return parts.length === 2 ? `Bài ${parseInt(parts[0], 10)}.${parseInt(parts[1], 10)}` : `Bài ${lesson.order}`;
+                          })()
                         : `Bài ${lesson.order}`}
                     </span>
                     <span className="font-semibold text-amber-500">+{lesson.xpReward} XP</span>
