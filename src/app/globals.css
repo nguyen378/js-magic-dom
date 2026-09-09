@@ -135,21 +135,177 @@
    THEME: COZY WARM PAPER
    ========================================================== */
 [data-theme="cozy"] {
-  --background: #fefcf9;
-  --foreground: #451a03;
+  --background: #f7f3ec;
+  --foreground: #382716;
 }
 
 [data-theme="cozy"] body {
-  background-color: #faf6f0;
-  color: #382414;
+  background-color: #f7f3ec !important;
+  color: #382716 !important;
+  font-family: var(--font-sans), 'Segoe UI', system-ui, sans-serif;
 }
 
+/* Cozy Navbar */
+[data-theme="cozy"] header {
+  background-color: rgba(247, 243, 236, 0.95) !important;
+  border-color: #e5ded2 !important;
+}
+
+/* Cozy Main Containers & Cards */
+[data-theme="cozy"] .bg-white,
+[data-theme="cozy"] .dark\:bg-slate-900,
+[data-theme="cozy"] .dark\:bg-slate-950,
 [data-theme="cozy"] .rounded-2xl,
 [data-theme="cozy"] .rounded-3xl,
 [data-theme="cozy"] .rounded-xl {
-  border-color: #e6dfd5 !important;
-  background-color: #fffefb !important;
-  box-shadow: 0 4px 12px rgba(180, 140, 100, 0.06) !important;
+  background-color: #fdfbf7 !important;
+  border-color: #e5ded2 !important;
+  color: #382716 !important;
+  box-shadow: 0 2px 8px rgba(180, 140, 100, 0.06) !important;
+}
+
+/* Cozy Text Colors */
+[data-theme="cozy"] h1,
+[data-theme="cozy"] h2,
+[data-theme="cozy"] h3,
+[data-theme="cozy"] h4,
+[data-theme="cozy"] .text-slate-900,
+[data-theme="cozy"] .dark\:text-white {
+  color: #2b1f14 !important;
+}
+
+[data-theme="cozy"] p,
+[data-theme="cozy"] .text-slate-700,
+[data-theme="cozy"] .dark\:text-slate-200,
+[data-theme="cozy"] .text-slate-600,
+[data-theme="cozy"] .dark\:text-slate-300 {
+  color: #4a3828 !important;
+}
+
+[data-theme="cozy"] .text-slate-500,
+[data-theme="cozy"] .dark\:text-slate-400 {
+  color: #7d6b58 !important;
+}
+
+/* Cozy Buttons */
+[data-theme="cozy"] button.bg-slate-100,
+[data-theme="cozy"] button.dark\:bg-slate-800,
+[data-theme="cozy"] .bg-slate-100,
+[data-theme="cozy"] .dark\:bg-slate-800 {
+  background-color: #ece4d6 !important;
+  color: #382716 !important;
+  border-color: #ded4c3 !important;
+}
+
+[data-theme="cozy"] button.bg-slate-100:hover,
+[data-theme="cozy"] button.dark\:bg-slate-800:hover {
+  background-color: #e2d7c5 !important;
+}
+
+/* Cozy Primary Buttons - Warm Honey Amber */
+[data-theme="cozy"] .bg-indigo-600,
+[data-theme="cozy"] .bg-gradient-to-r.from-indigo-600 {
+  background-color: #c27803 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+[data-theme="cozy"] .bg-indigo-600:hover {
+  background-color: #a16207 !important;
+}
+
+/* Cozy Badge Pills */
+[data-theme="cozy"] .bg-indigo-50,
+[data-theme="cozy"] .dark\:bg-indigo-950,
+[data-theme="cozy"] .dark\:bg-indigo-950\/50,
+[data-theme="cozy"] .dark\:bg-indigo-950\/60 {
+  background-color: #f3ede2 !important;
+  color: #a16207 !important;
+  border-color: #e5ded2 !important;
+}
+
+/* Cozy Scrollbars */
+[data-theme="cozy"] ::-webkit-scrollbar-track {
+  background: #f7f3ec;
+}
+[data-theme="cozy"] ::-webkit-scrollbar-thumb {
+  background: #d8cdba;
+  border-radius: 6px;
+}
+[data-theme="cozy"] ::-webkit-scrollbar-thumb:hover {
+  background: #c7b9a2;
+}
+
+/* Dark Mode Cozy (Midnight Warm Library) */
+[data-theme="cozy"].dark,
+[data-theme="cozy"] .dark,
+@media (prefers-color-scheme: dark) {
+  [data-theme="cozy"] body {
+    background-color: #1a1613 !important;
+    color: #ede5da !important;
+  }
+  [data-theme="cozy"] header {
+    background-color: rgba(26, 22, 19, 0.95) !important;
+    border-color: #383028 !important;
+  }
+  [data-theme="cozy"] .bg-white,
+  [data-theme="cozy"] .dark\:bg-slate-900,
+  [data-theme="cozy"] .dark\:bg-slate-950,
+  [data-theme="cozy"] .rounded-2xl,
+  [data-theme="cozy"] .rounded-3xl,
+  [data-theme="cozy"] .rounded-xl {
+    background-color: #241f1a !important;
+    border-color: #383028 !important;
+    color: #ede5da !important;
+  }
+  [data-theme="cozy"] h1,
+  [data-theme="cozy"] h2,
+  [data-theme="cozy"] h3,
+  [data-theme="cozy"] h4,
+  [data-theme="cozy"] .text-slate-900,
+  [data-theme="cozy"] .dark\:text-white {
+    color: #faf5ee !important;
+  }
+  [data-theme="cozy"] p,
+  [data-theme="cozy"] .text-slate-700,
+  [data-theme="cozy"] .dark\:text-slate-200,
+  [data-theme="cozy"] .text-slate-600,
+  [data-theme="cozy"] .dark\:text-slate-300 {
+    color: #d6cbbe !important;
+  }
+  [data-theme="cozy"] .text-slate-500,
+  [data-theme="cozy"] .dark\:text-slate-400 {
+    color: #a39382 !important;
+  }
+  [data-theme="cozy"] button.bg-slate-100,
+  [data-theme="cozy"] button.dark\:bg-slate-800,
+  [data-theme="cozy"] .bg-slate-100,
+  [data-theme="cozy"] .dark\:bg-slate-800 {
+    background-color: #302923 !important;
+    color: #ede5da !important;
+    border-color: #423930 !important;
+  }
+  [data-theme="cozy"] button.bg-slate-100:hover,
+  [data-theme="cozy"] button.dark\:bg-slate-800:hover {
+    background-color: #3d342c !important;
+  }
+  [data-theme="cozy"] .bg-indigo-50,
+  [data-theme="cozy"] .dark\:bg-indigo-950,
+  [data-theme="cozy"] .dark\:bg-indigo-950\/50,
+  [data-theme="cozy"] .dark\:bg-indigo-950\/60 {
+    background-color: #30271c !important;
+    color: #f59e0b !important;
+    border-color: #4a3a27 !important;
+  }
+  [data-theme="cozy"] ::-webkit-scrollbar-track {
+    background: #1a1613;
+  }
+  [data-theme="cozy"] ::-webkit-scrollbar-thumb {
+    background: #443a30;
+  }
+  [data-theme="cozy"] ::-webkit-scrollbar-thumb:hover {
+    background: #55493d;
+  }
 }
 
 body {
