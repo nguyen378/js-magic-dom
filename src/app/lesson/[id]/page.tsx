@@ -9,6 +9,7 @@ import { CodeEditor } from '@/components/editor/code-editor';
 import { LivePreview, ConsoleLog } from '@/components/workspace/live-preview';
 import { ActionBar } from '@/components/workspace/action-bar';
 import { CelebrationModal } from '@/components/gamification/celebration-modal';
+import { FeedbackModal } from '@/components/feedback/feedback-modal';
 import { StorageService } from '@/lib/storage';
 import { evaluateTests, TestRunResult, buildIframeHtml } from '@/lib/dom-tester';
 import { executeMultiLangCode } from '@/lib/multi-lang-runner';
@@ -58,6 +59,7 @@ export default function LessonPage() {
   const [testResult, setTestResult] = useState<TestRunResult | null>(null);
   const [passedList, setPassedList] = useState<string[]>([]);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
   const [celebrationData, setCelebrationData] = useState<{
     xpEarned: number;
     isFirstTime: boolean;
@@ -322,6 +324,7 @@ export default function LessonPage() {
           testResult={testResult}
           prevLessonId={prevLessonId}
           nextLessonId={nextLessonId}
+          onOpenFeedback={() => setShowFeedback(true)}
         />
       </div>
 
@@ -336,6 +339,16 @@ export default function LessonPage() {
           onStay={() => setShowCelebration(false)}
         />
       )}
+
+      {/* Lesson-specific Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedback}
+        onClose={() => setShowFeedback(false)}
+        lessonId={lesson.id}
+        lessonTitle={lesson.title}
+        course={lesson.course}
+        userCode={code}
+      />
 
     </div>
   );

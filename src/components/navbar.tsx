@@ -2,14 +2,16 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, Flame, Trophy, Map, RotateCcw, Star } from 'lucide-react';
+import { Sparkles, Flame, Trophy, Map, RotateCcw, Star, MessageSquareHeart } from 'lucide-react';
 import { StorageService, useProgress } from '@/lib/storage';
 import { BadgesModal } from '@/components/gamification/badges-modal';
+import { FeedbackModal } from '@/components/feedback/feedback-modal';
 import { UserMenu } from '@/components/auth/user-menu';
 
 export function Navbar() {
   const progress = useProgress();
   const [showBadges, setShowBadges] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const handleReset = () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại toàn bộ điểm số và bài học đã làm không?')) {
@@ -70,6 +72,16 @@ export function Navbar() {
               </span>
             </button>
 
+            {/* Feedback Button */}
+            <button
+              onClick={() => setShowFeedback(true)}
+              title="Gửi góp ý & phản hồi cho hệ thống"
+              className="flex items-center gap-1.5 rounded-full bg-pink-50 px-2.5 sm:px-3 py-1 text-xs sm:text-sm font-bold text-pink-600 hover:bg-pink-100 dark:bg-pink-950/50 dark:text-pink-400 dark:hover:bg-pink-900/50 transition-colors border border-pink-200 dark:border-pink-900 cursor-pointer shadow-2xs"
+            >
+              <MessageSquareHeart className="h-4 w-4 text-pink-500" />
+              <span className="hidden md:inline">Góp ý</span>
+            </button>
+
             {/* Roadmap Link */}
             <Link
               href="/roadmap"
@@ -103,6 +115,12 @@ export function Navbar() {
           onClose={() => setShowBadges(false)}
         />
       )}
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedback}
+        onClose={() => setShowFeedback(false)}
+      />
     </>
   );
 }

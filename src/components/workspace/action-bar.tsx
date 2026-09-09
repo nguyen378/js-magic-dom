@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { Play, ArrowLeft, ArrowRight, AlertTriangle, Sparkles, Loader2 } from 'lucide-react';
+import { Play, ArrowLeft, ArrowRight, AlertTriangle, Sparkles, Loader2, MessageSquareHeart } from 'lucide-react';
 import Link from 'next/link';
 import { TestRunResult } from '@/lib/dom-tester';
 
@@ -12,6 +10,7 @@ interface ActionBarProps {
   testResult: TestRunResult | null;
   prevLessonId: string | null;
   nextLessonId: string | null;
+  onOpenFeedback?: () => void;
 }
 
 export function ActionBar({
@@ -21,6 +20,7 @@ export function ActionBar({
   testResult,
   prevLessonId,
   nextLessonId,
+  onOpenFeedback,
 }: ActionBarProps) {
   return (
     <div className="space-y-3">
@@ -32,8 +32,19 @@ export function ActionBar({
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div className="flex-1 text-xs">
-            <div className="font-bold text-rose-900 dark:text-rose-200 text-sm">
-              Chưa hoàn thành hết các bài kiểm tra ({testResult.passedTests}/{testResult.totalTests})
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-bold text-rose-900 dark:text-rose-200 text-sm">
+                Chưa hoàn thành hết các bài kiểm tra ({testResult.passedTests}/{testResult.totalTests})
+              </span>
+              {onOpenFeedback && (
+                <button
+                  onClick={onOpenFeedback}
+                  className="flex items-center gap-1 rounded-lg bg-rose-100 px-2 py-0.5 text-[11px] font-bold text-rose-700 hover:bg-rose-200 dark:bg-rose-900/60 dark:text-rose-200 transition cursor-pointer"
+                >
+                  <MessageSquareHeart className="h-3 w-3" />
+                  <span>Báo lỗi chấm bài</span>
+                </button>
+              )}
             </div>
             <ul className="mt-2 space-y-1">
               {testResult.testDetails.map((t) => (
@@ -80,6 +91,18 @@ export function ActionBar({
               <ArrowRight className="h-4 w-4" />
             </Link>
           )}
+
+          {/* Quick Feedback button */}
+          {onOpenFeedback && (
+            <button
+              onClick={onOpenFeedback}
+              title="Gửi góp ý về bài học này"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-2.5 py-2 text-xs font-semibold text-slate-600 hover:bg-pink-50 hover:text-pink-600 hover:border-pink-200 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-pink-950/40 dark:hover:text-pink-300 transition cursor-pointer"
+            >
+              <MessageSquareHeart className="h-3.5 w-3.5 text-pink-500" />
+              <span className="hidden md:inline">Góp ý bài</span>
+            </button>
+          )}
         </div>
 
         {/* Primary Action Buttons */}
@@ -103,7 +126,7 @@ export function ActionBar({
             {isTesting ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Đang kiểm tra DOM...</span>
+                <span>Đang kiểm tra...</span>
               </>
             ) : (
               <>
