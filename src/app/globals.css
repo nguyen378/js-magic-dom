@@ -132,7 +132,7 @@
 }
 
 /* ==========================================================
-   THEME: COZY WARM PAPER
+   THEME: COZY WARM PAPER (Gentle, Soft-Contrast Warm Sepia)
    ========================================================== */
 [data-theme="cozy"] {
   --background: #f7f3ec;
@@ -147,81 +147,152 @@
 
 /* Cozy Navbar */
 [data-theme="cozy"] header {
-  background-color: rgba(247, 243, 236, 0.95) !important;
+  background-color: rgba(247, 243, 236, 0.96) !important;
   border-color: #e5ded2 !important;
+  box-shadow: 0 1px 4px rgba(130, 95, 55, 0.04) !important;
 }
 
-/* Cozy Main Containers & Cards */
+/* All Cards, Columns, Guide, CodeEditor, Preview Containers */
 [data-theme="cozy"] .bg-white,
 [data-theme="cozy"] .dark\:bg-slate-900,
 [data-theme="cozy"] .dark\:bg-slate-950,
+[data-theme="cozy"] .bg-slate-900,
+[data-theme="cozy"] .bg-slate-950,
 [data-theme="cozy"] .rounded-2xl,
 [data-theme="cozy"] .rounded-3xl,
 [data-theme="cozy"] .rounded-xl {
-  background-color: #fdfbf7 !important;
-  border-color: #e5ded2 !important;
+  background-color: #fcfaf6 !important;
+  border-color: #e6dfd3 !important;
   color: #382716 !important;
-  box-shadow: 0 2px 8px rgba(180, 140, 100, 0.06) !important;
+  box-shadow: 0 2px 6px rgba(130, 95, 55, 0.04) !important;
 }
 
-/* Cozy Text Colors */
+/* Top bar headers inside CodeEditor & LivePreview */
+[data-theme="cozy"] .border-slate-800,
+[data-theme="cozy"] .border-b.border-slate-800,
+[data-theme="cozy"] .dark\:border-slate-800,
+[data-theme="cozy"] .border-slate-200,
+[data-theme="cozy"] .border-slate-300 {
+  border-color: #e6dfd3 !important;
+}
+
+[data-theme="cozy"] .h-11,
+[data-theme="cozy"] .bg-slate-950,
+[data-theme="cozy"] .bg-slate-900\/90,
+[data-theme="cozy"] .bg-slate-950\/80 {
+  background-color: #f4eee3 !important;
+  color: #382716 !important;
+}
+
+/* Text Colors: Muted, Soft Charcoal-Brown */
 [data-theme="cozy"] h1,
 [data-theme="cozy"] h2,
 [data-theme="cozy"] h3,
 [data-theme="cozy"] h4,
 [data-theme="cozy"] .text-slate-900,
-[data-theme="cozy"] .dark\:text-white {
-  color: #2b1f14 !important;
+[data-theme="cozy"] .dark\:text-white,
+[data-theme="cozy"] .text-slate-300,
+[data-theme="cozy"] .text-slate-200,
+[data-theme="cozy"] .text-white {
+  color: #2e2115 !important;
 }
 
 [data-theme="cozy"] p,
 [data-theme="cozy"] .text-slate-700,
 [data-theme="cozy"] .dark\:text-slate-200,
 [data-theme="cozy"] .text-slate-600,
-[data-theme="cozy"] .dark\:text-slate-300 {
-  color: #4a3828 !important;
-}
-
-[data-theme="cozy"] .text-slate-500,
+[data-theme="cozy"] .dark\:text-slate-300,
+[data-theme="cozy"] .text-slate-400,
 [data-theme="cozy"] .dark\:text-slate-400 {
-  color: #7d6b58 !important;
+  color: #635242 !important;
 }
 
-/* Cozy Buttons */
+/* Code Snippet Blocks in Lesson Guide (Knowledge Section) */
+[data-theme="cozy"] .rich-story-content .bg-slate-950,
+[data-theme="cozy"] .rich-story-content pre {
+  background-color: #f5efe4 !important;
+  border-color: #e5ded2 !important;
+  color: #382716 !important;
+}
+
+[data-theme="cozy"] .rich-story-content pre code span {
+  filter: saturate(0.8);
+}
+
+[data-theme="cozy"] .rich-story-content pre .text-slate-200,
+[data-theme="cozy"] .rich-story-content pre .text-slate-300 {
+  color: #382716 !important;
+}
+
+/* Secondary Buttons */
 [data-theme="cozy"] button.bg-slate-100,
 [data-theme="cozy"] button.dark\:bg-slate-800,
+[data-theme="cozy"] button.bg-slate-800,
 [data-theme="cozy"] .bg-slate-100,
 [data-theme="cozy"] .dark\:bg-slate-800 {
-  background-color: #ece4d6 !important;
+  background-color: #eae1d2 !important;
   color: #382716 !important;
-  border-color: #ded4c3 !important;
+  border-color: #ded3c0 !important;
 }
 
 [data-theme="cozy"] button.bg-slate-100:hover,
-[data-theme="cozy"] button.dark\:bg-slate-800:hover {
-  background-color: #e2d7c5 !important;
+[data-theme="cozy"] button.dark\:bg-slate-800:hover,
+[data-theme="cozy"] button.bg-slate-800:hover {
+  background-color: #dfd4c3 !important;
 }
 
-/* Cozy Primary Buttons - Warm Honey Amber */
+/* Primary Action Buttons (Muted Warm Terracotta/Amber instead of Harsh Neon Gradients) */
 [data-theme="cozy"] .bg-indigo-600,
-[data-theme="cozy"] .bg-gradient-to-r.from-indigo-600 {
-  background-color: #c27803 !important;
+[data-theme="cozy"] .bg-gradient-to-r,
+[data-theme="cozy"] .bg-gradient-to-tr {
+  background-color: #b8621b !important;
   background-image: none !important;
   color: #ffffff !important;
+  border-color: #a45312 !important;
 }
 
-[data-theme="cozy"] .bg-indigo-600:hover {
-  background-color: #a16207 !important;
+[data-theme="cozy"] .bg-indigo-600:hover,
+[data-theme="cozy"] .bg-gradient-to-r:hover {
+  background-color: #9e4f10 !important;
 }
 
-/* Cozy Badge Pills */
+/* Test Failure / Alert Banner (Soft Warm Sand Amber instead of Harsh Neon Red) */
+[data-theme="cozy"] .border-rose-200,
+[data-theme="cozy"] .bg-rose-50,
+[data-theme="cozy"] .dark\:bg-rose-950\/40,
+[data-theme="cozy"] .dark\:border-rose-900\/60 {
+  background-color: #f7eee2 !important;
+  border-color: #ebd7c1 !important;
+  color: #8c3b17 !important;
+}
+
+[data-theme="cozy"] .text-rose-900,
+[data-theme="cozy"] .dark\:text-rose-200,
+[data-theme="cozy"] .text-rose-600,
+[data-theme="cozy"] .text-rose-700 {
+  color: #8c3b17 !important;
+}
+
+/* Badges / Pill Tags */
 [data-theme="cozy"] .bg-indigo-50,
+[data-theme="cozy"] .bg-amber-50,
+[data-theme="cozy"] .bg-purple-50,
+[data-theme="cozy"] .bg-pink-50,
+[data-theme="cozy"] .bg-orange-50,
 [data-theme="cozy"] .dark\:bg-indigo-950,
-[data-theme="cozy"] .dark\:bg-indigo-950\/50,
-[data-theme="cozy"] .dark\:bg-indigo-950\/60 {
+[data-theme="cozy"] .dark\:bg-amber-950\/50,
+[data-theme="cozy"] .dark\:bg-purple-950\/50,
+[data-theme="cozy"] .dark\:bg-pink-950\/50,
+[data-theme="cozy"] .dark\:bg-orange-950\/50 {
   background-color: #f3ede2 !important;
-  color: #a16207 !important;
+  color: #8c4f1c !important;
   border-color: #e5ded2 !important;
+}
+
+/* Console logs area in LivePreview */
+[data-theme="cozy"] .font-mono.text-xs {
+  background-color: #faf6ee !important;
+  color: #382716 !important;
 }
 
 /* Cozy Scrollbars */
@@ -245,12 +316,14 @@
     color: #ede5da !important;
   }
   [data-theme="cozy"] header {
-    background-color: rgba(26, 22, 19, 0.95) !important;
+    background-color: rgba(26, 22, 19, 0.96) !important;
     border-color: #383028 !important;
   }
   [data-theme="cozy"] .bg-white,
   [data-theme="cozy"] .dark\:bg-slate-900,
   [data-theme="cozy"] .dark\:bg-slate-950,
+  [data-theme="cozy"] .bg-slate-900,
+  [data-theme="cozy"] .bg-slate-950,
   [data-theme="cozy"] .rounded-2xl,
   [data-theme="cozy"] .rounded-3xl,
   [data-theme="cozy"] .rounded-xl {
@@ -258,12 +331,22 @@
     border-color: #383028 !important;
     color: #ede5da !important;
   }
+  [data-theme="cozy"] .h-11,
+  [data-theme="cozy"] .bg-slate-950,
+  [data-theme="cozy"] .bg-slate-900\/90,
+  [data-theme="cozy"] .bg-slate-950\/80 {
+    background-color: #1f1a15 !important;
+    color: #ede5da !important;
+  }
   [data-theme="cozy"] h1,
   [data-theme="cozy"] h2,
   [data-theme="cozy"] h3,
   [data-theme="cozy"] h4,
   [data-theme="cozy"] .text-slate-900,
-  [data-theme="cozy"] .dark\:text-white {
+  [data-theme="cozy"] .dark\:text-white,
+  [data-theme="cozy"] .text-slate-300,
+  [data-theme="cozy"] .text-slate-200,
+  [data-theme="cozy"] .text-white {
     color: #faf5ee !important;
   }
   [data-theme="cozy"] p,
@@ -279,6 +362,7 @@
   }
   [data-theme="cozy"] button.bg-slate-100,
   [data-theme="cozy"] button.dark\:bg-slate-800,
+  [data-theme="cozy"] button.bg-slate-800,
   [data-theme="cozy"] .bg-slate-100,
   [data-theme="cozy"] .dark\:bg-slate-800 {
     background-color: #302923 !important;
@@ -286,7 +370,8 @@
     border-color: #423930 !important;
   }
   [data-theme="cozy"] button.bg-slate-100:hover,
-  [data-theme="cozy"] button.dark\:bg-slate-800:hover {
+  [data-theme="cozy"] button.dark\:bg-slate-800:hover,
+  [data-theme="cozy"] button.bg-slate-800:hover {
     background-color: #3d342c !important;
   }
   [data-theme="cozy"] .bg-indigo-50,

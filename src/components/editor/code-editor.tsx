@@ -4,6 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { RotateCcw, Code2, Copy, Check, FileCode, Palette } from 'lucide-react';
 import { EditorLanguage } from '@/types/lesson';
+import { useAppTheme } from '@/context/theme-context';
 
 const Monaco = dynamic(() => import('@monaco-editor/react'), { ssr: false });
 
@@ -28,6 +29,7 @@ export function CodeEditor({
   onReset, 
   onRun 
 }: CodeEditorProps) {
+  const { theme } = useAppTheme();
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = () => {
@@ -147,9 +149,78 @@ export function CodeEditor({
         <Monaco
           height="100%"
           language={language}
-          theme="vs-dark"
+          theme={theme === 'cozy' ? 'cozy-warm' : theme === 'cyberpunk' ? 'cyberpunk-neon' : theme === 'pixel' ? 'pixel-arcade' : 'vs-dark'}
           value={code}
           onChange={(val) => onChange(val || '')}
+          beforeMount={(monaco) => {
+            // Cozy Warm Paper Theme
+            monaco.editor.defineTheme('cozy-warm', {
+              base: 'vs',
+              inherit: true,
+              rules: [
+                { token: 'comment', foreground: '8c7864', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'b45309', fontStyle: 'bold' },
+                { token: 'string', foreground: '047857' },
+                { token: 'number', foreground: 'c2410c' },
+                { token: 'identifier', foreground: '382716' },
+                { token: 'type', foreground: '9333ea' },
+                { token: 'delimiter', foreground: '574130' },
+              ],
+              colors: {
+                'editor.background': '#fbf8f2',
+                'editor.foreground': '#382716',
+                'editorLineNumber.foreground': '#bdafa0',
+                'editorLineNumber.activeForeground': '#7c6450',
+                'editor.lineHighlightBackground': '#f3ede1',
+                'editorCursor.foreground': '#b45309',
+                'editor.selectionBackground': '#e8decb',
+              },
+            });
+
+            // Cyberpunk Neon Theme
+            monaco.editor.defineTheme('cyberpunk-neon', {
+              base: 'vs-dark',
+              inherit: true,
+              rules: [
+                { token: 'comment', foreground: '475569', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'ec4899', fontStyle: 'bold' },
+                { token: 'string', foreground: '06b6d4' },
+                { token: 'number', foreground: 'f59e0b' },
+                { token: 'identifier', foreground: 'e2e8f0' },
+              ],
+              colors: {
+                'editor.background': '#090d16',
+                'editor.foreground': '#e2e8f0',
+                'editorLineNumber.foreground': '#334155',
+                'editorLineNumber.activeForeground': '#06b6d4',
+                'editor.lineHighlightBackground': '#0f172a',
+                'editorCursor.foreground': '#06b6d4',
+                'editor.selectionBackground': '#1e293b',
+              },
+            });
+
+            // Pixel Arcade Theme
+            monaco.editor.defineTheme('pixel-arcade', {
+              base: 'vs-dark',
+              inherit: true,
+              rules: [
+                { token: 'comment', foreground: '64748b', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'f59e0b', fontStyle: 'bold' },
+                { token: 'string', foreground: '10b981' },
+                { token: 'number', foreground: 'f97316' },
+                { token: 'identifier', foreground: 'f8fafc' },
+              ],
+              colors: {
+                'editor.background': '#0c1017',
+                'editor.foreground': '#f8fafc',
+                'editorLineNumber.foreground': '#334155',
+                'editorLineNumber.activeForeground': '#f59e0b',
+                'editor.lineHighlightBackground': '#161e2e',
+                'editorCursor.foreground': '#f59e0b',
+                'editor.selectionBackground': '#1e293b',
+              },
+            });
+          }}
           onMount={(editor, monaco) => {
             editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
               onRun();
