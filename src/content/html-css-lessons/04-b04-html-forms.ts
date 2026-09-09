@@ -95,10 +95,10 @@ button {
     },
     {
       id: 'b04-01-t2',
-      description: 'Có nút <button type="submit"> chứa chữ "Đăng nhập"',
+      description: 'Có nút bấm gửi form (<button> hoặc <input type="submit">)',
       tester: (doc: Document) => {
-        const btn = doc.querySelector('form button');
-        return !!btn && btn.textContent?.toLowerCase().includes('đăng nhập') === true;
+        const btn = doc.querySelector('form button, form input[type="submit"]');
+        return !!btn && (btn.textContent?.trim().length || 0) > 0 || !!doc.querySelector('form input[type="submit"]');
       }
     }
   ]

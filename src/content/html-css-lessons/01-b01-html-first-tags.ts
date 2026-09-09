@@ -21,8 +21,8 @@ Mỗi trang web đều bắt đầu từ các khối nội dung cơ bản:
 - **Thẻ đoạn văn \`<p>\`**: Dùng để viết các câu văn, đoạn giới thiệu thông thường.`,
 
   taskInstructions: [
-    'Tạo 1 thẻ `<h1>` có nội dung chính xác: `Trang web của tôi`',
-    'Tạo 1 thẻ `<p>` có nội dung: `Tôi là học sinh lớp 8 đang học lập trình web.`'
+    'Tạo 1 thẻ `<h1>` chứa tiêu đề trang (Ví dụ: `Trang web của tôi` hoặc tiêu đề bạn thích)',
+    'Tạo 1 thẻ `<p>` chứa đoạn văn giới thiệu'
   ],
 
   hints: {
@@ -56,18 +56,18 @@ p {
   tests: [
     {
       id: 'b01-01-t1',
-      description: 'Có thẻ <h1> chứa nội dung "Trang web của tôi"',
+      description: 'Có thẻ <h1> chứa tiêu đề trang',
       tester: (doc: Document) => {
         const h1 = doc.querySelector('h1');
-        return !!h1 && h1.textContent?.trim().toLowerCase().includes('trang web của tôi') === true;
+        return !!h1 && (h1.textContent?.trim().length || 0) > 0;
       }
     },
     {
       id: 'b01-01-t2',
-      description: 'Có thẻ <p> chứa nội dung "Tôi là học sinh lớp 8 đang học lập trình web."',
+      description: 'Có thẻ <p> chứa đoạn văn bản giới thiệu',
       tester: (doc: Document) => {
         const p = doc.querySelector('p');
-        return !!p && p.textContent?.trim().toLowerCase().includes('tôi là học sinh lớp 8 đang học lập trình web') === true;
+        return !!p && (p.textContent?.trim().length || 0) > 0;
       }
     }
   ]
@@ -95,8 +95,8 @@ export const LESSON_B01_02: Lesson = {
 - Thẻ \`<hr>\`: Tạo đường kẻ ngang (Horizontal Rule) ngăn cách giữa các đoạn.`,
 
   taskInstructions: [
-    'Dùng thẻ `<b>` để in đậm từ "HTML"',
-    'Dùng thẻ `<i>` để in nghiêng từ "dễ học"',
+    'Dùng thẻ `<b>` (hoặc `<strong>`) để in đậm một từ khóa',
+    'Dùng thẻ `<i>` (hoặc `<em>`) để in nghiêng một từ ngữ',
     'Thêm thẻ đường kẻ `<hr>` ở dưới đoạn văn'
   ],
 
@@ -134,18 +134,18 @@ hr {
   tests: [
     {
       id: 'b01-02-t1',
-      description: 'Từ "HTML" nằm trong thẻ <b> hoặc <strong>',
+      description: 'Có thẻ <b> hoặc <strong> in đậm chữ',
       tester: (doc: Document) => {
         const b = doc.querySelector('b, strong');
-        return !!b && b.textContent?.trim().toLowerCase().includes('html') === true;
+        return !!b && (b.textContent?.trim().length || 0) > 0;
       }
     },
     {
       id: 'b01-02-t2',
-      description: 'Từ "dễ học" nằm trong thẻ <i> hoặc <em>',
+      description: 'Có thẻ <i> hoặc <em> in nghiêng chữ',
       tester: (doc: Document) => {
         const i = doc.querySelector('i, em');
-        return !!i && i.textContent?.trim().toLowerCase().includes('dễ học') === true;
+        return !!i && (i.textContent?.trim().length || 0) > 0;
       }
     },
     {
@@ -181,9 +181,9 @@ Thẻ \`<img>\` là thẻ đơn (không có thẻ đóng), dùng để nhúng �
 - \`width\`: Độ rộng của ảnh (ví dụ: \`width="300"\`).`,
 
   taskInstructions: [
-    'Dùng thẻ `<img>` chèn ảnh từ URL: `https://via.placeholder.com/300x200`',
-    'Thêm thuộc tính mô tả: `alt="Ảnh nhân vật"`',
-    'Thêm thuộc tính chiều rộng: `width="300"`'
+    'Dùng thẻ `<img>` chèn ảnh với thuộc tính `src` (ví dụ: `https://via.placeholder.com/300x200` hoặc link ảnh bạn thích)',
+    'Thêm thuộc tính mô tả `alt` (ví dụ: `alt="Ảnh đại diện"`)',
+    'Thêm thuộc tính chiều rộng `width` (ví dụ: `width="300"` hoặc số bất kỳ)'
   ],
 
   hints: {
@@ -210,30 +210,30 @@ img {
   tests: [
     {
       id: 'b01-03-t1',
-      description: 'Thẻ <img> có thuộc tính src chèn ảnh placeholder',
+      description: 'Thẻ <img> có thuộc tính src chèn ảnh',
       tester: (doc: Document) => {
         const img = doc.querySelector('img');
         if (!img) return false;
         const src = img.getAttribute('src') || '';
-        return src.length > 5 && src.includes('placeholder');
+        return src.trim().length > 0;
       }
     },
     {
       id: 'b01-03-t2',
-      description: 'Thẻ <img> có thuộc tính alt="Ảnh nhân vật"',
+      description: 'Thẻ <img> có thuộc tính alt mô tả',
       tester: (doc: Document) => {
         const img = doc.querySelector('img');
         if (!img) return false;
         const alt = img.getAttribute('alt') || '';
-        return alt.toLowerCase().includes('ảnh nhân vật');
+        return alt.trim().length > 0;
       }
     },
     {
       id: 'b01-03-t3',
-      description: 'Thẻ <img> có thuộc tính width="300"',
+      description: 'Thẻ <img> có thuộc tính width định kích thước',
       tester: (doc: Document) => {
         const img = doc.querySelector('img');
-        return !!img && img.getAttribute('width') === '300';
+        return !!img && (img.getAttribute('width')?.trim().length || 0) > 0;
       }
     }
   ]

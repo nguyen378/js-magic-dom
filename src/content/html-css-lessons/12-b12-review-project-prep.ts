@@ -78,7 +78,7 @@ p {
       description: 'Thẻ <p> có nội dung và đóng thẻ đầy đủ',
       tester: (doc: Document) => {
         const p = doc.querySelector('p');
-        return !!p && p.textContent?.includes('cẩn thận') === true;
+        return !!p && (p.textContent?.trim().length || 0) > 0;
       }
     },
     {

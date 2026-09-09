@@ -158,8 +158,7 @@ Thẻ \`<a>\` (Anchor) tạo siêu liên kết kết nối trang web của bạn
 
   taskInstructions: [
     'Tạo thẻ `<ul>` gồm 2 thẻ `<li>`',
-    'Thẻ `<li>` thứ nhất chứa liên kết `<a>` tới `https://google.com` với chữ hiển thị là `Tìm kiếm` và có `target="_blank"`',
-    'Thẻ `<li>` thứ hai chứa liên kết `<a>` tới `https://f8.edu.vn` với chữ hiển thị là `Học lập trình` và có `target="_blank"`'
+    'Mỗi thẻ `<li>` chứa 1 liên kết `<a>` có thuộc tính `target="_blank"` (Ví dụ: liên kết tới Google, F8, YouTube, v.v.)'
   ],
 
   hints: {
@@ -207,18 +206,20 @@ a {
   tests: [
     {
       id: 'b02-03-t1',
-      description: 'Có liên kết tới https://google.com với chữ "Tìm kiếm" và target="_blank"',
+      description: 'Thẻ <li> thứ nhất chứa liên kết <a> có target="_blank"',
       tester: (doc: Document) => {
-        const link = doc.querySelector('a[href="https://google.com"], a[href="https://google.com/"]');
-        return !!link && link.getAttribute('target') === '_blank' && link.textContent?.toLowerCase().includes('tìm kiếm') === true;
+        const lis = doc.querySelectorAll('ul li');
+        const a1 = lis[0]?.querySelector('a[target="_blank"]');
+        return !!a1 && (a1.getAttribute('href')?.trim().length || 0) > 0 && (a1.textContent?.trim().length || 0) > 0;
       }
     },
     {
       id: 'b02-03-t2',
-      description: 'Có liên kết tới https://f8.edu.vn với chữ "Học lập trình" và target="_blank"',
+      description: 'Thẻ <li> thứ hai chứa liên kết <a> có target="_blank"',
       tester: (doc: Document) => {
-        const link = doc.querySelector('a[href="https://f8.edu.vn"], a[href="https://f8.edu.vn/"]');
-        return !!link && link.getAttribute('target') === '_blank' && link.textContent?.toLowerCase().includes('học lập trình') === true;
+        const lis = doc.querySelectorAll('ul li');
+        const a2 = lis[1]?.querySelector('a[target="_blank"]');
+        return !!a2 && (a2.getAttribute('href')?.trim().length || 0) > 0 && (a2.textContent?.trim().length || 0) > 0;
       }
     }
   ]
@@ -245,8 +246,8 @@ Khi trang web dài, bạn có thể tạo một liên kết neo để người d
 - Tạo thẻ liên kết với dấu thăng: \`<a href="#bai-viet">Xem bài viết</a>\`.`,
 
   taskInstructions: [
-    'Tạo một thẻ liên kết `<a href="#bai-viet">Xem bài viết</a>`',
-    'Tạo thẻ tiêu đề `<h2 id="bai-viet">Nội dung bài viết</h2>` ở phía dưới'
+    'Tạo một thẻ liên kết neo `<a href="#id-dich">` (Ví dụ: `<a href="#bai-viet">Xem bài viết</a>`)',
+    'Tạo một thẻ tiêu đề `<h2 id="id-dich">` tương ứng ở phía dưới'
   ],
 
   hints: {
@@ -286,18 +287,21 @@ h2 {
   tests: [
     {
       id: 'b02-04-t1',
-      description: 'Có thẻ <a> với thuộc tính href="#bai-viet" và chứa chữ "Xem bài viết"',
+      description: 'Có thẻ <a> với thuộc tính href liên kết neo bắt đầu bằng "#"',
       tester: (doc: Document) => {
-        const a = doc.querySelector('a[href="#bai-viet"]');
-        return !!a && a.textContent?.toLowerCase().includes('xem bài viết') === true;
+        const a = doc.querySelector('a[href^="#"]');
+        return !!a && (a.getAttribute('href')?.length || 0) > 1 && (a.textContent?.trim().length || 0) > 0;
       }
     },
     {
       id: 'b02-04-t2',
-      description: 'Có thẻ <h2> với id="bai-viet" và chứa chữ "Nội dung bài viết"',
+      description: 'Có phần tử mang thuộc tính id tương ứng với liên kết neo <a>',
       tester: (doc: Document) => {
-        const h2 = doc.querySelector('h2#bai-viet');
-        return !!h2 && h2.textContent?.toLowerCase().includes('nội dung bài viết') === true;
+        const a = doc.querySelector('a[href^="#"]');
+        if (!a) return false;
+        const id = a.getAttribute('href')?.replace('#', '');
+        const target = id ? doc.getElementById(id) : null;
+        return !!target && (target.textContent?.trim().length || 0) > 0;
       }
     }
   ]
