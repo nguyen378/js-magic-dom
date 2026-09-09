@@ -11,6 +11,7 @@ import { ActionBar } from '@/components/workspace/action-bar';
 import { CelebrationModal } from '@/components/gamification/celebration-modal';
 import { FeedbackModal } from '@/components/feedback/feedback-modal';
 import { StorageService } from '@/lib/storage';
+import { useAppTheme } from '@/context/theme-context';
 import { evaluateTests, TestRunResult, buildIframeHtml } from '@/lib/dom-tester';
 import { executeMultiLangCode } from '@/lib/multi-lang-runner';
 import { EditorLanguage } from '@/types/lesson';
@@ -20,6 +21,7 @@ export default function LessonPage() {
   const params = useParams();
   const lessonId = params.id as string;
   const lesson = getLessonById(lessonId);
+  const { playRetroSound } = useAppTheme();
 
   const availableLanguages: EditorLanguage[] = 
     lesson?.availableLanguages && lesson.availableLanguages.length > 0
@@ -106,27 +108,24 @@ export default function LessonPage() {
     return buildIframeHtml(lesson.htmlContent, lesson.cssContent, userCode);
   }, [lesson, selectedLanguage]);
 
-  // Re-run execution with current code
+  // Re-run the iframe preview with the current code
   const handleRun = useCallback(() => {
-    if (!lesson) return;
-
+    playRetroSound('click');
     if (selectedLanguage === 'python' || selectedLanguage === 'cpp') {
-      // Execute directly via multi-lang runner
-      const out = executeMultiLangCode(selectedLanguage, code);
+      const output = executeMultiLangCode(selectedLanguage, code);
       const timeStr = new Date().toLocaleTimeString();
-      const newLogs: ConsoleLog[] = out.stdout.map((line) => ({
+      setCustomLogs(output.stdout.map((line) => ({
         type: line.startsWith('❌') ? 'error' : 'log',
         message: line,
         timestamp: timeStr,
-      }));
-      setCustomLogs(newLogs);
-    } else {
-      // JavaScript / HTML / CSS in iframe
-      if (iframeRef.current) {
-        iframeRef.current.srcdoc = getIframeHtml(code);
-      }
+      })));
+      return;
     }
-  }, [lesson, selectedLanguage, code, getIframeHtml]);
+
+    if (iframeRef.current && lesson) {
+      iframeRef.current.srcdoc = getIframeHtml(code);
+    }
+  }, [lesson, code, selectedLanguage, getIframeHtml, playRetroSound]);
 
   // Handle keyboard shortcut Ctrl+Enter to Run
   useEffect(() => {
@@ -242,6 +241,7 @@ export default function LessonPage() {
       setPassedList(passedIds);
 
       if (result.passed) {
+        playRetroSound('success');
         // Save progress to local storage
         const { isFirstTime, newBadges } = StorageService.completeLesson(
           lesson.id,
@@ -259,6 +259,8 @@ export default function LessonPage() {
         });
 
         setShowCelebration(true);
+      } else {
+        playRetroSound('error');
       }
     } catch (err) {
       console.error('Test execution error', err);

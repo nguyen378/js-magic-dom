@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Plus_Jakarta_Sans, JetBrains_Mono, Silkscreen, VT323 } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/navbar';
 import { AuthProvider } from '@/context/auth-context';
+import { ThemeProvider } from '@/context/theme-context';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -13,6 +14,18 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
+  subsets: ['latin', 'vietnamese'],
+});
+
+const silkscreen = Silkscreen({
+  weight: ['400', '700'],
+  variable: '--font-pixel',
+  subsets: ['latin'],
+});
+
+const vt323 = VT323({
+  weight: '400',
+  variable: '--font-vt323',
   subsets: ['latin', 'vietnamese'],
 });
 
@@ -29,13 +42,16 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} ${silkscreen.variable} ${vt323.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-        <AuthProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-        </AuthProvider>
+      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+        <ThemeProvider>
+          <AuthProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+          </AuthProvider>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

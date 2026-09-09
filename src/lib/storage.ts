@@ -1,3 +1,5 @@
+'use client';
+
 import { useSyncExternalStore } from 'react';
 import { UserProgress } from '@/types/lesson';
 import { auth, db } from '@/lib/firebase';
